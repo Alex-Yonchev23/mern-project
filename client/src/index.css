@@ -1,4 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration:none;
+    list-style-type: none ;
+    box-sizing: border-box;
+    font-family: 'Cinzel Decorative', serif;  
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    /*border: red 1px solid;  */
+}
+  
+:root{
+    --white: #ebebeb;
+    --beige: #f3e8cc;
+    --navy-blue: #0F1626;
+    --light-gray:#bdc4cb; 
+    --black: #000000;
+    --golden: #D4AF37;
+    --light-golden: #d4af3799;
+    
+
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+
+
+     --btn-border: 1px solid var(--light-golden);
+	 --btn-bg: rgba(0, 0, 0, 0.6);
+	 --btn-shadow: 0px 0px 20px -5px var(--golden);
+     --btn-shadow-2:  0px 0px 20px 2px var(--golden);
+     --white-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.47);
+     --black-shadow: 0px 0px 20px 0px rgb(0, 0, 0);
+     --bg-radial-gradient:radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+	 --shine-degree: 120deg;
+	 --shine-color: rgba(255, 255, 255, 0.2);
+	 --shine-effect: linear-gradient(var(--shine-degree), transparent, var(--shine-color), transparent);
+	 --shine-transition: all 0.65s ease-in-out;
+
+    
+}
+
+
+body{
+    background: url('./images/bg-3.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    height: 100%;
+}
