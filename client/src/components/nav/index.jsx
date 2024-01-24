@@ -8,10 +8,9 @@ export default function Nav() {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
+    return (
 
-  return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent' style={{ maxHeight: '110px' }}>
-      <div className='container'>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto' style={{ maxHeight: '110px' }}>
         <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
           <span className='navbar-toggler-icon'></span>
         </button>
@@ -22,63 +21,80 @@ export default function Nav() {
             <button className="btn-close shadow-none btn-close-white" type="button"  onClick={toggleSidebar} aria-label="Close"></button>
           </div>
         
-        <div className='offcanvas-body d-flex flex-column flex-lg-row p-4 grow-0'>
+        <div className='offcanvas-body d-flex flex-column flex-lg-row p-4'>
             <ul className='navbar-nav justify-content-center align-items-center font-bold flex-grow pe-3'>
               <Link to='/'>
-                <li className='nav-item mx-1'>
+                <li className='nav-item '>
                     Home
                 </li>
               </Link>
                 
               <Link to='/about-us'>
-                <li className='nav-item mx-1'>
+                <li className='nav-item'>
                   About us
                 </li>
               </Link>
 
               <Link to='/gallery'>
-                <li className='nav-item mx-1'>
+                <li className='nav-item '>
                   Gallery
                 </li>
               </Link>
 
               <Link to='/'>
-                <li className="nav-item px-4">
+                <li className="nav-item logo px-4">
                   <div className="div-logo">
-                    
-                      <img src={logo} alt="logo" className="logo max-w-full h-auto transition-all duration-300 ease-in-out" style={{ maxHeight: '100px' }} />
-                    
+                      <img src={logo} alt="logo" className="logo max-w-full h-auto" style={{ maxHeight: '100px' }} />
                   </div>
                 </li>
               </Link>
 
               <Link to='/services'>
-                <li className='nav-item mx-1'>
+                <li className='nav-item '>
                   Services
                 </li>
               </Link>
 
               <Link to='/blog'>
-                <li className='nav-item mx-1'>
+                <li className='nav-item '>
                   Blog
                 </li>
               </Link>
               
               <Link to='/contact-us'>
-                <li className='nav-item mx-1'>
+                <li className='nav-item '>
                   Contact us
                 </li>
               </Link>
             </ul>
 
-            <div className='d-flex flex-column justify-contant-center align-items-center gap-3 flex-lg-row'>
-              <a href="/sign-in" className='text-white'>Log In</a>
-              <a href="/sign-up" className='text-black decoration-none px-3 py-1 rounded-4 bg-[#f3e8cc]'>Sign Up</a>
+            
+            <div className='log-reg d-grid place-items-center absolute top-3 right-6'>
+              <lord-icon
+                src="https://cdn.lordicon.com/dxjqoygy.json"
+                trigger="hover"
+                target=".log-reg"
+                colors="primary:#f3e8cc,secondary:#f3e8cc"
+                stroke="60"
+                style={{ width: '50px', height: '50px' }}
+              ></lord-icon>
+
+              <div className='log-reg-inner d-flex flex-column gap-2 flex-lg-row font-bold text-sm'>
+                <a href="/log-in" className='text-[#f3e8cc]'>
+                  Log In
+                </a>
+                <a href="/sign-up" className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc]'>
+                  Sign Up
+                </a>
+              </div>
             </div>
             
-            </div>
+            
+          </div>
         </div>
-      </div>
     </nav>
+
+      
+
   );
 }

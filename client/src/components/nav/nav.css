@@ -12,7 +12,12 @@ nav{
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     font-weight: bold;    
-    padding: 2.5em 0.8em;
+    padding: 2.5em .8em;
+
+}
+
+.logo{
+    padding: 0;
 }
 
 
@@ -23,7 +28,15 @@ nav{
         backdrop-filter: blur(5px);
     }
 
-    .div-logo{
+    .logo{
         display: none;
+    }
+
+    .nav-item{
+        padding: 1em .8em;
+    }
+
+    .log-reg-inner{
+        
     }
 }
