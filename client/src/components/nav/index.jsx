@@ -10,7 +10,7 @@ export default function Nav() {
   const toggleSidebar = () => setShowSidebar(!showSidebar);
     return (
 
-    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto' style={{ maxHeight: '110px' }}>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto sticky' style={{ maxHeight: '110px' }}>
         <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
           <span className='navbar-toggler-icon'></span>
         </button>
