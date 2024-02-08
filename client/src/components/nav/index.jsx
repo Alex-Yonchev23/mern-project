@@ -10,7 +10,7 @@ export default function Nav() {
   const toggleSidebar = () => setShowSidebar(!showSidebar);
     return (
 
-    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto sticky' style={{ maxHeight: '110px' }}>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto sticky z-10 ' style={{ maxHeight: '110px' }}>
         <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
           <span className='navbar-toggler-icon'></span>
         </button>
@@ -68,7 +68,7 @@ export default function Nav() {
               </Link>
             </ul>
 
-            
+           <Link to='/sign-up'> 
             <div className='log-reg d-grid place-items-center absolute top-3 right-6'>
               <lord-icon
                 src="https://cdn.lordicon.com/dxjqoygy.json"
@@ -79,15 +79,18 @@ export default function Nav() {
                 style={{ width: '50px', height: '50px' }}
               ></lord-icon>
 
+            
               <div className='log-reg-inner d-flex flex-column gap-2 flex-lg-row font-bold text-sm'>
-                <a href="/log-in" className='text-[#f3e8cc]'>
+                <p className='text-[#f3e8cc] py-1'>
                   Log In
-                </a>
-                <a href="/sign-up" className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc]'>
+                </p>
+                <p className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc] py-1'>
                   Sign Up
-                </a>
+                </p>
               </div>
-            </div>
+             </div> 
+            </Link>
+            
             
             
           </div>

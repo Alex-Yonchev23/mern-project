@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toggle Eye Icon</title>
+  <!-- Include Font Awesome CSS (you can adjust the version accordingly) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <style>
+    #eyeIcon {
+      transition: opacity 0.3s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <button id="toggleEyeBtn" onclick="toggleEye()">
+      <i id="eyeIcon" class="fas fa-eye"></i>
+    </button>
+  </div>
+
+  <script>
+    function toggleEye() {
+      const eyeIcon = document.getElementById('eyeIcon');
+      eyeIcon.style.opacity = eyeIcon.style.opacity === '0' ? '1' : '0';
+      setTimeout(() => {
+        eyeIcon.classList.toggle('fa-eye-slash');
+        eyeIcon.style.opacity = '1';
+      }, 200); 
+    }
+  </script>
+
+</body>
+</html>

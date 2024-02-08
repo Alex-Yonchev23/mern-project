@@ -1,5 +1,5 @@
 nav{
-    background: linear-gradient( to bottom , rgba(0, 0, 0, 0),#0000007a,#000000ba,#00000080,#00000000);
+    background: linear-gradient( to bottom , rgba(0, 0, 0, 0),#0000007a,#000000ba,#00000080,#00000000) ;
 }
 
 .nav-item{
@@ -28,7 +28,7 @@ nav{
         backdrop-filter: blur(5px);
     }
 
-    .logo{
+    .logo {
         display: none;
     }
 

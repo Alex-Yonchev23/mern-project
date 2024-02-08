@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function LogIn() {
   return (
-    <div>LogIn</div>
+    <div className='text-white'>LogIn</div>
   )
 }

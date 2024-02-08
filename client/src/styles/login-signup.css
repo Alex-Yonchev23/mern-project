@@ -1,7 +1,4 @@
-/* SignUp.css */
-
-button {
-    background-color: transparent;
+  button {
     cursor: pointer;
   }
   
@@ -37,128 +34,49 @@ button {
     }
   }
 
-  
-  .user_options-container {
-    position: relative;
-    width: 60%;
-    border: 1px solid var(--golden);
-    border-radius: 3px;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  
-  .user_options-text {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    border-radius: 3px;
-  }
-  
-  .user_options-registered,
-  .user_options-unregistered {
-    width: 50%;
-    padding: 75px 45px;
-    color: #fff;
-    font-weight: 300;
-  }
-  
-  .user_registered-title,
-  .user_unregistered-title {
-    margin-bottom: 15px;
-    font-size: 1.66rem;
-    line-height: 1em;
-  }
-  
-  .user_unregistered-text,
-  .user_registered-text {
-    font-size: .83rem;
-    line-height: 1.4em;
-  }
-  
+
+
   .user_registered-login,
   .user_unregistered-signup {
-    margin-top: 30px;
-    border: 1px solid var(--golden);
-    border-radius: 3px;
-    padding: 10px 30px;
-    color: white;
-    text-transform: uppercase;
-    line-height: 1.5em;
-    letter-spacing: .2rem;
-    font-weight: 900;
-    user-select: none;
-    background-color: transparent;
-    transition: all .2s ease-in-out;
+    background-color: transparent; 
+    transition: all .2s ease-in-out; 
   }
-  
+
   button:active,
   input[type="submit"]:active {
-    transform: scale(0.95);
-    transition: transform 0.1s linear;
+      transform: scale(0.95);
+      transition: transform 0.1s linear;
   }
-  
+
   .user_registered-login:hover,
   .user_unregistered-signup:hover {
     color: var(--golden);
     background-color: rgb(245, 245, 220);
-    box-shadow: 0px 0px 20px 3px rgb(212, 175, 55, 0.75);
+    box-shadow: 0px 0px 20px 3px rgb(212, 175, 55, 0.75) ;
   }
-  
-  .user_options-forms {
-    position: absolute;
-    top: 50%;
-    left: 30px;
-    width: calc(50% - 30px);
-    min-height: 400px;
-    background-color: beige;
-    border-radius: 3px;
-    overflow: hidden;
-    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
-    transform: translate3d(100%, -50%, 0);
-    transition: transform .4s ease-in-out;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .user_forms-login {
-    transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
-  }
-  
-  .forms_title {
-    text-align: center;
-    font-size: clamp(2rem, 2vw, 3vw);
-    font-weight: 900;
-    line-height: 1em;
-    text-transform: uppercase;
-    color: var(--golden);
-    letter-spacing: .1rem;
-  }
-  
-  .margined {
-    margin-bottom: 15px;
-  }
-  
-  .forms_field {
-    position: relative;
-    margin: 30px 0;
+
+  .eye-animated {
+    animation: fadeIn 0.3s ease-in-out;
   }
   
   .forms_field-input {
-    width: 100%;
     border-bottom: 1px solid #333;
-    padding: 6px 20px 6px 6px;
     font-family: "Raleway", sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: black;
     letter-spacing: .1rem;
-    user-select: none;
     transition: border-color, box-shadow .2s ease-in-out;
     background-color: transparent;
   }
-  
-  input[type="submit"] {
-    cursor: pointer;
+
+  .forms_field-input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px beige inset !important;
   }
   
   .forms_field-input:focus ~ .labels,
@@ -191,8 +109,9 @@ button {
     pointer-events: none;
     transition: 300ms ease all;
     position: absolute;
+    letter-spacing: 0.08rem;
     left: 5px;
-    top: 5px;
+    top: 6px;
   }
   
   .bar {
@@ -221,20 +140,12 @@ button {
     justify-content: center;
     letter-spacing: .1rem;
     font-weight: 500;
-    margin-right: 20px;
     user-select: none;
   }
   
   input[type="checkbox"] {
     margin-left: 5px;
     accent-color: #333;
-  }
-  
-  .forms_buttons {
-    display: flex;
-    font-size: 13px;
-    justify-content: space-between;
-    align-items: center;
   }
   
   .forms_buttons-forgot {
@@ -250,15 +161,7 @@ button {
     color: #959191;
   }
   
-  .forms_buttons-action-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-  }
-  
   .forms_buttons-action {
-    background-color: var(--golden);
     border-radius: 3px;
     padding: 10px 35px;
     font-size: 1rem;
@@ -266,12 +169,6 @@ button {
     color: #fff;
     text-transform: uppercase;
     letter-spacing: .1rem;
-    transition: all .2s ease-in-out;
-    margin: auto;
-  }
-  
-  .user_options-forms .forms_buttons-action:hover {
-    background-color: #b79832;
   }
   
   .user_options-forms .user_forms-signup,
@@ -280,7 +177,7 @@ button {
     opacity: 0;
     visibility: hidden;
     width: 80%;
-    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out; 
   }
   
   .user_options-forms .user_forms-signup {
@@ -313,44 +210,5 @@ button {
   
   .user_options-forms.bounceRight {
     animation: bounceRight 1s forwards;
-  }
-  
-  @media screen and (max-width: 990px) {
-    .user_options-forms .forms_buttons {
-      flex-direction: column;
-    }
-  
-    .user_options-forms .user_forms-login .forms_buttons-action {
-      margin-top: 30px;
-    }
-  
-    .user_options-forms .user_forms-signup,
-    .user_options-forms .user_forms-login {
-      top: 40px;
-    }
-  
-    .forms_buttons-action-div {
-      margin-top: 5%;
-    }
-  
-    .remember {
-      margin-right: 0;
-      margin-bottom: 20px;
-    }
-  
-    .user_options-registered,
-    .user_options-unregistered {
-      padding: 50px 45px;
-    }
-  }
-  
-  @media screen and (max-width: 1400px) {
-    .user_options-container {
-      width: 80%;
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    /* Add responsive styles for smaller screens if needed */
   }
   
