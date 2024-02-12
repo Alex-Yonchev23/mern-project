@@ -68,7 +68,7 @@ export default function Nav() {
               </Link>
             </ul>
 
-           <Link to='/sign-up'> 
+            
             <div className='log-reg d-grid place-items-center absolute top-3 right-6'>
               <lord-icon
                 src="https://cdn.lordicon.com/dxjqoygy.json"
@@ -81,15 +81,15 @@ export default function Nav() {
 
             
               <div className='log-reg-inner d-flex flex-column gap-2 flex-lg-row font-bold text-sm'>
-                <p className='text-[#f3e8cc] py-1'>
+                <Link to='/log-in'><p className='text-[#f3e8cc] py-1'>
                   Log In
-                </p>
-                <p className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc] py-1'>
+                </p></Link>
+                <Link to='/sign-up'><p className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc] py-1'>
                   Sign Up
-                </p>
+                </p></Link>
               </div>
              </div> 
-            </Link>
+            
             
             
             

@@ -76,11 +76,10 @@
   }
 
   .forms_field-input:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 1000px beige inset !important;
+    -webkit-box-shadow: 0 0 0 1000px rgb(70, 70, 65) inset !important;
   }
   
-  .forms_field-input:focus ~ .labels,
-  .forms_field-input:valid ~ .labels {
+  .forms_field-input:focus ~ .labels {
     top: -14px;
     font-size: 12px;
     color: var(--black);
@@ -160,16 +159,7 @@
   .user_options-forms .forms_buttons-forgot:hover {
     color: #959191;
   }
-  
-  .forms_buttons-action {
-    border-radius: 3px;
-    padding: 10px 35px;
-    font-size: 1rem;
-    font-weight: 300;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: .1rem;
-  }
+
   
   .user_options-forms .user_forms-signup,
   .user_options-forms .user_forms-login {
