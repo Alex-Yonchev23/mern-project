@@ -20,6 +20,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                   maxLength="30"
                   name="email"
                   id="log-in-email"
+                  required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -32,6 +33,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                   maxLength="30"
                   name="password"
                   id="log-in-password"
+                  required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -53,7 +55,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                 </a>
               </div>
               <div className="flex justify-center">
-                <button type="submit" value="Submit" className='rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>
+                <button type="submit" value="Submit" className='select-none rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>
                   {loading ? 'Loading...' : 'Log In'}
                 </button>
               </div>

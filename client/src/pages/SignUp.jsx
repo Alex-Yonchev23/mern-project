@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import '../styles/login-signup.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import ToastMessage from '../components/message/ToastMessage';
+
 
 const SignUp = () => {
   const [showLogin, setShowLogin] = useState(true);
@@ -36,7 +37,6 @@ const SignUp = () => {
 
       const data = await res.json();      
       setLoading(false);
-      setError(false);
     
       if (data.success) {
         setFormData({});
@@ -62,7 +62,7 @@ const SignUp = () => {
   const errorMessage = (message) => {
     toast.error(message, {
       position: "bottom-right",
-      autoClose: 2000,
+      autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -75,7 +75,7 @@ const SignUp = () => {
   const successMessage = (message) => {
   toast.success(message, {
     position: "bottom-right",
-    autoClose: 2000,
+    autoClose: 3000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
@@ -121,11 +121,12 @@ const SignUp = () => {
               <div className="relative mb-7">
                 <input
                   type="text"
-                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                  className="forms_field-input error-bar w-full border-b-2 border-neutral-500 p-1.5"
                   maxLength="30"
                   name="firstName"
                   id="sign-up-fname"
                   onChange={handleChanges}
+                  required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -139,6 +140,7 @@ const SignUp = () => {
                   name="lastName"
                   id="sign-up-lname"
                   onChange={handleChanges}
+                  required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -152,6 +154,7 @@ const SignUp = () => {
                   name="email"
                   id="email-sign-up"
                   onChange={handleChanges}
+                  required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
@@ -165,19 +168,20 @@ const SignUp = () => {
                   name="password"
                   id="sign-up-password"
                   onChange={handleChanges}
+                  required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label className="labels select-none">Password</label>
                 <FontAwesomeIcon
                   icon={passwordVisible ? faEyeSlash : faEye}
-                  className={`fas fa-eye show-password${passwordVisible ? ' eye-animated ' : ''}`}
+                  className={`fas fa-eye show-password ${passwordVisible ? ' eye-animated ' : ''}`}
                   onClick={togglePasswordVisibility}
                   id="toggleSignUpPassword"
                 />
               </div>
               <div className="flex justify-center items-center">
-                <button type="submit" value="Submit" className='rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>
+                <button type="submit" value="Submit" className='rounded-sm select-none text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>
                   {loading ? 'Sign Up' : 'Sign Up'}
                 </button>
               </div>
@@ -185,18 +189,9 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-      <ToastContainer stacked
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-        />
+
+      <ToastMessage></ToastMessage>
+        
     </div>
   );
 };
