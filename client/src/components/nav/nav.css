@@ -13,12 +13,8 @@ nav{
     transition: all 0.2s ease-in-out;
     font-weight: bold;    
     padding: 2.5em .8em;
-
 }
 
-.logo{
-    padding: 0;
-}
 
 
 @media (max-width: 991px){

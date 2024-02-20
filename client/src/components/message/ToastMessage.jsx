@@ -6,7 +6,7 @@ export default function ToastMessage() {
   return (
     <ToastContainer stacked
         position="bottom-right"
-        autoClose={2000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

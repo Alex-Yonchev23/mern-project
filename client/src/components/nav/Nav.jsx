@@ -7,6 +7,11 @@ import { Link }  from 'react-router-dom'
 export default function Nav() {
   const [showSidebar, setShowSidebar] = useState(false);
 
+  const switchToShowLogin = () => {
+    setShowLogin(true);
+    toggleSidebar(); 
+  };
+
   const toggleSidebar = () => setShowSidebar(!showSidebar);
     return (
 

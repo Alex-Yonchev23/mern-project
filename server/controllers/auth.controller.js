@@ -3,7 +3,6 @@ import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
-
 /*-------------------------------SIGN UP--------------------------------*/
 
 const isPasswordValid = (password) => {
@@ -16,14 +15,19 @@ const isPasswordValid = (password) => {
   return isLengthValid && hasUpperCase && hasLowerCase && hasDigit && hasSpecialSymbol;
 };
 
+const isValidName = (name) => {
+  const validNameRegex = /^[A-Za-z -]+$/;
+  return validNameRegex.test(name);
+};
+
 export const signup = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
 
   try {
-    if (!firstName.trim() || !lastName.trim() || !email.trim() || !password) {
+    if (!firstName.trim() || !lastName.trim() || !isValidName(firstName) || !isValidName(lastName) || !email.trim() || !password) {
       return res.status(200).json({
         success: false,
-        message: "All fields are required.",
+        message: "Invalid first name or last name!",
       });
     }
 
@@ -75,27 +79,40 @@ export const signup = async (req, res, next) => {
 
 /*-------------------------------LOG IN--------------------------------*/
 
-
 export const login = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, remember_me } = req.body;
 
   try {
     const validUser = await User.findOne({ email: email });
 
     if (!validUser) 
-      return next(errorHandler(404, 'User not found'));
-      const validPassword = bcryptjs.compareSync(password,validUser.password); 
+      return next(errorHandler(200, 'User not found!'));
       
-    if(!validPassword)
-      return next(errorHandler(401,'Invalid email or password'))
+    const validPassword = bcryptjs.compareSync(password, validUser.password); 
+      
+    if (!validPassword)
+      return next(errorHandler(200, 'Invalid email or password!'));
     
-    const token = jwt.sign({ _id: validUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const expiresIn = remember_me ? '3d' : '1h';
+
+    const token = jwt.sign({ _id: validUser._id }, process.env.JWT_SECRET, { expiresIn });
     const { password: hashedPassword, ...rest } = validUser._doc;
+
     res
-    .cookie('access_token',token ,{ httpOnly: true })
-    .status(200)
-    .json(rest);
+    .cookie('access_token', token, {
+      httpOnly: true,
+      maxAge: remember_me ? 3 * 24 * 60 * 60 * 1000 : 3600000, 
+    })
+    .status(201)
+    .json({
+      success: true,
+      message: 'Login successful!',
+      user: rest, 
+    });
+
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
+
+

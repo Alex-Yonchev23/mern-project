@@ -2,24 +2,89 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/login-signup.css';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
   
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChanges = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value });
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const res = await fetch('/server/auth/log-in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      setLoading(false);
+
+      if (data.success) {
+        setFormData({});
+        document.getElementById('email-log-in').value = '';
+        document.getElementById('log-in-password').value = '';
+        successMessage(data.message);         
+        navigate('/');
+      } else {
+        errorMessage(data.message);
+      }        
+    } catch (error) {
+      setLoading(false);
+      setError(true);
+    }
+  };
+
+  const errorMessage = (message) => {
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+  const successMessage = (message) => {
+    toast.success(message, {
+      position: "bottom-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
 
     return (
-    
           <div className="user_forms-login">
             <h2 className="text-3xl font-bold mb-5 text-yellow-500 text-center uppercase tracking-widest">Log In</h2>
-            <form className="forms_form" >
+            <form className="forms_form "  onSubmit={handleSubmit}>
               <div className="relative mb-6">
                 <input
                   type="text"
                   className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
-                  autoFocus
                   maxLength="30"
                   name="email"
-                  id="log-in-email"
+                  id="email-log-in"
+                  onChange={handleChanges}
                   required
                 />
                 <span className="highlight"></span>
@@ -33,6 +98,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                   maxLength="30"
                   name="password"
                   id="log-in-password"
+                  onChange={handleChanges}
                   required
                 />
                 <span className="highlight"></span>
@@ -48,18 +114,28 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
               <div className="forms_buttons flex xl:flex-row xl:justify-between items-center gap-2 flex-col pb-4">
                 <label htmlFor="remember_me" className="remember text-sm text-nowrap">
                   Remember me
-                  <input type="checkbox" id="remember_me" name="remember_me" className="rounded ml-2 hover:ring-2 ring-yellow-500 ring-offset-2 ring-offset-[beige] transition-all duration-100" />
-                </label>
+                  <input
+                    type="checkbox"
+                    id="remember_me"
+                    name="remember_me"
+                    className="rounded ml-2 hover:ring-2 ring-yellow-500 ring-offset-2 ring-offset-[beige] transition-all duration-100"
+                    checked={formData.remember_me || false}
+                    onChange={handleChanges}
+                  />
+                  </label>
                 <a href="#" className="forms_buttons-forgot text-sm text-nowrap">
                   Forgot password?
                 </a>
               </div>
               <div className="flex justify-center">
-                <button type="submit" value="Submit" className='select-none rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>
-                  {loading ? 'Loading...' : 'Log In'}
-                </button>
+                <button type="submit" value="Submit" className='select-none rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>Log In</button>
               </div>
             </form>
+            {loading && (
+            <div className="spinner-overlay absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50">
+              <div className="spinner border-t-4 border-white border-solid h-6 w-6 rounded-full animate-spin"></div>
+            </div>
+          )}
           </div>  
           );
         };
