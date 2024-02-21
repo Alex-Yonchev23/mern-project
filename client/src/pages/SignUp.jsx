@@ -110,7 +110,7 @@ const SignUp = () => {
           ) : (
               <div className="user_forms-signup opacity-100 transition-opacity duration-400">
                 <h2 className="text-3xl font-bold mb-4 text-yellow-500 text-center uppercase tracking-widest">Sign Up</h2>
-                <form className="forms_form" onSubmit={handleSubmit}>
+                <form className="forms_form" onSubmit={handleSubmit} noValidate>
                   <div className="relative mb-7">
                     <input
                       type="text"
@@ -143,7 +143,7 @@ const SignUp = () => {
                     <input
                       type="text"
                       className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
-                      maxLength="30"
+                      maxLength="50"
                       name="email"
                       id="email-sign-up"
                       onChange={handleChanges}
@@ -157,7 +157,7 @@ const SignUp = () => {
                     <input
                       type={passwordVisible ? 'text' : 'password'}
                       className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
-                      maxLength="30"
+                      maxLength="128"
                       name="password"
                       id="sign-up-password"
                       onChange={handleChanges}

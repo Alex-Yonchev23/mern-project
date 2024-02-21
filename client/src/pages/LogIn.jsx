@@ -4,13 +4,16 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/login-signup.css';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { logInStart,logInSuccess,logInError } from '../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
   
-  const [loading, setLoading] = useState(false);
+  const { loading , error } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
 
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value });
@@ -20,7 +23,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
     e.preventDefault();
 
     try {
-      setLoading(true);
+      dispatch(logInStart());
       const res = await fetch('/server/auth/log-in', {
         method: 'POST',
         headers: {
@@ -30,20 +33,23 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
       });
 
       const data = await res.json();
-      setLoading(false);
-
+      
       if (data.success) {
         setFormData({});
         document.getElementById('email-log-in').value = '';
         document.getElementById('log-in-password').value = '';
-        successMessage(data.message);         
+        
+        successMessage(data.message);
         navigate('/');
       } else {
         errorMessage(data.message);
-      }        
+      }           
+      dispatch(logInSuccess(data));
+
     } catch (error) {
-      setLoading(false);
-      setError(true);
+      dispatch(logInError(error));
+      errorMessage('Failed to fetch the data.');
+
     }
   };
 
@@ -76,12 +82,12 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
     return (
           <div className="user_forms-login">
             <h2 className="text-3xl font-bold mb-5 text-yellow-500 text-center uppercase tracking-widest">Log In</h2>
-            <form className="forms_form "  onSubmit={handleSubmit}>
+            <form className="forms_form "  onSubmit={handleSubmit} noValidate>
               <div className="relative mb-6">
                 <input
                   type="text"
                   className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
-                  maxLength="30"
+                  maxLength="50"
                   name="email"
                   id="email-log-in"
                   onChange={handleChanges}
@@ -95,7 +101,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                 <input
                   type={passwordVisible ? 'text' : 'password'}
                   className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
-                  maxLength="30"
+                  maxLength="128"
                   name="password"
                   id="log-in-password"
                   onChange={handleChanges}
