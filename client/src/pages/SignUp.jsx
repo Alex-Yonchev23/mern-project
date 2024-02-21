@@ -52,6 +52,7 @@ const SignUp = () => {
     } catch (error) {
       setLoading(false);
       setError(true);
+      errorMessage('Failed to fetch the data.')
     }
   };
   const togglePasswordVisibility = () => {

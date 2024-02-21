@@ -39,17 +39,19 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
         document.getElementById('email-log-in').value = '';
         document.getElementById('log-in-password').value = '';
         
+        dispatch(logInSuccess(data));
+
         successMessage(data.message);
         navigate('/');
       } else {
+        dispatch(logInError(data));
         errorMessage(data.message);
       }           
-      dispatch(logInSuccess(data));
+      
 
     } catch (error) {
       dispatch(logInError(error));
       errorMessage('Failed to fetch the data.');
-
     }
   };
 
