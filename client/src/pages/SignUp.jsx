@@ -4,6 +4,7 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import '../styles/login-signup.css';
 import { toast } from 'react-toastify';
+import OAuth from '../components/OAuth/OAuth';
 
 
 const SignUp = () => {
@@ -178,6 +179,7 @@ const SignUp = () => {
                     <button type="submit" value="Submit" className='rounded-sm select-none text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>
                       Sign Up
                     </button>
+                    <OAuth></OAuth>
                   </div>
                 </form>
               </div>

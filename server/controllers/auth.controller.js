@@ -140,3 +140,72 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
+/*-------------------------------GOOGLE AUTH--------------------------------*/
+
+
+export const google = async (req, res, next) => {
+  try {
+    const user = await User.findOne({email: req.body.email});
+    if(user) {
+      const token = jwt.sign({ id: user._id}, process.env.JWT_SECRET);
+
+      const { password: hashedPassword, ...rest } = user._doc;
+      const expiryDate = new Date(Date.now() + 360000);
+
+      res
+      .cookie('access_token', token, {
+        httpOnly: true,
+        expiresIn: expiryDate
+      })
+      .status(201)
+      .json({
+        success: true,
+        message: 'Login successful!',
+        user: rest,
+      });
+    } else {
+      const generateRandomPassword = (length = 12) => {
+        const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(),.?":{}|<>';
+      
+        const getRandomChar = () => charset[Math.floor(Math.random() * charset.length)];
+      
+        const password = Array.from({ length })
+          .map((_, index) => (index < 4 ? getRandomChar() : getRandomChar(charset)))
+          .sort(() => Math.random() - 0.5)
+          .join('');
+      
+        return password;
+      };
+
+      const hashedPassword = bcryptjs.hashSync(generateRandomPassword(), 10);
+      const newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: hashedPassword,
+        avatar: req.body.photo,
+      });
+
+      await newUser.save();
+      const token = jwt.sign({ id: newUser._id}, process.env.JWT_SECRET);
+      const { password: hashedPassword2, ...rest } = newUser._doc;
+      const expiryDate = new Date(Date.now() + 3600000);
+      res
+      .cookie('access_token', token, {
+        httpOnly: true,
+        expiresIn: expiryDate
+      })
+      .status(201)
+      .json({
+        success: true,
+        message: 'Login successful!',
+        user: rest,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+}

@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { logInStart,logInSuccess,logInError } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import OAuth from '../components/OAuth/OAuth';
 
 const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
   
@@ -138,6 +139,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
               <div className="flex justify-center">
                 <button type="submit" value="Submit" className='select-none rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>Log In</button>
               </div>
+              <OAuth></OAuth>
             </form>
             {loading && (
             <div className="spinner-overlay absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50">

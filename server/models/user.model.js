@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    avatar:{
+        type:String,
+        default: "client/src/images/man.png",
+    },
     
 
 }, {timestamps: true});
