@@ -2,10 +2,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import './nav.css';
 import logo from '../../images/i-logo.png';
-import { Link }  from 'react-router-dom'
+import { Link }  from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../redux/user/userSlice';
 
 export default function Nav() {
   const [showSidebar, setShowSidebar] = useState(false);
+  const currentUser = useSelector(selectCurrentUser);
+
+  const userAvatar = currentUser && currentUser.user && currentUser.user.avatar;
+  console.log(userAvatar)
 
   const switchToShowLogin = () => {
     setShowLogin(true);
@@ -13,7 +19,9 @@ export default function Nav() {
   };
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
-    return (
+
+
+  return (
 
     <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto sticky z-10 select-none' style={{ maxHeight: '110px' }}>
         <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
@@ -72,28 +80,31 @@ export default function Nav() {
                 </li>
               </Link>
             </ul>
-
             
             <div className='log-reg d-grid place-items-center absolute top-3 right-6'>
-              <lord-icon
-                src="https://cdn.lordicon.com/dxjqoygy.json"
-                trigger="hover"
-                target=".log-reg"
-                colors="primary:#f3e8cc,secondary:#f3e8cc"
-                stroke="60"
-                style={{ width: '50px', height: '50px' }}
-              ></lord-icon>
-
-            
               <div className='log-reg-inner d-flex flex-column gap-2 flex-lg-row font-bold text-sm'>
-                <Link to='/log-in'><p className='text-[#f3e8cc] py-1'>
-                  Log In
-                </p></Link>
-                <Link to='/sign-up'><p className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc] py-1'>
-                  Sign Up
-                </p></Link>
+                <Link to='/sign-up'>
+                  {currentUser ? (
+                    <>
+                      <img src={userAvatar} alt="User Avatar" />
+                    </>
+                  ) : (
+                    <>
+                      <lord-icon
+                        src="https://cdn.lordicon.com/dxjqoygy.json"
+                        trigger="hover"
+                        target=".log-reg"
+                        colors="primary:#f3e8cc,secondary:#f3e8cc"
+                        stroke="60"
+                        style={{ width: '50px', height: '50px' }}
+                      ></lord-icon>
+                      <p className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc] py-1'>Sign Up</p>
+                    </>
+                  )}
+                </Link>
               </div>
-             </div> 
+            </div>
+
             
             
             

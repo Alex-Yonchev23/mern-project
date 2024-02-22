@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/login-signup.css';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { logInStart,logInSuccess,logInError } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import OAuth from '../components/OAuth/OAuth';
+import { errorMessage, successMessage } from '../components/message/ToastMessage';
+
 
 const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
   
@@ -56,31 +57,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
     }
   };
 
-  const errorMessage = (message) => {
-    toast.error(message, {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
-
-  const successMessage = (message) => {
-    toast.success(message, {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
+ 
 
     return (
           <div className="user_forms-login">

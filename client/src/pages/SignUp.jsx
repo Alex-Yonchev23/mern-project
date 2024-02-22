@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import '../styles/login-signup.css';
-import { toast } from 'react-toastify';
 import OAuth from '../components/OAuth/OAuth';
+import { errorMessage, successMessage } from '../components/message/ToastMessage';
 
 
 const SignUp = () => {
@@ -61,32 +61,6 @@ const SignUp = () => {
   };
 
   const NavBarHeight = 120;
-
-  const errorMessage = (message) => {
-    toast.error(message, {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
-
-  const successMessage = (message) => {
-    toast.success(message, {
-      position: "bottom-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-  };
 
   return (
     <div className="flex flex-col h-screen justify-center items-center" style={{ height: `calc(100vh - ${NavBarHeight}px)` }}>

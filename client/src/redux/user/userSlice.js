@@ -22,9 +22,13 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    setCurrentUser: (state, action) => {
+      state.currentUser = action.payload;
+    },
   },
 });
 
-export const { logInStart, logInSuccess, logInError } = userSlice.actions;
+export const { logInStart, logInSuccess, logInError , setCurrentUser } = userSlice.actions;
+export const selectCurrentUser = (state) => state.user.currentUser;
 
 export default userSlice.reducer;
