@@ -11,7 +11,6 @@ export default function Nav() {
   const currentUser = useSelector(selectCurrentUser);
 
   const userAvatar = currentUser && currentUser.user && currentUser.user.avatar;
-  console.log(userAvatar)
 
   const switchToShowLogin = () => {
     setShowLogin(true);
@@ -81,12 +80,12 @@ export default function Nav() {
               </Link>
             </ul>
             
-            <div className='log-reg d-grid place-items-center absolute top-3 right-6'>
-              <div className='log-reg-inner d-flex flex-column gap-2 flex-lg-row font-bold text-sm'>
-                <Link to='/sign-up'>
+            <div className='d-grid place-items-center '>
+              <div className='d-flex flex-column gap-2 flex-lg-row font-bold text-sm absolute top-1/4 right-6'>
+                <Link to='/profile'>
                   {currentUser ? (
                     <>
-                      <img src={userAvatar} alt="User Avatar" />
+                      <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover'  />
                     </>
                   ) : (
                     <>

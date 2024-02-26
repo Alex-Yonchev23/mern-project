@@ -10,6 +10,7 @@ import Gallery from './pages/Gallery';
 import ContactUs from './pages/ContactUs';
 import Blog from './pages/Blog';
 import ToastMessage from './components/message/ToastMessage';
+import PrivateRoute from './components/PrivateRoute';
 
 
 export default function App() {
@@ -20,7 +21,9 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute/>}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
         <Route path="/about-us" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery />} />
