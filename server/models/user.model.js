@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type:String,
-        default: "client/src/images/avatar.png",
+        default: "../../images/avatar.png",
     },
     
 

@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import './nav.css';
 import logo from '../../images/i-logo.png';
+import "../../images/avatar.png";
 import { Link }  from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../redux/user/userSlice';
@@ -9,8 +10,10 @@ import { selectCurrentUser } from '../../redux/user/userSlice';
 export default function Nav() {
   const [showSidebar, setShowSidebar] = useState(false);
   const currentUser = useSelector(selectCurrentUser);
+  const userAvatar = currentUser?.user?.avatar;
 
-  const userAvatar = currentUser && currentUser.user && currentUser.user.avatar;
+  /*const userAvatar = currentUser && currentUser.user && currentUser.user.avatar;*/
+  console.log(userAvatar);
 
   const switchToShowLogin = () => {
     setShowLogin(true);
@@ -19,10 +22,24 @@ export default function Nav() {
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
+  useEffect(() => {
+    document.body.style.paddingTop = `${document.querySelector('.navbar').offsetHeight}px`;
+
+    const handleResize = () => {
+      document.body.style.paddingTop = `${document.querySelector('.navbar').offsetHeight}px`;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 
   return (
 
-    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto sticky z-10 select-none' style={{ maxHeight: '110px' }}>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto fixed-top z-10 select-none' style={{ maxHeight: '110px' }}>
         <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
           <span className='navbar-toggler-icon'></span>
         </button>
@@ -33,8 +50,8 @@ export default function Nav() {
             <button className="btn-close shadow-none btn-close-white" type="button"  onClick={toggleSidebar} aria-label="Close"></button>
           </div>
         
-        <div className='offcanvas-body d-flex flex-column flex-lg-row p-4'>
-            <ul className='navbar-nav justify-content-center align-items-center font-bold flex-grow pe-3'>
+        <div className='offcanvas-body d-flex flex-column flex-lg-row'>
+            <ul className='navbar-nav justify-content-center align-items-center font-bold flex-grow'>
               <Link to='/'>
                 <li className='nav-item '>
                     Home
