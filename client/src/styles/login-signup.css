@@ -43,23 +43,21 @@
     }
   }
 
-  .user_registered-login,
-  .user_unregistered-signup {
+  button {
     background-color: transparent; 
     transition: all .2s ease-in-out; 
   }
 
   button:active,
   input[type="submit"]:active {
-      transform: scale(0.95);
-      transition: transform 0.1s linear;
+      transform: scale(0.97);
+      transition: transform 0.05s ease-in-out;
   }
 
-  .user_registered-login:hover,
-  .user_unregistered-signup:hover {
-    color: var(--golden);
+  button:hover{
+    color: var(--dark-golden);
     background-color: rgb(245, 245, 220);
-    box-shadow: 0px 0px 20px 3px rgb(212, 175, 55, 0.75) ;
+    box-shadow: 0px 0px 15px 1px rgb(212, 175, 55, 0.75) ;
   }
 
   .eye-animated {

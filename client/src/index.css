@@ -28,7 +28,7 @@
     --black: #000000;
     --golden: #D4AF37;
     --light-golden: #d4af3799;
-    
+    --dark-golden:rgb(145, 114, 12);
 
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
@@ -62,3 +62,19 @@ body{
     height: 100%;
 }
 
+.raleway{
+    font-family: 'Raleway', serif;  
+}
+
+.beige{
+    color: var(--beige);
+}
+
+::selection {
+    background-color: var(--light-golden);
+    color: white;
+}
+
+.bg-light-golden{ 
+    background-color: var(--light-golden);
+}
