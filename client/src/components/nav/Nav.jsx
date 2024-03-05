@@ -98,11 +98,11 @@ export default function Nav() {
             </ul>
             
             <div className='d-grid place-items-center '>
-              <div className='d-flex flex-column gap-2 flex-lg-row font-bold text-sm absolute top-1/4 right-6'>
+              <div className='d-flex flex-column gap-2 flex-lg-row font-bold text-sm absolute right-7'>
                 <Link to='/profile'>
                   {currentUser ? (
                     <>
-                      <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover'  />
+                      <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:opacity-60 transition-all duration-400'  />
                     </>
                   ) : (
                     <>
