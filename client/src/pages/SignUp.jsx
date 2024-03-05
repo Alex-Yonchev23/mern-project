@@ -95,7 +95,7 @@ const SignUp = () => {
                   <div className="relative mb-7">
                     <input
                       type="text"
-                      className="forms_field-input error-bar w-full border-b-2 border-neutral-500 p-1.5"
+                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
                       maxLength="30"
                       name="firstName"
                       id="sign-up-fname"

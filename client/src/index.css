@@ -78,3 +78,7 @@ body{
 .bg-light-golden{ 
     background-color: var(--light-golden);
 }
+
+.big-shadow{
+    box-shadow: 0px 0px 50px 3px var(--black);
+}

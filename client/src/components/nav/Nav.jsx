@@ -39,7 +39,7 @@ export default function Nav() {
 
   return (
 
-    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent ml-auto mx-auto fixed-top z-10 select-none' style={{ maxHeight: '110px' }}>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-transparent fixed-top z-10 select-none' style={{ maxHeight: '110px' }}>
         <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
           <span className='navbar-toggler-icon'></span>
         </button>
