@@ -61,7 +61,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
 
     return (
           <div className="user_forms-login">
-            <h2 className="text-3xl font-bold mb-5 text-yellow-500 text-center uppercase tracking-widest">Log In</h2>
+            <h2 className="text-3xl font-bold mb-4 text-yellow-500 text-center uppercase tracking-widest">Log In</h2>
             <form className="forms_form "  onSubmit={handleSubmit} noValidate>
               <div className="relative mb-6">
                 <input
@@ -113,10 +113,12 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                   Forgot password?
                 </a>
               </div>
-              <div className="flex justify-center">
-                <button type="submit" value="Submit" className='select-none rounded-sm text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>Log In</button>
+              <div className="flex justify-center items-center flex-col gap-1">
+                <button type="submit" value="Submit" className='select-none rounded-full text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>Log In</button>
+                <span className='raleway'>or</span>
+                <OAuth></OAuth>
               </div>
-              <OAuth></OAuth>
+              
             </form>
             {loading && (
             <div className="spinner-overlay absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50">

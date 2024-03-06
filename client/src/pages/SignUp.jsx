@@ -64,16 +64,14 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col h-screen justify-center items-center" style={{ height: `calc(100vh - ${NavBarHeight}px)` }}>
-      <div className="user_options-container relative xl:w-2/3 md:w-5/6 max-md:hidden rounded-md border-1 border-yellow-500 border-solid bg-[#000000d1]">
+      <div className="user_options-container relative xl:w-2/3 md:w-9/12 max-md:hidden rounded-md border-1 border-yellow-500 border-solid bg-[#000000d1]">
         <div className="bg-panel flex justify-between w-full rounded-md p-4 ">
           <div className="w-1/2 text-white font-light xl:p-8 md:p-3">
             <h2 className="user_unregistered-title text-2xl font-bold mb-4">Don't have an account?</h2>
             <p className="user_unregistered-text text-sm text-[beige]">Dolorum porro natus enim similique reiciendis sunt, culpa consectetur, dolores quae adipisci velit. Minima at dolorum quae dolore modi obcaecati saepe vel!</p>
-            <button className="user_unregistered-signup user_registered-login mt-7 border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none"
+            <button className="main-btn user_registered-login mt-7 border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none"
               onClick={toggleForm}>
-                <svg class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 19">
-                <path fill-rule="evenodd" d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z" clip-rule="evenodd"/>
-                </svg>
+                
                 Sign up
               </button>
           </div>
@@ -81,11 +79,11 @@ const SignUp = () => {
           <div className="w-1/2 text-white font-light xl:p-8 md:p-5">
             <h2 className="user_registered-title text-2xl font-bold mb-4">Already have an account?</h2>
             <p className="user_registered-text text-sm text-[beige]">Maiores nisi laudantium velit harum! <br /> Tenetur earum nobis inventore illo sequi atque vel nulla in? <br /> Maiores nisi laudantium velit harum!</p>
-            <button className="user_registered-login mt-7 border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>Log In</button>
+            <button className="main-btn mt-7 border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>Log In</button>
           </div>
         </div>
 
-        <div className={`user_options-forms ${showLogin ? 'bounceRight' : 'bounceLeft'} absolute w-[calc(50%_-_30px)] min-h-[400px] bg-[beige] overflow-hidden shadow-[0px_0px_20px_5px_rgba(0,0,0,0.75)] transition-transform duration-4 ease-[ease-in-out] flex justify-center items-center rounded-[3px] left-[30px] top-2/4 transform: translate3d(100%, -50%, 0)`}>
+        <div className={`user_options-forms ${showLogin ? 'bounceRight' : 'bounceLeft'} absolute w-[calc(50%_-_30px)] min-h-[420px] bg-[beige]  shadow-[0px_0px_20px_5px_rgba(0,0,0,0.75)] transition-transform flex justify-center items-center rounded-md left-[30px] top-2/4 `}>
           {showLogin ? (
             <LogIn passwordVisible={passwordVisible} togglePasswordVisibility={togglePasswordVisibility} loading={loading} />
           ) : (
@@ -154,11 +152,10 @@ const SignUp = () => {
                       id="toggleSignUpPassword"
                     />
                   </div>
-                  <div className="flex justify-center items-center">
-                    <button type="submit" value="Submit" className='rounded-sm select-none text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>
+                  <div className="flex justify-center ">
+                    <button type="submit" value="Submit" className='rounded-full select-none text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>                     
                       Sign Up
                     </button>
-                    <OAuth></OAuth>
                   </div>
                 </form>
               </div>

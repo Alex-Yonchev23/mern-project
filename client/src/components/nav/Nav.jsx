@@ -102,7 +102,7 @@ export default function Nav() {
                 <Link to='/profile'>
                   {currentUser ? (
                     <>
-                      <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:opacity-60 transition-all duration-400'  />
+                      <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover  hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
                     </>
                   ) : (
                     <>

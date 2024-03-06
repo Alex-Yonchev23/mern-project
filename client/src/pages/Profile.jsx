@@ -11,7 +11,7 @@ export default function Profile() {
         
         <div className="flex items-center justify-center">
           <form className="flex flex-col gap-3 w-2/3">
-            <img src={userAvatar} alt="Profile Picture" className="rounded-full object-cover select-none self-center cursor-pointer"/>
+            <img src={userAvatar} alt="Profile Picture"  title="Change your avatar" className="rounded-full object-cover select-none self-center cursor-pointer hover:opacity-60 transition-all duration-200"/>
 
             <input type="text" id="firstName" defaultValue={currentUser.user.firstName} placeholder="First Name" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
             <input type="text" id="lastName" defaultValue={currentUser.user.lastName} placeholder="Last Name" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
@@ -23,7 +23,7 @@ export default function Profile() {
 
         <div className="flex justify-between mt-3"> 
           <span className="beige cursor-pointer">Delete account</span>
-          <span className="beige cursor-pointer">Sign out</span>
+          <span className="beige cursor-pointer">Log out</span>
         </div>
       </div>
     </div>
