@@ -63,7 +63,7 @@ body{
 }
 
 .raleway{
-    font-family: 'Raleway', serif;  
+    font-family: 'Raleway', serif !important;  
 }
 
 .beige{
