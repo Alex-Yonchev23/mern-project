@@ -95,14 +95,14 @@ export default function Profile() {
             <input type="text" id="firstName" defaultValue={currentUser.user.firstName} placeholder="First Name" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
             <input type="text" id="lastName" defaultValue={currentUser.user.lastName} placeholder="Last Name" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
             <input type="email" id="email" defaultValue={currentUser.user.email} disabled placeholder="Email" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
-            <input type="password" id="password" placeholder="Password" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
+            <input type="password" id="password" placeholder="Password" className="bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway "/>
             <button className="beige main-btn border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Update</button>
           </form>
         </div>
 
         <div className="flex justify-between mt-3"> 
-          <span className="beige cursor-pointer">Delete account</span>
-          <span className="beige cursor-pointer">Log out</span>
+          <span className="beige cursor-pointer raleway">Delete account</span>
+          <span className="beige cursor-pointer raleway">Log out</span>
         </div>
       </div>
     </div>
