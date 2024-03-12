@@ -12,9 +12,6 @@ export default function Nav() {
   const currentUser = useSelector(selectCurrentUser);
   const userAvatar = currentUser?.user?.avatar;
 
-  /*const userAvatar = currentUser && currentUser.user && currentUser.user.avatar;*/
-  console.log(userAvatar);
-
   const switchToShowLogin = () => {
     setShowLogin(true);
     toggleSidebar(); 

@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import { selectCurrentUser } from '../redux/user/userSlice';
 import React,{ useEffect, useRef, useState } from "react";
 import { getDownloadURL, getStorage, uploadBytesResumable, ref } from "firebase/storage";
 import { app } from "../firebase";
 import { errorMessage, successMessage } from '../components/message/ToastMessage';
+import { useDispatch } from "react-redux";
+import { updateUserError, updateUserStart ,updateUserSuccess} from "../redux/user/userSlice";
 
 
 export default function Profile() {
@@ -13,6 +15,7 @@ export default function Profile() {
   const [ imagePercentage , setImagePercentage ] = useState(0);
   const [formData, setFormData] = useState({});
   const [imgError, setImgError] = useState(null);
+  const dispatch = useDispatch();
 
   const fileRef = useRef(null);
   useEffect(() => {
@@ -54,15 +57,51 @@ export default function Profile() {
       errorMessage(error.message);
     }
   };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  }
+    
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    try {
+      dispatch(updateUserStart());
+
+      const res = await fetch(`/server/user/update/${currentUser.user._id}` , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success === false){
+        dispatch(updateUserError(data));
+        return;
+      }
+      dispatch(updateUserSuccess(data));
+
+    } catch (error) {
+      dispatch(updateUserError(error));
+    }
+  };
   
+
+  
+  console.log(formData);
+  console.log(currentUser);
   
   return (
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${120}px)`}}>
       <div className="flex flex-col gap-3 justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
-        <h1 className='beige text-2xl md:text-3xl font-normal	 text-center '> Welcome <>{currentUser.user.firstName}</></h1>
-        
+      <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
+        Welcome {currentUser?.user?.firstName}
+      </h1>        
         <div className="flex items-center justify-center">
-          <form className="flex flex-col gap-2 w-2/3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-2/3">
             <input 
               type="file" 
               ref={fileRef} 
@@ -71,7 +110,7 @@ export default function Profile() {
               onChange={(e) => setImage(e.target.files[0])}/>
 
             <img 
-              src={ formData.avatar || currentUser.user.avatar } 
+              src={ formData.avatar || userAvatar } 
               alt="Avatar"  
               title="Change your avatar" 
               className="rounded-full object-cover select-none self-center cursor-pointer hover:opacity-60 transition-all duration-200 h-24 w-24" 
@@ -92,11 +131,43 @@ export default function Profile() {
 
 
             <p className="beige">Details:</p>
-            <input type="text" id="firstName" defaultValue={currentUser.user.firstName} placeholder="First Name" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
-            <input type="text" id="lastName" defaultValue={currentUser.user.lastName} placeholder="Last Name" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
-            <input type="email" id="email" defaultValue={currentUser.user.email} disabled placeholder="Email" className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"/>
-            <input type="password" id="password" placeholder="Password" className="bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway "/>
-            <button className="beige main-btn border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Update</button>
+            
+            <input
+              type="text"
+              id="firstName"
+              defaultValue={currentUser.user.firstName}
+              placeholder="First Name"
+              className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
+              onChange={handleChange}
+            />
+
+            <input
+              type="text"
+              id="lastName"
+              defaultValue={currentUser.user.lastName}
+              placeholder="Last Name"
+              className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
+              onChange={handleChange}
+            />
+
+            <input
+              type="email"
+              id="email"
+              defaultValue={currentUser.user.email}
+              disabled
+              placeholder="Email"
+              className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
+              onChange={handleChange}
+            />
+
+            <input
+              type="password"
+              id="password"
+              placeholder="New Password"
+              className="bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway"
+              onChange={handleChange}
+            />
+            <button type="submit" className="beige main-btn border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Update</button>
           </form>
         </div>
 
