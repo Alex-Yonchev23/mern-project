@@ -98,7 +98,7 @@ export default function Profile() {
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${120}px)`}}>
       <div className="flex flex-col gap-3 justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
-        Welcome {currentUser?.user?.firstName}
+        Welcome <span className="raleway font-thin">{currentUser?.user?.firstName}</span>
       </h1>        
         <div className="flex items-center justify-center">
           <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-2/3">
