@@ -80,9 +80,11 @@ export default function Profile() {
 
       if (data.success === false){
         dispatch(updateUserError(data));
+        errorMessage(data.message);
         return;
       }
       dispatch(updateUserSuccess(data));
+      successMessage(data.message);
 
     } catch (error) {
       dispatch(updateUserError(error));
