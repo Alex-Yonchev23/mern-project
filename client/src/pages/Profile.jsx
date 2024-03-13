@@ -100,7 +100,7 @@ export default function Profile() {
   
   
   return (
-    <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${120}px)`}}>
+    <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${160}px)`}}>
       <div className="flex flex-col gap-3 justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
         Welcome <span className="raleway font-thin">{currentUser?.user?.firstName}</span>

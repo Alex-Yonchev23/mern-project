@@ -50,7 +50,7 @@ export default function Nav() {
         <div className='offcanvas-body d-flex flex-column flex-lg-row'>
             <ul className='navbar-nav justify-content-center align-items-center font-bold flex-grow'>
               <Link to='/'>
-                <li className='nav-item '>
+                <li className='nav-item'>
                     Home
                 </li>
               </Link>
@@ -62,16 +62,14 @@ export default function Nav() {
               </Link>
 
               <Link to='/gallery'>
-                <li className='nav-item '>
+                <li className='nav-item'>
                   Gallery
                 </li>
               </Link>
 
               <Link to='/'>
-                <li className="nav-item logo px-4">
-                  <div className="div-logo">
+                <li className="logo px-4 ">
                       <img src={logo} alt="logo" className="logo max-w-full h-auto" style={{ maxHeight: '100px' }} />
-                  </div>
                 </li>
               </Link>
 
