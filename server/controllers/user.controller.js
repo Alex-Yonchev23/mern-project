@@ -18,8 +18,8 @@ const dateDiffInHoursMinutes = (date1, date2) => {
 
 // update user 
 export const updateUser = async (req, res, next) => {
-   /* console.log('User ID from request:', req.user.id);
-    console.log('User ID from params:', req.params.id);*/
+    console.log('User ID from request:', req.user.id);
+    console.log('User ID from params:', req.params.id);
 
     if (req.user.id !== req.params.id) {
         return next(errorHandler(401, 'Unauthorized'));
@@ -40,12 +40,12 @@ export const updateUser = async (req, res, next) => {
         /*
         if (timeDiffInMillis < 24 * 60 * 60 * 1000) {
             const { hours, minutes } = dateDiffInHoursMinutes(timeLeftInMillis, 0);
-            return res.status(200).json({
+            return res.status(400).json({
                 success: false,
                 message: `You can update your information again in ${hours} hours and ${minutes} minutes.`,
                 timeLeft: { hours, minutes } // Adding time left information
             });
-        }*/
+        }*/ 
 
         if (req.body.password) {
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -66,19 +66,14 @@ export const updateUser = async (req, res, next) => {
         );
 
         const { password, ...rest } = updatedUser._doc;
-        const token = jwt.sign({ id: updatedUser._id }, process.env.JWT_SECRET);
 
-        console.log(req.user);
-        const expiryDate = new Date(Date.now() + 1 * 60 * 60 * 1000);
-        res.cookie('access_token', token, {
-            httpOnly: true,
-            expires: expiryDate,
-        }).status(201).json({
+        res.status(201).json({
             success: true,
-            message: 'Updated successfully!',
+            message: 'Update successful!',
             user: rest,
         });
     } catch (error) {
+        console.error('Update User Error:', error);
         next(error);
     }
 };
