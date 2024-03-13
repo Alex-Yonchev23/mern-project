@@ -120,6 +120,9 @@ export const updateUser = async (req, res, next) => {
         if (req.body.password && req.body.password !== user.password) {
             updatedFields.password = bcryptjs.hashSync(req.body.password, 10);
         }
+        if (req.body.avatar && req.body.avatar !== user.avatar) {
+            updatedFields.avatar = req.body.avatar;
+        }
 
         if (Object.keys(updatedFields).length === 0) {
             return res.status(200).json({
