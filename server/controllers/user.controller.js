@@ -1,7 +1,6 @@
 import { errorHandler } from "../utils/error.js";
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
-import jwt from 'jsonwebtoken';
 
 export const test = (req, res) => {
     res.json({
@@ -16,7 +15,31 @@ const dateDiffInHoursMinutes = (date1, date2) => {
     return { hours, minutes };
 };
 
-// update user 
+const isPasswordValid = (password) => {
+    const isLengthValid = password.length >= 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    return isLengthValid && hasUpperCase && hasLowerCase && hasDigit && hasSpecialSymbol;
+};
+
+const isValidName = (name) => {
+    const validNameRegex = /^[A-Za-z -]+$/;
+
+    if (!validNameRegex.test(name)) {
+        return "Name must only contain letters, spaces, or hyphens.";
+    }
+
+    const repeatedCharactersRegex = /(.)\1{2,}/;
+    if (repeatedCharactersRegex.test(name)) {
+        return "Name cannot contain repeating characters.";
+    }
+    return true; 
+};
+
+
 export const updateUser = async (req, res, next) => {
     console.log('User ID from request:', req.user.id);
     console.log('User ID from params:', req.params.id);
@@ -45,33 +68,87 @@ export const updateUser = async (req, res, next) => {
                 message: `You can update your information again in ${hours} hours and ${minutes} minutes.`,
                 timeLeft: { hours, minutes } // Adding time left information
             });
-        }*/ 
+        } */
+
+        const { firstName, lastName, password } = req.body;
+
+        const firstNameValidation = isValidName(firstName);
+        if (firstNameValidation !== true) {
+            return res.status(200).json({
+                success: false,
+                message: firstNameValidation,
+            });
+        }
+
+        const lastNameValidation = isValidName(lastName);
+        if (lastNameValidation !== true) {
+            return res.status(200).json({
+                success: false,
+                message: lastNameValidation,
+            });
+        }
+        
+        if (password && !isPasswordValid(password)) {
+            return res.status(201).json({
+                success: false,
+                message: "Password must contain at least 8 characters, an uppercase letter, a lowercase letter, a digit, and a special symbol.",
+            });
+        }
 
         if (req.body.password) {
-            req.body.password = bcryptjs.hashSync(req.body.password, 10);
+            const isSamePassword = await bcryptjs.compare(req.body.password, user.password);
+            if (isSamePassword) {
+                return res.status(200).json({
+                    success: false,
+                    message: "New password cannot be the same as the old one.",
+                });
+            }
+        }
+
+        // Hash the password if provided
+        if (password) {
+            req.body.password = bcryptjs.hashSync(password, 10);
+        }
+
+        const updatedFields = {};
+        if (req.body.firstName && req.body.firstName !== user.firstName) {
+            updatedFields.firstName = req.body.firstName;
+        }
+        if (req.body.lastName && req.body.lastName !== user.lastName) {
+            updatedFields.lastName = req.body.lastName;
+        }
+        if (req.body.password && req.body.password !== user.password) {
+            updatedFields.password = bcryptjs.hashSync(req.body.password, 10);
+        }
+
+        if (Object.keys(updatedFields).length === 0) {
+            return res.status(200).json({
+                success: false,
+                message: 'No changes are made.',
+            });
         }
 
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
             {
-                $set: {
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    email: req.body.email,
-                    password: req.body.password,
-                    avatar: req.body.avatar,
-                }
+                $set: updatedFields
             },
             { new: true }
         );
 
-        const { password, ...rest } = updatedUser._doc;
-
-        res.status(201).json({
-            success: true,
-            message: 'Update successful!',
-            user: rest,
-        });
+        if (updatedUser) {
+            const { password: hashedPassword, ...rest } = updatedUser._doc;
+            return res.status(201).json({
+                success: true,
+                message: 'Updated successfully!',
+                user: rest,
+            });
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: 'Failed to update user.',
+            });
+        }
     } catch (error) {
         console.error('Update User Error:', error);
         next(error);

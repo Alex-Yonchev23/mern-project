@@ -28,6 +28,19 @@ export const successMessage = (message) => {
   });
 };
 
+export const infoMessage = (message) => {
+  toast.warn(message, {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+};
+
 const ToastMessage = () => {
   return (
     <ToastContainer

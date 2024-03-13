@@ -5,14 +5,19 @@ import LogIn from './LogIn';
 import '../styles/login-signup.css';
 import OAuth from '../components/OAuth/OAuth';
 import { errorMessage, successMessage } from '../components/message/ToastMessage';
+import { useDispatch, useSelector } from 'react-redux'; 
+import LoadingSpinner from '../components/loading/Loading';
+import { setLoading } from '../redux/user/userSlice';
 
 
 const SignUp = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.user.loading);
+
 
 
   const handleChanges = (e) => {
@@ -37,7 +42,7 @@ const SignUp = () => {
       });
 
       const data = await res.json();
-      setLoading(false);
+      dispatch(setLoading(false));
 
       if (data.success) {
         setFormData({});
@@ -51,7 +56,7 @@ const SignUp = () => {
         errorMessage(data.message);
       }
     } catch (error) {
-      setLoading(false);
+      dispatch(setLoading(false)); 
       setError(true);
       errorMessage('Failed to fetch the data.')
     }
@@ -159,11 +164,7 @@ const SignUp = () => {
                 </form>
               </div>
             )}
-          {loading && (
-            <div className="spinner-overlay absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50">
-              <div className="spinner border-t-4 border-white border-solid h-6 w-6 rounded-full animate-spin"></div>
-            </div>
-          )}
+            {loading && <LoadingSpinner />}
         </div>
       </div>
     </div>

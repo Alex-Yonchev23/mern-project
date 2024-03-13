@@ -3,9 +3,10 @@ import { selectCurrentUser } from '../redux/user/userSlice';
 import React,{ useEffect, useRef, useState } from "react";
 import { getDownloadURL, getStorage, uploadBytesResumable, ref } from "firebase/storage";
 import { app } from "../firebase";
-import { errorMessage, successMessage } from '../components/message/ToastMessage';
+import { errorMessage, successMessage , infoMessage} from '../components/message/ToastMessage';
 import { useDispatch } from "react-redux";
 import { updateUserError, updateUserStart ,updateUserSuccess} from "../redux/user/userSlice";
+import LoadingSpinner from "../components/loading/Loading";
 
 
 export default function Profile() {
@@ -16,6 +17,8 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
   const [imgError, setImgError] = useState(null);
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.user.loading);
+
 
   const fileRef = useRef(null);
   useEffect(() => {
@@ -78,23 +81,23 @@ export default function Profile() {
 
       const data = await res.json();
 
-      if (data.success === false){
-        dispatch(updateUserError(data));
-        errorMessage(data.message);
-        return;
+      if (data.success) {
+        successMessage(data.message);
+        dispatch(updateUserSuccess(data));
+      } else {
+        if (data.message === 'No changes are made.') {
+          infoMessage(data.message, 'info');
+          dispatch(updateUserError(data));  
+        } else {
+          dispatch(updateUserError(data));  
+          errorMessage(data.message);
+        }
       }
-      dispatch(updateUserSuccess(data));
-      successMessage(data.message);
-
     } catch (error) {
       dispatch(updateUserError(error));
     }
   };
   
-
-  
-  console.log(formData);
-  console.log(currentUser);
   
   return (
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${120}px)`}}>
@@ -139,6 +142,7 @@ export default function Profile() {
               id="firstName"
               defaultValue={currentUser.user.firstName}
               placeholder="First Name"
+              maxLength="30"
               className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
               onChange={handleChange}
             />
@@ -148,6 +152,7 @@ export default function Profile() {
               id="lastName"
               defaultValue={currentUser.user.lastName}
               placeholder="Last Name"
+              maxLength="30"
               className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
               onChange={handleChange}
             />
@@ -157,15 +162,16 @@ export default function Profile() {
               id="email"
               defaultValue={currentUser.user.email}
               disabled
+              title="You cannot change your email address"
               placeholder="Email"
               className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
-              onChange={handleChange}
             />
 
             <input
               type="password"
               id="password"
               placeholder="New Password"
+              maxLength="128"
               className="bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway"
               onChange={handleChange}
             />
@@ -177,6 +183,7 @@ export default function Profile() {
           <span className="beige cursor-pointer raleway">Delete account</span>
           <span className="beige cursor-pointer raleway">Log out</span>
         </div>
+        {loading && <LoadingSpinner/>}
       </div>
     </div>
 
