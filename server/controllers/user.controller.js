@@ -2,12 +2,17 @@ import { errorHandler } from "../utils/error.js";
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 
+
+//test server
 export const test = (req, res) => {
     res.json({
         message: 'API is working!'
     });
 };
 
+//--------------------------------------------------------------------------------------
+
+//update User 
 const dateDiffInHoursMinutes = (date1, date2) => {
     const diffInMs = Math.abs(date1 - date2);
     const hours = Math.floor(diffInMs / (1000 * 60 * 60));
@@ -95,20 +100,7 @@ export const updateUser = async (req, res, next) => {
             });
         }
 
-        if (req.body.password) {
-            const isSamePassword = await bcryptjs.compare(req.body.password, user.password);
-            if (isSamePassword) {
-                return res.status(200).json({
-                    success: false,
-                    message: "New password cannot be the same as the old one.",
-                });
-            }
-        }
-
-        // Hash the password if provided
-        if (password) {
-            req.body.password = bcryptjs.hashSync(password, 10);
-        }
+        
 
         const updatedFields = {};
         if (req.body.firstName && req.body.firstName !== user.firstName) {
@@ -123,7 +115,17 @@ export const updateUser = async (req, res, next) => {
         if (req.body.avatar && req.body.avatar !== user.avatar) {
             updatedFields.avatar = req.body.avatar;
         }
-
+        
+        if (password) {            
+            const isSamePassword = await bcryptjs.compare(req.body.password, user.password);
+            if (isSamePassword) {
+                return res.status(200).json({
+                    success: false,
+                    message: "New password cannot be the same as the old one.",
+                });
+            }
+        }
+        
         if (Object.keys(updatedFields).length === 0) {
             return res.status(200).json({
                 success: false,
@@ -157,3 +159,31 @@ export const updateUser = async (req, res, next) => {
         next(error);
     }
 };
+
+//--------------------------------------------------------------------------------------
+
+//delete User
+
+export const deleteUser = async (req, res, next) => {
+    
+    if (req.user.id !== req.params.id) {
+        return next(errorHandler(401, 'Unauthorized'));
+    }
+
+    try{
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        if(deletedUser){
+            return res.status(200).json({
+                success: true,
+                message: 'User deleted successfully!',
+            });
+        }else{
+            return res.status(200).json({
+                success: false,
+                message: 'Failed to delete user.',
+            });
+        }
+        }catch(error){
+            next(error);
+        }
+}    

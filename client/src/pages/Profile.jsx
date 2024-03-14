@@ -5,7 +5,7 @@ import { getDownloadURL, getStorage, uploadBytesResumable, ref } from "firebase/
 import { app } from "../firebase";
 import { errorMessage, successMessage , infoMessage} from '../components/message/ToastMessage';
 import { useDispatch } from "react-redux";
-import { updateUserError, updateUserStart ,updateUserSuccess} from "../redux/user/userSlice";
+import { updateUserError, updateUserStart ,updateUserSuccess,deleteUserError,deleteUserStart,deleteUserSuccess ,logOut} from "../redux/user/userSlice";
 import LoadingSpinner from "../components/loading/Loading";
 
 
@@ -97,7 +97,36 @@ export default function Profile() {
       dispatch(updateUserError(error));
     }
   };
-  
+
+  const handleDeleteAccount = async () => {
+    try {
+      dispatch(deleteUserStart());
+
+      const res = await fetch(`/server/user/delete/${currentUser.user._id}` ,{
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+
+      if (data.success === false){
+        dispatch(deleteUserError(data));
+        errorMessage(data.message);
+      }
+      dispatch(deleteUserSuccess(data));
+      
+    } catch (error) {
+      dispatch(deleteUserError(error));
+    }
+   };
+
+   const handleLogOut = async () => {
+    try {
+      await fetch('/server/auth/log-out');
+      dispatch(logOut());
+    } catch (error) {
+        console.log(error);
+    }
+}
   
   return (
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${160}px)`}}>
@@ -180,8 +209,8 @@ export default function Profile() {
         </div>
 
         <div className="flex justify-between mt-3"> 
-          <span className="beige cursor-pointer raleway">Delete account</span>
-          <span className="beige cursor-pointer raleway">Log out</span>
+          <span onClick={handleDeleteAccount} className="beige cursor-pointer raleway">Delete account</span>
+          <span onClick={handleLogOut} className="beige cursor-pointer raleway">Log out</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>

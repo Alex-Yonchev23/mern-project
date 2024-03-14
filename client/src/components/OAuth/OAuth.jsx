@@ -37,8 +37,7 @@ export default function OAuth() {
             successMessage(data.message);
             navigate('/');
         } catch (error) {            
-            errorMessage(data.message);
-            console.log("could not login with Google");
+            errorMessage(error.message);
         }
     };
 
