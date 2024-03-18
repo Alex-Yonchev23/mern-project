@@ -113,8 +113,8 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                   Forgot password?
                 </a>
               </div>
-              <div className="flex justify-center items-center flex-col gap-1">
-                <button type="submit" value="Submit" className='select-none rounded-full text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide' disabled={loading}>Log In</button>
+              <div className="flex justify-center max-lg:gap-3 items-center flex-col lg:gap-1 max-lg:flex-row">
+                <button type="submit" value="Submit" className='select-none rounded-full text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>Log In</button>
                 <span className='raleway'>or</span>
                 <OAuth></OAuth>
               </div>

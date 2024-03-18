@@ -54,11 +54,9 @@ const isValidName = (name) => {
 
 
 export const updateUser = async (req, res, next) => {
-    console.log('User ID from request:', req.user.id);
-    console.log('User ID from params:', req.params.id);
 
-    if (req.user.id !== req.params.id) {
-        return next(errorHandler(401, 'Unauthorized'));
+    if ((req.user.id || req.user._id)!== req.params.id) {
+        return next(errorHandler(201, 'Unauthorized'));
     }
 
     try {
@@ -175,7 +173,7 @@ export const updateUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
     
-    if (req.user.id !== req.params.id) {
+    if ((req.user.id || req.user._id) !== req.params.id) {
         return next(errorHandler(401, 'Unauthorized'));
     }
 

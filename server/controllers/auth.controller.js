@@ -146,7 +146,7 @@
           message: 'Login successful!',
           user: rest,
         });
-  
+        
     } catch (error) {
       next(error);
     }

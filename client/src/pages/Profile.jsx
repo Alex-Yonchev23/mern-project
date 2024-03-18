@@ -99,23 +99,26 @@ export default function Profile() {
   };
 
   const handleDeleteAccount = async () => {
-    try {
-      dispatch(deleteUserStart());
+    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    if (confirmDelete) {
+      try {
+        dispatch(deleteUserStart());
 
-      const res = await fetch(`/server/user/delete/${currentUser.user._id}` ,{
-        method: 'DELETE',
-      });
+        const res = await fetch(`/server/user/delete/${currentUser.user._id}` ,{
+          method: 'DELETE',
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      if (data.success === false){
-        dispatch(deleteUserError(data));
-        errorMessage(data.message);
+        if (data.success === false){
+          dispatch(deleteUserError(data));
+          errorMessage(data.message);
+        }
+        dispatch(deleteUserSuccess(data));
+        
+      } catch (error) {
+        dispatch(deleteUserError(error));
       }
-      dispatch(deleteUserSuccess(data));
-      
-    } catch (error) {
-      dispatch(deleteUserError(error));
     }
    };
 
@@ -132,10 +135,10 @@ export default function Profile() {
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${160}px)`}}>
       <div className="flex flex-col justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
-        Welcome <span className="raleway font-thin break-words">{currentUser?.user?.firstName}</span>
+        Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
       </h1>        
         <div className="flex items-center justify-center">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-9/12	">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:w-9/12 w-full">
             <input 
               type="file" 
               ref={fileRef} 
@@ -211,8 +214,8 @@ export default function Profile() {
         </div>
 
         <div className="flex justify-between mt-4"> 
-          <span onClick={handleDeleteAccount} className="beige cursor-pointer raleway">Delete account</span>
-          <span onClick={handleLogOut} className="cursor-pointer text-yellow-500 raleway">Log out</span>
+          <span onClick={handleDeleteAccount} className="beige cursor-pointer raleway text-nowrap	">Delete account</span>
+          <span onClick={handleLogOut} className="cursor-pointer text-yellow-500 raleway text-nowrap	">Log out</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>
