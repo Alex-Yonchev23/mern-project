@@ -85,9 +85,10 @@ export const updateUser = async (req, res, next) => {
 
         const { firstName, lastName, password } = req.body;
 
+
         const firstNameValidation = isValidName(firstName);
         if (firstNameValidation !== true) {
-            return res.status(200).json({
+            return res.status(201).json({
                 success: false,
                 message: firstNameValidation,
             });
@@ -95,7 +96,7 @@ export const updateUser = async (req, res, next) => {
 
         const lastNameValidation = isValidName(lastName);
         if (lastNameValidation !== true) {
-            return res.status(200).json({
+            return res.status(201).json({
                 success: false,
                 message: lastNameValidation,
             });
@@ -127,7 +128,7 @@ export const updateUser = async (req, res, next) => {
         if (password) {            
             const isSamePassword = await bcryptjs.compare(req.body.password, user.password);
             if (isSamePassword) {
-                return res.status(200).json({
+                return res.status(201).json({
                     success: false,
                     message: "New password cannot be the same as the old one.",
                 });
@@ -135,7 +136,7 @@ export const updateUser = async (req, res, next) => {
         }
         
         if (Object.keys(updatedFields).length === 0) {
-            return res.status(200).json({
+            return res.status(201).json({
                 success: false,
                 message: 'No changes are made.',
             });
