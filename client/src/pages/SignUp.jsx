@@ -32,7 +32,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      setLoading(true);
+      dispatch(setLoading(false)); 
       const res = await fetch('/server/auth/sign-up', {
         method: 'POST',
         headers: {

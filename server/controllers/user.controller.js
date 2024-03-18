@@ -31,15 +31,23 @@ const isPasswordValid = (password) => {
 };
 
 const isValidName = (name) => {
-    const validNameRegex = /^[A-Za-z -]+$/;
 
-    if (!validNameRegex.test(name)) {
-        return "Name must only contain letters, spaces, or hyphens.";
-    }
+    if (name && typeof name === 'string') {
+        
+        if (!name.trim()) {
+            return "Name cannot be empty.";
+        }
 
-    const repeatedCharactersRegex = /(.)\1{2,}/;
-    if (repeatedCharactersRegex.test(name)) {
-        return "Name cannot contain repeating characters.";
+        const validNameRegex = /^[A-Za-z -]+$/;
+
+        if (!validNameRegex.test(name)) {
+            return "Name must only contain letters, spaces, or hyphens.";
+        }
+
+        const repeatedCharactersRegex = /(.)\1{2,}/;
+        if (repeatedCharactersRegex.test(name)) {
+            return "Name cannot contain repeating characters.";
+        }
     }
     return true; 
 };

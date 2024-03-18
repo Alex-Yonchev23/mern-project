@@ -104,7 +104,7 @@ export default function Nav() {
                       <lord-icon
                         src="https://cdn.lordicon.com/dxjqoygy.json"
                         trigger="hover"
-                        target=".log-reg"
+                        target="log-reg"
                         colors="primary:#f3e8cc,secondary:#f3e8cc"
                         stroke="60"
                         style={{ width: '50px', height: '50px' }}

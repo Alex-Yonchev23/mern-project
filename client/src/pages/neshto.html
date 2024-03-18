@@ -3,33 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toggle Eye Icon</title>
-  <!-- Include Font Awesome CSS (you can adjust the version accordingly) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-  <style>
-    #eyeIcon {
-      transition: opacity 0.3s ease-in-out;
-    }
-  </style>
+  <title>Hover Circle with Text</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
 
-  <div>
-    <button id="toggleEyeBtn" onclick="toggleEye()">
-      <i id="eyeIcon" class="fas fa-eye"></i>
-    </button>
+  <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center relative hover:bg-blue-600">
+    <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+      <span class="text-white">Hover Text</span>
+    </div>
   </div>
-
-  <script>
-    function toggleEye() {
-      const eyeIcon = document.getElementById('eyeIcon');
-      eyeIcon.style.opacity = eyeIcon.style.opacity === '0' ? '1' : '0';
-      setTimeout(() => {
-        eyeIcon.classList.toggle('fa-eye-slash');
-        eyeIcon.style.opacity = '1';
-      }, 200); 
-    }
-  </script>
 
 </body>
 </html>

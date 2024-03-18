@@ -130,12 +130,12 @@ export default function Profile() {
   
   return (
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${160}px)`}}>
-      <div className="flex flex-col gap-3 justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
+      <div className="flex flex-col justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
-        Welcome <span className="raleway font-thin">{currentUser?.user?.firstName}</span>
+        Welcome <span className="raleway font-thin break-words">{currentUser?.user?.firstName}</span>
       </h1>        
         <div className="flex items-center justify-center">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-2/3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-9/12	">
             <input 
               type="file" 
               ref={fileRef} 
@@ -143,11 +143,13 @@ export default function Profile() {
               accept="image/*" 
               onChange={(e) => setImage(e.target.files[0])}/>
 
+            <p className="beige raleway text-center">You can update the details.</p>
+    
             <img 
               src={ formData.avatar || userAvatar } 
               alt="Avatar"  
               title="Change your avatar" 
-              className="rounded-full object-cover select-none self-center cursor-pointer hover:opacity-60 transition-all duration-200 h-24 w-24" 
+              className="rounded-full object-cover select-none self-center cursor-pointer hover:opacity-60 transition-all duration-200 h-24 w-24 my-3 outline outline-2 outline-offset-4 outline-yellow-100 white-shadow" 
               onClick={() => fileRef.current.click()}
             />
             
@@ -164,27 +166,27 @@ export default function Profile() {
             </p>
 
 
-            <p className="beige">Details:</p>
-            
-            <input
-              type="text"
-              id="firstName"
-              defaultValue={currentUser.user.firstName}
-              placeholder="First Name"
-              maxLength="30"
-              className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
-              onChange={handleChange}
-            />
+            <div className="flex flex-row gap-2">
+              <input
+                type="text"
+                id="firstName"
+                defaultValue={currentUser.user.firstName}
+                placeholder="First Name"
+                maxLength="30"
+                className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4"
+                onChange={handleChange}
+              />
 
-            <input
-              type="text"
-              id="lastName"
-              defaultValue={currentUser.user.lastName}
-              placeholder="Last Name"
-              maxLength="30"
-              className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
-              onChange={handleChange}
-            />
+              <input
+                type="text"
+                id="lastName"
+                defaultValue={currentUser.user.lastName}
+                placeholder="Last Name"
+                maxLength="30"
+                className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4"
+                onChange={handleChange}
+              />
+            </div>
 
             <input
               type="email"
@@ -208,9 +210,9 @@ export default function Profile() {
           </form>
         </div>
 
-        <div className="flex justify-between mt-3"> 
+        <div className="flex justify-between mt-4"> 
           <span onClick={handleDeleteAccount} className="beige cursor-pointer raleway">Delete account</span>
-          <span onClick={handleLogOut} className="beige cursor-pointer raleway">Log out</span>
+          <span onClick={handleLogOut} className="cursor-pointer text-yellow-500 raleway">Log out</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>

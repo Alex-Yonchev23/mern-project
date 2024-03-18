@@ -37,7 +37,7 @@ export default function OAuth() {
             successMessage(data.message);
             navigate('/');
         } catch (error) {            
-            errorMessage(error.message);
+            errorMessage("An error occurred. Please try again later.");
         }
     };
 

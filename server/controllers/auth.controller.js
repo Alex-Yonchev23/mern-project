@@ -18,8 +18,17 @@
 
   const isValidName = (name) => {
     const validNameRegex = /^[A-Za-z -]+$/;
-    return validNameRegex.test(name);
-  };
+
+    if (!validNameRegex.test(name)) {
+        return "Name must only contain letters, spaces, or hyphens.";
+    }
+
+    const repeatedCharactersRegex = /(.)\1{2,}/;
+    if (repeatedCharactersRegex.test(name)) {
+        return "Name cannot contain repeating characters.";
+    }
+    return true; 
+};
 
   export const signup = async (req, res, next) => {
     const { firstName, lastName, email, password } = req.body;
@@ -205,9 +214,16 @@
         });
       }
     } catch (error) {
+      if (error.message.includes('ERR_INTERNET_DISCONNECTED')) {
+        return res.status(201).json({ success: false, message: 'Internet connection lost. Please check your internet connection.' });
+      } else if (error.message.includes('ERR_CONNECTION_REFUSED')) {
+        return res.status(201).json({ success: false, message: 'Connection refused. Please try again later.' });
+      }
+      res.status(500).json({ success: false, message: 'An unexpected error occurred. Please try again later.' });
       next(error);
     }
-  }
+    }
+  
 
 
 
