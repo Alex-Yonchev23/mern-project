@@ -14,9 +14,6 @@ nav{
     font-weight: bold;    
 }
 
-.navbar-toggler span{
-    color: red;
-}
 
 
 @media (max-width: 991px){

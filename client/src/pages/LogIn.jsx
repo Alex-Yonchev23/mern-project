@@ -98,13 +98,13 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                 />
               </div>
               <div className="forms_buttons flex xl:flex-row xl:justify-between items-center gap-2 flex-col pb-4">
-                <label htmlFor="remember_me" className="remember text-sm text-nowrap">
+                <label htmlFor="remember_me" className="remember text-sm text-nowrap ">
                   Remember me
                   <input
                     type="checkbox"
                     id="remember_me"
                     name="remember_me"
-                    className="rounded ml-2 hover:ring-2 ring-yellow-400 ring-offset-2 ring-offset-[beige] transition-all duration-100"
+                    className="rounded-full ml-2 outline-black ring-yellow-400 focus:ring-yellow-400 dark:ring-offset-yellow-400 dark:focus:ring-yellow-400 text-yellow-400 transition-all duration-100 ms-2"
                     checked={formData.remember_me || false}
                     onChange={handleChanges}
                   />

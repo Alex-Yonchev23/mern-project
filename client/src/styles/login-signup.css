@@ -138,11 +138,6 @@
     user-select: none;
   }
   
-  input[type="checkbox"] {
-    margin-left: 5px;
-    accent-color: #333;
-  }
-  
   .forms_buttons-forgot {
     font-family: "Raleway", sans-serif;
     letter-spacing: .1rem;
