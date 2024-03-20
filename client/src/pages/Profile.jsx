@@ -7,6 +7,7 @@ import { errorMessage, successMessage , infoMessage} from '../components/message
 import { useDispatch } from "react-redux";
 import { updateUserError, updateUserStart ,updateUserSuccess,deleteUserError,deleteUserStart,deleteUserSuccess ,logOut} from "../redux/user/userSlice";
 import LoadingSpinner from "../components/loading/Loading";
+import { Tooltip } from 'flowbite-react';
 
 
 export default function Profile() {
@@ -133,7 +134,7 @@ export default function Profile() {
   
   return (
     <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${160}px)`}}>
-      <div className="flex flex-col justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-500 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
+      <div className="flex flex-col justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
         Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
       </h1>        
@@ -147,15 +148,17 @@ export default function Profile() {
               onChange={(e) => setImage(e.target.files[0])}/>
 
             <p className="beige raleway text-center">You can update the details.</p>
-    
-            <img 
-              src={ formData.avatar || userAvatar } 
-              alt="Avatar"  
-              title="Change your avatar" 
-              className="rounded-full object-cover select-none self-center cursor-pointer hover:opacity-60 transition-all duration-200 h-24 w-24 my-3 outline outline-2 outline-offset-4 outline-yellow-100 white-shadow" 
-              onClick={() => fileRef.current.click()}
-            />
-            
+
+            <div className="flex justify-center">
+            <Tooltip content="Change avatar" className="beige bg-transparent border border-solid border-yellow-400" placement="left"  style="yellow">
+              <img 
+                src={ formData.avatar || userAvatar } 
+                alt="Avatar"  
+                className="rounded-full object-cover select-none self-center cursor-pointer hover:opacity-60 transition-all duration-200 h-24 w-24 my-3 outline outline-2 outline-offset-4 outline-yellow-100 white-shadow" 
+                onClick={() => fileRef.current.click()}
+              />
+            </Tooltip>
+            </div>
             <p className="text-sm self-center">
               {imgError ? (
                 <span className="text-red-700 raleway">Error uploading avatar</span>
@@ -176,7 +179,7 @@ export default function Profile() {
                 defaultValue={currentUser.user.firstName}
                 placeholder="First Name"
                 maxLength="30"
-                className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4"
+                className=" focus:border-yellow-400 focus:ring-transparent focus:ring-none  bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4 "
                 onChange={handleChange}
               />
 
@@ -186,7 +189,7 @@ export default function Profile() {
                 defaultValue={currentUser.user.lastName}
                 placeholder="Last Name"
                 maxLength="30"
-                className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4"
+                className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4"
                 onChange={handleChange}
               />
             </div>
@@ -206,16 +209,16 @@ export default function Profile() {
               id="password"
               placeholder="New Password"
               maxLength="128"
-              className="bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway"
+              className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway"
               onChange={handleChange}
             />
-            <button type="submit" className="beige main-btn border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Update</button>
+            <button type="submit" className="beige main-btn border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Update</button>
           </form>
         </div>
 
         <div className="flex justify-between mt-4"> 
-          <span onClick={handleDeleteAccount} className="beige cursor-pointer raleway text-nowrap	">Delete account</span>
-          <span onClick={handleLogOut} className="cursor-pointer text-yellow-500 raleway text-nowrap	">Log out</span>
+          <span onClick={handleDeleteAccount} className="text-yellow-400 cursor-pointer raleway text-nowrap	">Delete account</span>
+          <span onClick={handleLogOut} className="cursor-pointer beige raleway text-nowrap	">Log out</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>

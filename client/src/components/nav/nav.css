@@ -12,9 +12,11 @@ nav{
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     font-weight: bold;    
-    padding: 2.5em .8em;
 }
 
+.navbar-toggler span{
+    color: red;
+}
 
 
 @media (max-width: 991px){

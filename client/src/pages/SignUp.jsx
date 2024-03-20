@@ -69,12 +69,12 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col h-screen justify-center items-center" style={{ height: `calc(100vh - ${NavBarHeight}px)` }}>
-      <div className="user_options-container relative xl:w-2/3 md:w-9/12 max-md:hidden rounded-md border-1 border-yellow-500 border-solid bg-[#000000d1]">
+      <div className="user_options-container relative xl:w-2/3 md:w-9/12 max-md:hidden rounded-md border-1 border-yellow-400 border-solid bg-[#000000d1]">
         <div className="bg-panel flex justify-between w-full rounded-md p-4 ">
           <div className="w-1/2 text-white font-light xl:p-8 md:p-3">
             <h2 className="user_unregistered-title text-2xl font-bold mb-4">Don't have an account?</h2>
-            <p className="user_unregistered-text text-sm text-[beige]">Dolorum porro natus enim similique reiciendis sunt, culpa consectetur, dolores quae adipisci velit. Minima at dolorum quae dolore modi obcaecati saepe vel!</p>
-            <button className="main-btn user_registered-login mt-7 border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none"
+            <p className="user_unregistered-text text-sm beige">Dolorum porro natus enim similique reiciendis sunt, culpa consectetur, dolores quae adipisci velit. Minima at dolorum quae dolore modi obcaecati saepe vel!</p>
+            <button className="main-btn user_registered-login mt-7 border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none"
               onClick={toggleForm}>
                 Sign up
               </button>
@@ -82,8 +82,8 @@ const SignUp = () => {
 
           <div className="w-1/2 text-white font-light xl:p-8 md:p-5">
             <h2 className="user_registered-title text-2xl font-bold mb-4">Already have an account?</h2>
-            <p className="user_registered-text text-sm text-[beige]">Maiores nisi laudantium velit harum! <br /> Tenetur earum nobis inventore illo sequi atque vel nulla in? <br /> Maiores nisi laudantium velit harum!</p>
-            <button className="main-btn mt-7 border-1 border-solid border-yellow-500 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>Log In</button>
+            <p className="user_registered-text text-sm beige">Maiores nisi laudantium velit harum! <br /> Tenetur earum nobis inventore illo sequi atque vel nulla in? <br /> Maiores nisi laudantium velit harum!</p>
+            <button className="main-btn mt-7 border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>Log In</button>
           </div>
         </div>
 
@@ -92,7 +92,7 @@ const SignUp = () => {
             <LogIn passwordVisible={passwordVisible} togglePasswordVisibility={togglePasswordVisibility} loading={loading} />
           ) : (
               <div className="user_forms-signup opacity-100 transition-opacity duration-400">
-                <h2 className="text-3xl font-bold mb-4 text-yellow-500 text-center uppercase tracking-widest">Sign Up</h2>
+                <h2 className="text-3xl font-bold mb-4 text-yellow-400 text-center uppercase tracking-widest">Sign Up</h2>
                 <form className="forms_form" onSubmit={handleSubmit} noValidate>
                   <div className="relative mb-7">
                     <input
@@ -157,7 +157,7 @@ const SignUp = () => {
                     />
                   </div>
                   <div className="flex justify-center ">
-                    <button type="submit" value="Submit" className='rounded-full select-none text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>                     
+                    <button type="submit" value="Submit" className='rounded-full select-none text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>                     
                       Sign Up
                     </button>
                   </div>

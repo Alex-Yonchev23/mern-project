@@ -11,13 +11,15 @@ import ContactUs from './pages/ContactUs';
 import Blog from './pages/Blog';
 import ToastMessage from './components/message/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
+import Footer from './components/footer/Footer';
+import 'flowbite';
 
 
 export default function App() {
   return (
     <BrowserRouter>
       <Nav />
-      <Routes>
+      <Routes>  
         <Route path="/" element={<Home />} />
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -30,6 +32,7 @@ export default function App() {
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/blog" element={<Blog />} />
       </Routes>
+      <Footer/>
       <ToastMessage></ToastMessage>
     </BrowserRouter>
   );

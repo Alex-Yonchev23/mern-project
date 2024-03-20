@@ -61,7 +61,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
 
     return (
           <div className="user_forms-login">
-            <h2 className="text-3xl font-bold mb-4 text-yellow-500 text-center uppercase tracking-widest">Log In</h2>
+            <h2 className="text-3xl font-bold mb-4 text-yellow-400 text-center uppercase tracking-widest">Log In</h2>
             <form className="forms_form "  onSubmit={handleSubmit} noValidate>
               <div className="relative mb-6">
                 <input
@@ -104,7 +104,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                     type="checkbox"
                     id="remember_me"
                     name="remember_me"
-                    className="rounded ml-2 hover:ring-2 ring-yellow-500 ring-offset-2 ring-offset-[beige] transition-all duration-100"
+                    className="rounded ml-2 hover:ring-2 ring-yellow-400 ring-offset-2 ring-offset-[beige] transition-all duration-100"
                     checked={formData.remember_me || false}
                     onChange={handleChanges}
                   />
@@ -113,9 +113,9 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
                   Forgot password?
                 </a>
               </div>
-              <div className="flex justify-center max-lg:gap-3 items-center flex-col lg:gap-1 max-lg:flex-row">
-                <button type="submit" value="Submit" className='select-none rounded-full text-base font-light text-white uppercase bg-yellow-500 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>Log In</button>
-                <span className='raleway'>or</span>
+              <div className="flex justify-center items-center flex-col max-lg:gap-2 lg:gap-2 max-lg:flex-row ">
+                <button type="submit" value="Submit" className='main-btn select-none rounded-md w-full text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-500 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>Log In</button>
+                <span className='raleway max-lg:ml-2'>or</span>
                 <OAuth></OAuth>
               </div>
               

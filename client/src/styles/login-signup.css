@@ -1,8 +1,4 @@
-  button {
-    cursor: pointer;
-  }
-  
-  @keyframes bounceLeft {
+    @keyframes bounceLeft {
     0% {
       transform: translate3d(100%, -50%, 0);
     }
@@ -50,7 +46,7 @@
 
   .main-btn:active,
   input[type="submit"]:active {
-      transform: scale(0.97);
+      transform: scale(0.98);
       transition: transform 0.05s ease-in-out;
   }
 
@@ -77,7 +73,7 @@
   }
 
   .forms_field-input:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 1000px beige inset ;
+    -webkit-box-shadow: 0 0 0 1000px beige inset !important;
   }
 
   .forms_field-input:focus ~ .labels,
