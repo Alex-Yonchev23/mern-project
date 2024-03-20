@@ -1,6 +1,6 @@
+import './nav.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
-import './nav.css';
 import logo from '../../images/i-logo.png';
 import "../../images/avatar.png";
 import { Link } from 'react-router-dom';
