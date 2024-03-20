@@ -17,22 +17,22 @@ export default function FooterComponent() {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:mt-2 sm:grid-cols-3 sm:gap-6 md:gap-5">
             <div>
-              <Footer.Title title="About" />
+              <Footer.Title title="About" className='font-semibold text-slate-800'/>
               <Footer.LinkGroup col>
                 <Footer.Link href="#">Flowbite</Footer.Link>
                 <Footer.Link href="#">Tailwind CSS</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Follow us" />
+              <Footer.Title title="Follow us" className='font-semibold text-slate-800'/>
               <Footer.LinkGroup col>
                 <Footer.Link href="#">Github</Footer.Link>
                 <Footer.Link href="#">Discord</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
-              <Footer.Title title="Legal" />
-              <Footer.LinkGroup col>
+              <Footer.Title title="Legal" className='font-semibold text-slate-800'/>
+              <Footer.LinkGroup col >
                 <Footer.Link href="#">Privacy Policy</Footer.Link>
                 <Footer.Link href="#">Terms &amp; Conditions</Footer.Link>
               </Footer.LinkGroup>
