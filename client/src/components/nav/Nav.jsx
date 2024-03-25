@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../redux/user/userSlice';
 import { Dropdown,Navbar } from 'flowbite-react';
-import { HiCog, HiCurrencyDollar, HiLogout, HiViewGrid } from 'react-icons/hi';
+import { HiLogout, HiViewGrid } from 'react-icons/hi';
 import { logOut} from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import CloseButton from 'react-bootstrap/CloseButton';
+
 
 export default function Nav() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -38,7 +40,6 @@ export default function Nav() {
     };
   }, []);
 
-
   const handleLogOut = async () => {
     try {
       await fetch('/server/auth/log-out');
@@ -49,15 +50,54 @@ export default function Nav() {
 }
 
   return (
-    <Navbar className='navbar navbar-expand-lg bg-transparent fixed-top z-1 select-none' style={{ maxHeight: '110px' }}>
-      <button className='navbar-toggler shadow-none border-0 ms-auto' type='button' onClick={toggleSidebar}>
-        <span className='navbar-toggler-icon'></span>
+    <nav className='navbar navbar-expand-lg fixed-top z-1 select-none '>
+      <button className='navbar-toggler shadow-none border-0 ms-auto beige' type='button' onClick={toggleSidebar}>
+        <span className='navbar-toggler-icon'></span> 
       </button>
 
-      <div className={`sidebar offcanvas offcanvas-start ${showSidebar ? 'show' : ''}`} id='offcanvasNavbar'>
-        <div className="offcanvas-header text-white border-bottom">
-          <h1 className="offcanvas-title fs-4" id="offcanvasNavbarLabel">Ironic</h1>
-          <button className="btn-close shadow-none btn-close-black bg-yellow-400" type="button" onClick={toggleSidebar} aria-label="Close"></button>
+      <div className={`sidebar offcanvas offcanvas-start ${showSidebar ? 'show' : ''} transition-all ease-in-out duration-500`} id='offcanvasNavbar'>
+        <div className="offcanvas-header text-white border-bottom flex justify-between">
+          <h1 className="offcanvas-title fs-4 beige" id="offcanvasNavbarLabel">Ironic </h1>
+          <div className='flex jusify-center font-bold'>
+              {currentUser ? (
+                          <>
+                          
+                              <Dropdown
+                                arrowIcon={false}
+                                inline
+                                label={
+                                  <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
+                                }
+                              >
+                                <div className='bg-yellow-50'>
+                                  <Dropdown.Header>
+                                    <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
+                                    <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
+                                  </Dropdown.Header>
+                                  <Link to='/profile'>
+                                    <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
+                                  </Link>
+                                    <Dropdown.Divider />
+                                    <Dropdown.Item icon={HiLogout} onClick={handleLogOut} >Log out</Dropdown.Item>
+                                </div>
+                              </Dropdown>
+                          </>
+                        ) : (
+                          <>
+                            <Link to='/profile'>
+                              <lord-icon
+                                src="https://cdn.lordicon.com/dxjqoygy.json"
+                                trigger="hover"
+                                target="log-reg"
+                                colors="primary:#f3e8cc,secondary:#f3e8cc"
+                                stroke="60"
+                                style={{ width: '40px', height: '40px' }}
+                              ></lord-icon>
+                              <p className='text-black px-2 rounded-full bg-[#f3e8cc] py-1'>Sign Up</p>
+                            </Link>
+                          </>
+                        )}
+            </div>
         </div>
         
         <div className='offcanvas-body d-flex flex-column flex-lg-row'>
@@ -106,47 +146,52 @@ export default function Nav() {
             </ul>
             
             <div className='d-grid place-items-center '>
-              <div className='d-flex flex-column gap-2 flex-lg-row font-bold text-sm absolute right-7'>
-              {currentUser ? (
-                          <>
-                              <Dropdown
-                                arrowIcon={false}
-                                inline
-                                label={
-                                  <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
-                                }
-                              >
-                                <Dropdown.Header>
-                                  <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
-                                  <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
-                                </Dropdown.Header>
-                                <Link to='/profile'>
-                                  <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
-                                </Link>
-                                  <Dropdown.Divider />
-                                  <Dropdown.Item icon={HiLogout} onClick={handleLogOut}>Log out</Dropdown.Item>
-                              </Dropdown>
-                          </>
-                        ) : (
-                          <>
-                            <Link to='/profile'>
-                              <lord-icon
-                                src="https://cdn.lordicon.com/dxjqoygy.json"
-                                trigger="hover"
-                                target="log-reg"
-                                colors="primary:#f3e8cc,secondary:#f3e8cc"
-                                stroke="60"
-                                style={{ width: '50px', height: '50px' }}
-                              ></lord-icon>
-                              <p className='text-black decoration-none px-2 rounded-4 bg-[#f3e8cc] py-1'>Sign Up</p>
-                            </Link>
-                          </>
-                        )}
+              <div className='d-flex flex-column gap-2 flex-lg-row font-bold text-sm absolute right-7 '>              
+                <div className='smaller'>
+                    {currentUser ? (
+                                <>
+                                
+                                    <Dropdown
+                                      arrowIcon={false}
+                                      inline
+                                      label={
+                                        <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
+                                      }
+                                    >
+                                      <div className='bg-yellow-50'>
+                                        <Dropdown.Header>
+                                          <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
+                                          <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
+                                        </Dropdown.Header>
+                                        <Link to='/profile'>
+                                          <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
+                                        </Link>
+                                          <Dropdown.Divider />
+                                          <Dropdown.Item icon={HiLogout} onClick={handleLogOut} >Log out</Dropdown.Item>
+                                      </div>
+                                    </Dropdown>
+                                </>
+                              ) : (
+                                <>
+                                  <Link to='/profile'>
+                                    <lord-icon
+                                      src="https://cdn.lordicon.com/dxjqoygy.json"
+                                      trigger="hover"
+                                      target="log-reg"
+                                      colors="primary:#f3e8cc,secondary:#f3e8cc"
+                                      stroke="60"
+                                      style={{ width: '40px', height: '40px' }}
+                                    ></lord-icon>
+                                    <p className='text-black px-2 rounded-full bg-[#f3e8cc] py-1'>Sign Up</p>
+                                  </Link>
+                                </>
+                              )}
+                      </div>
               </div>
             </div>
           </div>
         </div>
-</Navbar>
+    </nav>
       
 
   );

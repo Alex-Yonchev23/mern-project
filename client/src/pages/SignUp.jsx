@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import '../styles/login-signup.css';
-import OAuth from '../components/OAuth/OAuth';
 import { errorMessage, successMessage } from '../components/message/ToastMessage';
 import { useDispatch, useSelector } from 'react-redux'; 
 import LoadingSpinner from '../components/loading/Loading';
@@ -11,14 +10,12 @@ import { setLoading } from '../redux/user/userSlice';
 
 
 const SignUp = () => {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user.loading);
-
-
 
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -65,10 +62,9 @@ const SignUp = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const NavBarHeight = 120;
 
   return (
-    <div className="flex flex-col h-screen justify-center items-center" style={{ height: `calc(100vh - ${NavBarHeight}px)` }}>
+    <div className="grid place-items-center min-h-screen">
       <div className="user_options-container relative xl:w-2/3 md:w-9/12 max-md:hidden rounded-md border-1 border-yellow-400 border-solid bg-[#000000d1]">
         <div className="bg-panel flex justify-between w-full rounded-md p-4 ">
           <div className="w-1/2 text-white font-light xl:p-8 md:p-3">
@@ -97,7 +93,7 @@ const SignUp = () => {
                   <div className="relative mb-7">
                     <input
                       type="text"
-                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
                       maxLength="30"
                       name="firstName"
                       id="sign-up-fname"
@@ -111,7 +107,7 @@ const SignUp = () => {
                   <div className="relative mb-7">
                     <input
                       type="text"
-                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
                       maxLength="30"
                       name="lastName"
                       id="sign-up-lname"
@@ -125,7 +121,7 @@ const SignUp = () => {
                   <div className="relative mb-7">
                     <input
                       type="text"
-                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
                       maxLength="50"
                       name="email"
                       id="email-sign-up"
@@ -139,7 +135,7 @@ const SignUp = () => {
                   <div className="relative mb-3">
                     <input
                       type={passwordVisible ? 'text' : 'password'}
-                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                      className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
                       maxLength="128"
                       name="password"
                       id="sign-up-password"
@@ -157,7 +153,7 @@ const SignUp = () => {
                     />
                   </div>
                   <div className="flex justify-center ">
-                    <button type="submit" value="Submit" className='rounded-full select-none text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-600 transition-all duration-300 ease-in-out px-4 py-2 relative' disabled={loading}>                     
+                    <button type="submit" value="Submit" className='main-btn select-none rounded-md w-full text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-500 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>                     
                       Sign Up
                     </button>
                   </div>

@@ -133,8 +133,8 @@ export default function Profile() {
 }
   
   return (
-    <div className="grid place-items-center h-screen"  style={{ height: `calc(100vh - ${160}px)`}}>
-      <div className="flex flex-col justify-center mt-4 p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
+    <div className="grid place-items-center min-h-screen">
+      <div className="flex flex-col justify-center p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
         Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
       </h1>        
@@ -217,8 +217,8 @@ export default function Profile() {
         </div>
 
         <div className="flex justify-between mt-4"> 
-          <span onClick={handleDeleteAccount} className="text-yellow-400 cursor-pointer raleway text-nowrap	">Delete account</span>
-          <span onClick={handleLogOut} className="cursor-pointer beige raleway text-nowrap	">Log out</span>
+          <span onClick={handleDeleteAccount} className="hover:text-red-700 beige cursor-pointer raleway text-nowrap transition-all">Delete account</span>
+          <span onClick={handleLogOut} className="cursor-pointer beige raleway text-nowrap	hover:opacity-50 transition-all">Log out</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>

@@ -66,7 +66,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
               <div className="relative mb-6">
                 <input
                   type="text"
-                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
                   maxLength="50"
                   name="email"
                   id="email-log-in"
@@ -80,7 +80,7 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
               <div className="relative mb-6">
                 <input
                   type={passwordVisible ? 'text' : 'password'}
-                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5"
+                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
                   maxLength="128"
                   name="password"
                   id="log-in-password"

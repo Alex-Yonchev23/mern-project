@@ -64,16 +64,11 @@
     border-bottom: 1px solid #333;
     font-family: "Raleway", sans-serif;
     letter-spacing: .1rem;
-    transition: border-color, box-shadow .2s ease-in-out;
-    background-color: transparent;
+    transition: border-color, box-shadow .5s ease-in-out;
   }
 
   .error-bar {
     border-bottom: 1px solid red;
-  }
-
-  .forms_field-input:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 1000px beige inset !important;
   }
 
   .forms_field-input:focus ~ .labels,
