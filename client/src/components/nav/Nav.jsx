@@ -10,8 +10,6 @@ import { Dropdown,Navbar } from 'flowbite-react';
 import { HiLogout, HiViewGrid } from 'react-icons/hi';
 import { logOut} from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
-import CloseButton from 'react-bootstrap/CloseButton';
-
 
 export default function Nav() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -26,20 +24,7 @@ export default function Nav() {
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
-  useEffect(() => {
-    document.body.style.paddingTop = `${document.querySelector('.navbar').offsetHeight}px`;
-
-    const handleResize = () => {
-      document.body.style.paddingTop = `${document.querySelector('.navbar').offsetHeight}px`;
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  
   const handleLogOut = async () => {
     try {
       await fetch('/server/auth/log-out');
@@ -50,14 +35,14 @@ export default function Nav() {
 }
 
   return (
-    <nav className='navbar navbar-expand-lg fixed-top z-1 select-none '>
+    <nav className='navbar navbar-expand-lg select-none min-h-full'>
       <button className='navbar-toggler shadow-none border-0 ms-auto beige' type='button' onClick={toggleSidebar}>
         <span className='navbar-toggler-icon'></span> 
       </button>
 
       <div className={`sidebar offcanvas offcanvas-start ${showSidebar ? 'show' : ''} transition-all ease-in-out duration-500`} id='offcanvasNavbar'>
-        <div className="offcanvas-header text-white border-bottom flex justify-between">
-          <h1 className="offcanvas-title fs-4 beige" id="offcanvasNavbarLabel">Ironic </h1>
+        <div className="offcanvas-header border-bottom flex justify-between">
+          <h1 className="offcanvas-title fs-4 beige" id="offcanvasNavbarLabel">Ironic</h1>
           <div className='flex jusify-center font-bold'>
               {currentUser ? (
                           <>
@@ -65,11 +50,11 @@ export default function Nav() {
                               <Dropdown
                                 arrowIcon={false}
                                 inline
+                                className='bg-yellow-50'
                                 label={
                                   <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
                                 }
                               >
-                                <div className='bg-yellow-50'>
                                   <Dropdown.Header>
                                     <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                     <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
@@ -79,7 +64,6 @@ export default function Nav() {
                                   </Link>
                                     <Dropdown.Divider />
                                     <Dropdown.Item icon={HiLogout} onClick={handleLogOut} >Log out</Dropdown.Item>
-                                </div>
                               </Dropdown>
                           </>
                         ) : (
@@ -154,11 +138,11 @@ export default function Nav() {
                                     <Dropdown
                                       arrowIcon={false}
                                       inline
+                                      className='bg-yellow-50'
                                       label={
                                         <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
                                       }
                                     >
-                                      <div className='bg-yellow-50'>
                                         <Dropdown.Header>
                                           <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                           <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
@@ -168,7 +152,6 @@ export default function Nav() {
                                         </Link>
                                           <Dropdown.Divider />
                                           <Dropdown.Item icon={HiLogout} onClick={handleLogOut} >Log out</Dropdown.Item>
-                                      </div>
                                     </Dropdown>
                                 </>
                               ) : (

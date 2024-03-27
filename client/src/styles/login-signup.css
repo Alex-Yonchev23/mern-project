@@ -52,7 +52,7 @@
 
   .main-btn:hover{
     color: var(--dark-golden);
-    background-color: rgb(245, 245, 220);
+    background-color: rgba(245, 245, 220,0.90);
     box-shadow: 0px 0px 15px 1px rgb(212, 175, 55, 0.75) ;
   }
 

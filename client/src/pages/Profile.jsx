@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectCurrentUser } from '../redux/user/userSlice';
+import { selectCurrentUser, setLoading } from '../redux/user/userSlice';
 import React,{ useEffect, useRef, useState } from "react";
 import { getDownloadURL, getStorage, uploadBytesResumable, ref } from "firebase/storage";
 import { app } from "../firebase";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { updateUserError, updateUserStart ,updateUserSuccess,deleteUserError,deleteUserStart,deleteUserSuccess ,logOut} from "../redux/user/userSlice";
 import LoadingSpinner from "../components/loading/Loading";
 import { Tooltip } from 'flowbite-react';
+import { Link } from "react-router-dom";
 
 
 export default function Profile() {
@@ -133,8 +134,8 @@ export default function Profile() {
 }
   
   return (
-    <div className="grid place-items-center min-h-screen">
-      <div className="flex flex-col justify-center p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md shadow-2xl shadow-black border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
+    <div className="grid place-items-center min-h-screen	">
+      <div className="flex flex-col justify-center p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
       <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
         Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
       </h1>        
@@ -212,7 +213,16 @@ export default function Profile() {
               className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway"
               onChange={handleChange}
             />
-            <button type="submit" className="beige main-btn border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Update</button>
+            <button type="submit" className="beige main-btn border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
+              Update
+            </button>
+            {
+              currentUser.user.isAdmin && (
+                <Link to='/create-blogpost'>
+                  <button type="button" className="w-full beige main-btn border-1 border-solid border-yellow-100 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Create BlogPost</button>
+                </Link>
+              )
+            }
           </form>
         </div>
 

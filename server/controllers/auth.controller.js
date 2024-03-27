@@ -130,7 +130,7 @@
   
       const expiresIn = remember_me ? '3d' : '1h';
   
-      const token = jwt.sign({ _id: validUser._id }, process.env.JWT_SECRET, { expiresIn });
+      const token = jwt.sign({ _id: validUser._id, isAdmin:validUser.isAdmin  }, process.env.JWT_SECRET, { expiresIn });
       const { password: hashedPassword, ...rest } = validUser._doc;
   
       const cookieOptions = {
@@ -159,7 +159,7 @@
     try {
       const user = await User.findOne({email: req.body.email});
       if(user) {
-        const token = jwt.sign({ id: user._id}, process.env.JWT_SECRET);
+        const token = jwt.sign({ id: user._id, isAdmin:user.isAdmin }, process.env.JWT_SECRET);
 
         const { password: hashedPassword, ...rest } = user._doc;
         const expiryDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); 

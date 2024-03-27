@@ -64,7 +64,7 @@ const SignUp = () => {
 
 
   return (
-    <div className="grid place-items-center min-h-screen">
+    <div className="grid place-items-center"  style={{ height: `calc(100vh - ${110}px)`}}>
       <div className="user_options-container relative xl:w-2/3 md:w-9/12 max-md:hidden rounded-md border-1 border-yellow-400 border-solid bg-[#000000d1]">
         <div className="bg-panel flex justify-between w-full rounded-md p-4 ">
           <div className="w-1/2 text-white font-light xl:p-8 md:p-3">

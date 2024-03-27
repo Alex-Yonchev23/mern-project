@@ -13,6 +13,8 @@ import ToastMessage from './components/message/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/footer/Footer';
 import 'flowbite';
+import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
+import CreateBlogpost from './pages/CreateBlogpost';
 
 
 export default function App() {
@@ -25,6 +27,9 @@ export default function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute/>}>
           <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route element={<OnlyAdminPrivateRoute/>}>
+          <Route path="/create-blogpost" element={<CreateBlogpost/>} />
         </Route>
         <Route path="/about-us" element={<About />} />
         <Route path="/services" element={<Services />} />

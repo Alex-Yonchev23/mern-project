@@ -55,6 +55,7 @@ const ToastMessage = () => {
       draggable
       pauseOnHover
       theme="dark"
+      font="bold"
     />
   );
 };

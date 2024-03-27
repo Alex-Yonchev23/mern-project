@@ -59,7 +59,7 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow-x: hidden;
-    height: 100%;
+    height: 100vh;
 }
 
 button {
@@ -97,4 +97,17 @@ button {
 
 .forms_field-input:-webkit-autofill{
     -webkit-box-shadow: 0 0 0 1000px beige inset ;
-  }
+}
+
+.ql-editor{
+    font-size: 1rem;
+}
+
+.ql-container{
+    background-color: beige;
+}
+
+.ql-toolbar{
+    background: beige;
+}
+
