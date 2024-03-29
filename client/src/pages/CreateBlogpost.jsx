@@ -153,6 +153,7 @@ export default function CreatePost() {
               alt='Add Image'
               className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none'
               onClick={handleImageClick}
+              draggable={false}
             />
             <button
               type='button'
