@@ -35,7 +35,7 @@ export default function Nav() {
 }
 
   return (
-    <nav className='navbar navbar-expand-lg select-none min-h-full'>
+    <nav className='navbar navbar-expand-lg select-none sticky top-0 z-1'>
       <button className='navbar-toggler shadow-none border-0 ms-auto beige' type='button' onClick={toggleSidebar}>
         <span className='navbar-toggler-icon'></span> 
       </button>

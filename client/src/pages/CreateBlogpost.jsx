@@ -25,10 +25,13 @@ export default function CreateBlogpost() {
   )
 }
 */
-import React, { useState } from 'react';
-import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
+import React, { useState, useRef } from 'react';
+import { Alert, Button, FileInput, Select } from 'flowbite-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { errorMessage, successMessage, infoMessage } from '../components/message/ToastMessage';
+import add_image from '../images/add-image.png';
+
 import {
   getDownloadURL,
   getStorage,
@@ -43,18 +46,16 @@ import { useNavigate } from 'react-router-dom';
 export default function CreatePost() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
-  const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
-
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const handleUploadImage = async () => {
     try {
       if (!file) {
-        setImageUploadError('Please select an image');
+        infoMessage('Please select an image');
         return;
       }
-      setImageUploadError(null);
       const storage = getStorage(app);
       const fileName = new Date().getTime() + '-' + file.name;
       const storageRef = ref(storage, fileName);
@@ -67,19 +68,18 @@ export default function CreatePost() {
           setImageUploadProgress(progress.toFixed(0));
         },
         (error) => {
-          setImageUploadError('Image upload failed');
+          errorMessage('Image upload failed');
           setImageUploadProgress(null);
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImageUploadProgress(null);
-            setImageUploadError(null);
             setFormData({ ...formData, image: downloadURL });
           });
         }
       );
     } catch (error) {
-      setImageUploadError('Image upload failed');
+      errorMessage('Image upload failed');
       setImageUploadProgress(null);
       console.log(error);
     }
@@ -97,91 +97,101 @@ export default function CreatePost() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setPublishError(data.message);
+        errorMessage(data.message);
         return;
       }
       if (res.ok) {
-        setPublishError(null);
+        successMessage(data.message);
         navigate(`/post/${data.slug}`);
       }
     } catch (error) {
-      setPublishError('Something went wrong');
+      errorMessage('Something went wrong');
     }
   };
 
-  return (
-    <div className='grid items-center min-h-screen'>
-        <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid  bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20'>
-        <h1 className='beige text-2xl md:text-3xl text-center mb-6'>Create Blogpost</h1>
-        <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
-            <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-            <input
-                type="text"
-                id="title"
-                value={formData.title}
-                placeholder="Title"
-                maxLength="30"
-                className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid border-yellow-50 beige rounded-lg py-2 px-3 raleway w-full sm:w-3/4"
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                />
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
 
-            <Select
-                onChange={(e) =>
-                setFormData({ ...formData, category: e.target.value })
-                }
-            >
-                <option value='uncategorized' className='raleway'>Select a category</option>
-                <option value='Metal Sculptures' className='raleway'>Metal Sculptures</option>
-                <option value='Welding' className='raleway'>Welding</option>
-                <option value='Services' className='raleway'>Services</option>
-            </Select>
-            </div>
-            <div className='flex gap-4 items-center justify-between border-2 rounded-md border-yellow-400 border-dashed p-3'>
-            <FileInput
-                type='file'
-                accept='image/*'
-                onChange={(e) => setFile(e.target.files[0])}
+  return (
+    <div className='grid items-center min-h-screen' >
+      <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 '>
+        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Create Blogpost</h1>
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
+          <div className='flex flex-col gap-4 sm:flex-row justify-between'>
+            <input
+              type="text"
+              id="title"
+              value={formData.title}
+              placeholder="Title"
+              maxLength="30"
+              className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid border-yellow-50 beige rounded-lg py-2 px-3 raleway w-full sm:w-3/4"
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             />
-            <Button
-                type='button'
-                size='sm'
-                outline
-                onClick={handleUploadImage}
-                disabled={imageUploadProgress}
+            <select
+              className='bg-transparent beige focus:ring-0 border rounded-md'
+              onChange={(e) =>
+                setFormData({ ...formData, category: e.target.value })
+              }
             >
-                {imageUploadProgress ? (
+              <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
+              <option value='Metal Sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
+              <option value='Welding' className='raleway bg-yellow-50 text-black'>Welding</option>
+              <option value='Services' className='raleway bg-yellow-50 text-black'>Services</option>
+            </select>
+          </div>
+          <div className='flex gap-4 items-center justify-between border-2 rounded-md border-yellow-400 border-dashed p-3'>
+            <input
+              ref={fileInputRef}
+              type='file'
+              accept='image/*'
+              className='hidden'
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <img
+              src={add_image}
+              alt='Add Image'
+              className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none'
+              onClick={handleImageClick}
+            />
+            <button
+              type='button'
+              className='beige main-btn border border-solid border-yellow-100 rounded-md px-3 py-2'
+              onClick={handleUploadImage}
+              disabled={imageUploadProgress}
+            >
+              {imageUploadProgress ? (
                 <div className='w-16 h-16'>
-                    <CircularProgressbar
+                  <CircularProgressbar
                     value={imageUploadProgress}
                     text={`${imageUploadProgress || 0}%`}
-                    />
+                  />
                 </div>
-                ) : (
+              ) : (
                 'Upload Image'
-                )}
-            </Button>
-            </div>
-            {imageUploadError && <Alert color='failure'>{imageUploadError}</Alert>}
+              )}
+            </button>
+          </div>
             {formData.image && (
-            <img
+              <img
                 src={formData.image}
                 alt='upload'
-                className='w-full h-96 object-cover rounded-md'
-            />
+                className='w-full max-h-96 h-full object-contain rounded-md '
+              />
             )}
 
-                <ReactQuill 
-                    placeholder='Type something...'
-                    className='h-48 mb-12'
-                    onChange={(value) => {
-                        setFormData({ ...formData, content: value });
-                    }}>
-                </ReactQuill>
-            <button type="submit" className="main-btn beige border-1 border-solid  border-yellow-50  rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
-              Publish
-            </button>
+          <ReactQuill
+            placeholder='Type something...'
+            className='h-48 mb-12'
+            onChange={(value) => {
+              setFormData({ ...formData, content: value });
+            }}>
+          </ReactQuill>
+          <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50  rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
+            Publish
+          </button>
         </form>
-        </div>
+      </div>
     </div>
   );
 }
