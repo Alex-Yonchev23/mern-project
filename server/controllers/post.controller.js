@@ -2,6 +2,11 @@ import Post from '../models/post.model.js';
 import { errorHandler } from '../utils/error.js'
 
 export const create = async (req,res,next) => {
+    const existingPost = await Post.findOne({ title: req.body.title });
+        if (existingPost) {
+            return next(errorHandler(400, 'A post with this title already exists.'));
+        }
+
     if(!req.user.isAdmin){
         return next(errorHandler(400, 'You are not allowed to create a blog post!'));
     }
@@ -16,11 +21,15 @@ export const create = async (req,res,next) => {
     const newPost = new Post({
         ...req.body,
         slug,
-        creatorId: req.user._id,
-    });
+        creatorId: req.user.id,
+    });        
+
     try {
         const savedPost = await newPost.save();
-        res.status(200).json(savedPost)
+        res.status(200).json({ 
+            message: 'Blog post created successfully', 
+            post: savedPost 
+        });
     } catch (error) {
         next(error);
     }

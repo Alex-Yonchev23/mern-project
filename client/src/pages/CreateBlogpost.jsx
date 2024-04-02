@@ -26,7 +26,6 @@ export default function CreateBlogpost() {
 }
 */
 import React, { useState, useRef } from 'react';
-import { Alert, Button, FileInput, Select } from 'flowbite-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { errorMessage, successMessage, infoMessage } from '../components/message/ToastMessage';
@@ -46,7 +45,9 @@ import { useNavigate } from 'react-router-dom';
 export default function CreatePost() {
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    title: '',
+    });
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
@@ -68,7 +69,7 @@ export default function CreatePost() {
           setImageUploadProgress(progress.toFixed(0));
         },
         (error) => {
-          errorMessage('Image upload failed');
+          errorMessage(error.message);
           setImageUploadProgress(null);
         },
         () => {
@@ -79,7 +80,7 @@ export default function CreatePost() {
         }
       );
     } catch (error) {
-      errorMessage('Image upload failed');
+      errorMessage(error.message);
       setImageUploadProgress(null);
       console.log(error);
     }
@@ -87,8 +88,9 @@ export default function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await fetch('/server/user/post', {
+      const res = await fetch('/server/post/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,10 +104,11 @@ export default function CreatePost() {
       }
       if (res.ok) {
         successMessage(data.message);
-        navigate(`/post/${data.slug}`);
+        navigate(`/post/${data.post.slug}`);
       }
     } catch (error) {
       errorMessage('Something went wrong');
+      console.log(error);
     }
   };
 
@@ -134,7 +137,7 @@ export default function CreatePost() {
                 setFormData({ ...formData, category: e.target.value })
               }
             >
-              <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
+              <option value='Uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
               <option value='Metal Sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
               <option value='Welding' className='raleway bg-yellow-50 text-black'>Welding</option>
               <option value='Services' className='raleway bg-yellow-50 text-black'>Services</option>
@@ -151,7 +154,7 @@ export default function CreatePost() {
             <img
               src={add_image}
               alt='Add Image'
-              className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none'
+              className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none hover:opacity-80'
               onClick={handleImageClick}
               draggable={false}
             />
@@ -183,9 +186,10 @@ export default function CreatePost() {
 
           <ReactQuill
             placeholder='Type something...'
-            className='h-48 mb-12'
-            onChange={(value) => {
-              setFormData({ ...formData, content: value });
+            className='h-48 mb-12 raleway'
+            onChange={
+              (value) => {
+                setFormData({ ...formData, content: value });
             }}>
           </ReactQuill>
           <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50  rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">

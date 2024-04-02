@@ -60,18 +60,15 @@ export const updateUser = async (req, res, next) => {
     }
 
     try {
-        // Check when the last update was made
         const user = await User.findById(req.params.id);
         const lastUpdate = new Date(user.updatedAt);
         const now = new Date();
 
-        // Calculate the time difference in milliseconds
         const timeDiffInMillis = now - lastUpdate;
 
-        // Calculate the time left until the user can update again (in milliseconds)
         const timeLeftInMillis = 24 * 60 * 60 * 1000 - timeDiffInMillis; // One day in milliseconds
 
-        /*
+        
         if (timeDiffInMillis < 24 * 60 * 60 * 1000) {
             const { hours, minutes } = dateDiffInHoursMinutes(timeLeftInMillis, 0);
             return res.status(400).json({
@@ -79,7 +76,7 @@ export const updateUser = async (req, res, next) => {
                 message: `You can update your information again in ${hours} hours and ${minutes} minutes.`,
                 timeLeft: { hours, minutes } // Adding time left information
             });
-        } */
+        } 
 
         const { firstName, lastName, password } = req.body;
 
