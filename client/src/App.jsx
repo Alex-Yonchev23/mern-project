@@ -8,18 +8,21 @@ import Nav from './components/nav/Nav';
 import Services from './pages/Services';
 import Gallery from './pages/Gallery';
 import ContactUs from './pages/ContactUs';
+import ScrollToTop from './components/scroll/ScrollToTop';
+
 import Blog from './pages/Blog';
 import ToastMessage from './components/message/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/footer/Footer';
 import 'flowbite';
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
-import CreateBlogpost from './pages/CreateBlogpost';
+import CreateBlogpost from './components/createBlog/CreateBlogpost';
 
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Nav />
       <Routes>  
         <Route path="/" element={<Home />} />

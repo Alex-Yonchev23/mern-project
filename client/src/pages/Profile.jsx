@@ -134,11 +134,12 @@ export default function Profile() {
 }
   
   return (
-    <div className="grid place-items-center" style={{ height: `calc(100vh - ${110}px)`}}>
+    <div className="flex items-center justify-center min-h-screen"  style={{ height: `calc(100vh - ${110}px)`}}>
       <div className="flex flex-col justify-center p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3 xl:w-2/6	big-shadow">
-      <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
-        Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
-      </h1>        
+        <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
+          Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
+        </h1>        
+
         <div className="flex items-center justify-center">
           <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:w-9/12 w-full">
             <input 
