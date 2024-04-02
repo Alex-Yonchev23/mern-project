@@ -5,8 +5,8 @@ import '../styles/login-signup.css';
 import { useNavigate } from 'react-router-dom';
 import { logInStart,logInSuccess,logInError } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import OAuth from '../components/OAuth/OAuth';
-import { errorMessage, successMessage } from '../components/message/ToastMessage';
+import OAuth from '../components/OAuth';
+import { errorMessage, successMessage } from '../components/ToastMessage';
 
 
 const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {

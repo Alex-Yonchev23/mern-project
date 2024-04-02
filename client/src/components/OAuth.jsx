@@ -1,9 +1,9 @@
 import React from 'react'
 import { GoogleAuthProvider, getAuth, signInWithPopup  } from 'firebase/auth';
-import { app } from '../../firebase';
+import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
-import { logInSuccess } from '../../redux/user/userSlice';
-import { errorMessage, successMessage } from '../message/ToastMessage'; 
+import { logInSuccess } from '../redux/user/userSlice';
+import { errorMessage, successMessage } from './ToastMessage'; 
 import { useNavigate } from 'react-router-dom';
 
 export default function OAuth() {            

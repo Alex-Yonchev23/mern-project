@@ -1,14 +1,13 @@
-import './nav.css';
+import '../styles/nav.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
-import logo from '../../images/i-logo.png';
-import "../../images/avatar.png";
+import logo from '../images/i-logo.png';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../redux/user/userSlice';
-import { Dropdown,Navbar } from 'flowbite-react';
+import { selectCurrentUser } from '../redux/user/userSlice';
+import { Dropdown } from 'flowbite-react';
 import { HiLogout, HiViewGrid } from 'react-icons/hi';
-import { logOut} from "../../redux/user/userSlice";
+import { logOut} from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
 export default function Nav() {
@@ -52,14 +51,14 @@ export default function Nav() {
                                 inline
                                 className='bg-yellow-50'
                                 label={
-                                  <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
+                                  <img src={userAvatar} alt="User Avatar"  draggable={false}  className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
                                 }
                               >
                                   <Dropdown.Header>
                                     <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                     <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
                                   </Dropdown.Header>
-                                  <Link to='/profile'>
+                                  <Link to='/dashboard'>
                                     <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                                   </Link>
                                     <Dropdown.Divider />
@@ -68,7 +67,7 @@ export default function Nav() {
                           </>
                         ) : (
                           <>
-                            <Link to='/profile'>
+                            <Link to='/dashboard'>
                               <lord-icon
                                 src="https://cdn.lordicon.com/dxjqoygy.json"
                                 trigger="hover"
@@ -140,14 +139,14 @@ export default function Nav() {
                                       inline
                                       className='bg-yellow-50'
                                       label={
-                                        <img src={userAvatar} alt="User Avatar" className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
+                                        <img src={userAvatar} alt="User Avatar" draggable={false} className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
                                       }
                                     >
                                         <Dropdown.Header>
                                           <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                           <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
                                         </Dropdown.Header>
-                                        <Link to='/profile'>
+                                        <Link to='/dashboard'>
                                           <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                                         </Link>
                                           <Dropdown.Divider />
@@ -156,7 +155,7 @@ export default function Nav() {
                                 </>
                               ) : (
                                 <>
-                                  <Link to='/profile'>
+                                  <Link to='/dashboard'>
                                     <lord-icon
                                       src="https://cdn.lordicon.com/dxjqoygy.json"
                                       trigger="hover"

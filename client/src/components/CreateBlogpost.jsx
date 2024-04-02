@@ -28,7 +28,7 @@ export default function CreateBlogpost() {
 import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { errorMessage, successMessage, infoMessage } from '../message/ToastMessage';
+import { errorMessage, successMessage, infoMessage } from './ToastMessage';
 import add_image from '../images/add-image.png';
 
 import {
@@ -37,7 +37,7 @@ import {
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
-import { app } from '../../firebase';
+import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
@@ -117,7 +117,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className='grid items-center min-h-screen' >
+    <div className='grid items-center min-h-screen w-full' >
       <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 '>
         <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Create Blogpost</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>

@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import LogIn from './LogIn';
 import '../styles/login-signup.css';
-import { errorMessage, successMessage } from '../components/message/ToastMessage';
+import { errorMessage, successMessage } from '../components/ToastMessage';
 import { useDispatch, useSelector } from 'react-redux'; 
-import LoadingSpinner from '../components/loading/Loading';
+import LoadingSpinner from '../components/Loading';
 import { setLoading } from '../redux/user/userSlice';
 
 

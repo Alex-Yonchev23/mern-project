@@ -3,20 +3,20 @@ import Home from './pages/Home';
 import About from './pages/AboutUs';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
-import Profile from './pages/Profile';
-import Nav from './components/nav/Nav';
+import Profile from './components/Profile';
+import Nav from './components/Nav';
 import Services from './pages/Services';
 import Gallery from './pages/Gallery';
 import ContactUs from './pages/ContactUs';
-import ScrollToTop from './components/scroll/ScrollToTop';
-
+import ScrollToTop from './components/ScrollToTop';
+import Dashboard from './pages/Dashboard';
 import Blog from './pages/Blog';
-import ToastMessage from './components/message/ToastMessage';
+import ToastMessage from './components/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
-import Footer from './components/footer/Footer';
+import Footer from './components/Footer';
 import 'flowbite';
 import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
-import CreateBlogpost from './components/createBlog/CreateBlogpost';
+import CreateBlogpost from './components/CreateBlogpost';
 
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute/>}>
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route element={<OnlyAdminPrivateRoute/>}>
           <Route path="/create-blogpost" element={<CreateBlogpost/>} />
