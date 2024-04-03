@@ -1,4 +1,6 @@
 import { Sidebar } from 'flowbite-react';
+import '../styles/dash-sidebar.css';
+
 import {
   HiUser,
   HiArrowSmRight,
@@ -37,9 +39,9 @@ export default function DashSidebar() {
 }
   
   return (
-    <Sidebar className='w-full mx-3 md:w-56 md:h-screen'>
-      <Sidebar.Items>
-        <Sidebar.ItemGroup className='flex flex-col gap-1'>
+    <Sidebar className='w-full md:w-56 md:mx-10 h-5/6'>
+      <Sidebar.Items >
+        <Sidebar.ItemGroup className='flex flex-col gap-1 '>
           {currentUser && currentUser.user.isAdmin && (
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item

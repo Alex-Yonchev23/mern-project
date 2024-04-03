@@ -186,7 +186,7 @@ export default function CreatePost() {
 
           <ReactQuill
             placeholder='Type something...'
-            className='h-48 mb-12 raleway'
+            className='h-48 mb-12 '
             onChange={
               (value) => {
                 setFormData({ ...formData, content: value });

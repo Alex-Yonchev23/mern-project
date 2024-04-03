@@ -1,6 +1,12 @@
-nav{
+.main-nav{
     background: linear-gradient( to bottom , rgba(0, 0, 0, 0),#0000007a,#000000ba,#00000080,#00000000) ;
 }
+
+.main-nav.scrolled {
+    background-color: black;
+    transition: background-color 0.3s ease;
+  }
+  
 
 .nav-item{
     position: relative;
@@ -11,7 +17,8 @@ nav{
     overflow: hidden;
     font-weight: 500;
     transition: all 0.2s ease-in-out;
-    font-weight: bold;    
+    font-weight: bold;   
+    padding: 2.4rem 0rem; 
 }
 
 

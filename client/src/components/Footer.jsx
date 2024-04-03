@@ -42,10 +42,10 @@ export default function FooterComponent() {
         <div className="w-full bg-black px-4 py-6 sm:flex sm:items-center sm:justify-between">
             <Footer.Copyright href="#" by="Ironic" year={new Date().getFullYear()} />
           <div className="flex space-x-6 max-sm:mt-4 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
-            <Footer.Icon href="#" icon={BsGithub} />
+            <Footer.Icon href="#" className="hover:text-yellow-50 transition-all duration-300" icon={BsFacebook} />
+            <Footer.Icon href="#" className="hover:text-yellow-50 transition-all duration-300" icon={BsInstagram} />
+            <Footer.Icon href="#" className="hover:text-yellow-50 transition-all duration-300" icon={BsTwitter} />
+            <Footer.Icon href="#" className="hover:text-yellow-50 transition-all duration-300" icon={BsGithub} />
           </div>
         </div>
       </div>
