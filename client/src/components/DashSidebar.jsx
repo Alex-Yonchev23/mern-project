@@ -8,6 +8,8 @@ import {
   HiOutlineUserGroup,
   HiAnnotation,
   HiChartPie,
+  HiOutlinePlusCircle,
+  
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -42,7 +44,6 @@ export default function DashSidebar() {
     <Sidebar className='w-full md:w-56 md:mx-10 h-5/6'>
       <Sidebar.Items >
         <Sidebar.ItemGroup className='flex flex-col gap-1 '>
-          {currentUser && currentUser.user.isAdmin && (
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
@@ -52,31 +53,50 @@ export default function DashSidebar() {
                 Dashboard
               </Sidebar.Item>
             </Link>
-          )}
+          
           <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
-              label={currentUser.user.isAdmin ? 'Admin' : 'User'}
+              label='Admin'
               labelColor='yellow'
               as='div'
             >
               Profile
             </Sidebar.Item>
           </Link>
-          {currentUser.user.isAdmin && (
-            <Link to='/dashboard?tab=create-post'>
+
+            <Sidebar.Collapse icon={HiOutlinePlusCircle} label="Create">
+                <Link to='/dashboard?tab=create-post'>
+                    <Sidebar.Item
+                    active={tab === 'create-post'}
+                    as='div'
+                    >
+                      Blog Post
+                    </Sidebar.Item>
+                </Link>
+                <Link to='/dashboard?tab=image-card'>
+                    <Sidebar.Item
+                    active={tab === 'image-card'}
+                    as='div'
+                    >
+                      Gallery Item
+                    </Sidebar.Item>
+                </Link>
+            </Sidebar.Collapse>
+            
+
+            <Link to='/dashboard?tab=posts'>
               <Sidebar.Item
-                active={tab === 'create-post'}
+                active={tab === 'posts'}
                 icon={HiDocumentText}
                 as='div'
               >
-                Posts
+                Posts 
               </Sidebar.Item>
             </Link>
-          )}
-          {currentUser.user.isAdmin && (
-            <>
+
+            
               <Link to='/dashboard?tab=users'>
                 <Sidebar.Item
                   active={tab === 'users'}
@@ -95,8 +115,7 @@ export default function DashSidebar() {
                   Comments
                 </Sidebar.Item>
               </Link>
-            </>
-          )}
+            
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'

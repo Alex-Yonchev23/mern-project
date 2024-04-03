@@ -1,30 +1,3 @@
-/*import React from 'react'
-import { TextInput,Select, FileInput } from 'flowbite-react'
-
-export default function CreateBlogpost() {
-  return (
-    <div className='p-3 max-w-3xl mx-auto min-h-screen rounded-md shadow-2xl shadow-black border-2 border-yellow-400 border-solid  bg-black/80 backdrop-blur-[1.5px] '>
-        <h1 className='beige text-center my-7 font-semibold fs-4'>Create a Blogpost</h1>
-        <form className='flex flex-col gap-4'>
-            <div className='flex flex-col gap-4 sm:flex-row justify-between'>
-                <TextInput type='text' placeholder='Title' required id="title"
-                 className='flex-1'/>
-                 <Select >
-                    <option value="uncategorized" className='raleway'>Select a category</option>
-                    <option value="welding" className='raleway'>Welding</option>
-                    <option value="metal sculptures" className='raleway'>Metal Scultures</option>
-                    <option value="services" className='raleway'>Services</option>
-                 </Select>
-                 <div className='flex gap-4 justify-between items-center border-4 border--teal-500 border-dotted p-3'>
-                    <FileInput type='button' accept='image/*'></FileInput>
-                    <button type="button" className="beige main-btn border-1 border-solid border-yellow-100 rounded-md px-2 py-2 uppercase tracking-[.1rem] select-none">Upload Image</button>
-                 </div>
-            </div>
-        </form>
-    </div>
-  )
-}
-*/
 import React, { useState, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';

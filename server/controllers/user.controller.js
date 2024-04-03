@@ -54,21 +54,29 @@ const isValidName = (name) => {
 
 
 export const updateUser = async (req, res, next) => {
-
-    if ((req.user.id || req.user._id)!== req.params.id) {
-        return next(errorHandler(201, 'Unauthorized'));
-    }
-
     try {
         const user = await User.findById(req.params.id);
-        const lastUpdate = new Date(user.updatedAt);
-        const now = new Date();
+        
+        // Check if the user is newly signed up
+        const isNewUser = (!user.createdAt || user.createdAt.toString() === user.updatedAt.toString());
 
+        // Check if the user making the request matches the user being updated
+        if ((req.user.id || req.user._id) !== req.params.id) {
+            return next(errorHandler(201, 'Unauthorized'));
+        }
+
+        const now = new Date();
+        const lastUpdate = new Date(user.updatedAt);
         const timeDiffInMillis = now - lastUpdate;
 
+        // If user is newly signed up, allow update immediately
+        if (isNewUser) {
+            return updateUserDetails(req, res, next);
+        }
+
+        // Otherwise, check time difference and allow update if more than 24 hours have passed
         const timeLeftInMillis = 24 * 60 * 60 * 1000 - timeDiffInMillis; // One day in milliseconds
 
-        
         if (timeDiffInMillis < 24 * 60 * 60 * 1000) {
             const { hours, minutes } = dateDiffInHoursMinutes(timeLeftInMillis, 0);
             return res.status(400).json({
@@ -76,14 +84,25 @@ export const updateUser = async (req, res, next) => {
                 message: `You can update your information again in ${hours} hours and ${minutes} minutes.`,
                 timeLeft: { hours, minutes } // Adding time left information
             });
-        } 
+        }
 
-        const { firstName, lastName, password } = req.body;
+        // If more than 24 hours have passed, allow update
+        return updateUserDetails(req, res, next);
 
+    } catch (error) {
+        console.error('Update User Error:', error);
+        next(error);
+    }
+};
+
+const updateUserDetails = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+        const { firstName, lastName, password, avatar } = req.body;
 
         const firstNameValidation = isValidName(firstName);
         if (firstNameValidation !== true) {
-            return res.status(201).json({
+            return res.status(400).json({
                 success: false,
                 message: firstNameValidation,
             });
@@ -91,47 +110,45 @@ export const updateUser = async (req, res, next) => {
 
         const lastNameValidation = isValidName(lastName);
         if (lastNameValidation !== true) {
-            return res.status(201).json({
+            return res.status(400).json({
                 success: false,
                 message: lastNameValidation,
             });
         }
-        
+
         if (password && !isPasswordValid(password)) {
-            return res.status(201).json({
+            return res.status(400).json({
                 success: false,
                 message: "Password must contain at least 8 characters, an uppercase letter, a lowercase letter, a digit, and a special symbol.",
             });
         }
 
-        
-
         const updatedFields = {};
-        if (req.body.firstName && req.body.firstName !== user.firstName) {
-            updatedFields.firstName = req.body.firstName;
+        if (firstName && firstName !== user.firstName) {
+            updatedFields.firstName = firstName;
         }
-        if (req.body.lastName && req.body.lastName !== user.lastName) {
-            updatedFields.lastName = req.body.lastName;
+        if (lastName && lastName !== user.lastName) {
+            updatedFields.lastName = lastName;
         }
-        if (req.body.password && req.body.password !== user.password) {
-            updatedFields.password = bcryptjs.hashSync(req.body.password, 10);
+        if (password && password !== user.password) {
+            updatedFields.password = bcryptjs.hashSync(password, 10);
         }
-        if (req.body.avatar && req.body.avatar !== user.avatar) {
-            updatedFields.avatar = req.body.avatar;
+        if (avatar && avatar !== user.avatar) {
+            updatedFields.avatar = avatar;
         }
-        
+
         if (password) {            
-            const isSamePassword = await bcryptjs.compare(req.body.password, user.password);
+            const isSamePassword = await bcryptjs.compare(password, user.password);
             if (isSamePassword) {
-                return res.status(201).json({
+                return res.status(400).json({
                     success: false,
                     message: "New password cannot be the same as the old one.",
                 });
             }
         }
-        
+
         if (Object.keys(updatedFields).length === 0) {
-            return res.status(201).json({
+            return res.status(400).json({
                 success: false,
                 message: 'No changes are made.',
             });
@@ -139,15 +156,13 @@ export const updateUser = async (req, res, next) => {
 
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
-            {
-                $set: updatedFields
-            },
+            { $set: updatedFields },
             { new: true }
         );
 
         if (updatedUser) {
             const { password: hashedPassword, ...rest } = updatedUser._doc;
-            return res.status(201).json({
+            return res.status(200).json({
                 success: true,
                 message: 'Updated successfully!',
                 user: rest,
@@ -163,6 +178,7 @@ export const updateUser = async (req, res, next) => {
         next(error);
     }
 };
+
 
 //--------------------------------------------------------------------------------------
 

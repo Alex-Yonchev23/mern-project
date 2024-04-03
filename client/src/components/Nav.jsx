@@ -33,21 +33,6 @@ export default function Nav() {
     }
 }
 
-const handleScroll = () => {
-  if (window.scrollY > 100) {
-    setIsScrolled(true);
-  } else {
-    setIsScrolled(false);
-  }
-};
-
-useEffect(() => {
-  window.addEventListener("scroll", handleScroll);
-  return () => {
-    window.removeEventListener("scroll", handleScroll);
-  };
-}, []);
-
   return (
     <nav className='navbar navbar-expand-lg select-none sticky top-0 z-1 main-nav'>
       <button className='navbar-toggler shadow-none border-0 ms-auto beige' type='button' onClick={toggleSidebar}>

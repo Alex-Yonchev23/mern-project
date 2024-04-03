@@ -219,8 +219,8 @@ export default function Profile() {
             </button>
             {
               currentUser.user.isAdmin && (
-                <Link to='/create-blogpost'>
-                  <button type="button" className="w-full beige main-btn border-1 border-solid border-yellow-100 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Create BlogPost</button>
+                <Link to='/dashboard?tab=create-post'>
+                  <button type="button" className="w-full beige main-btn border-1 border-solid border-yellow-100 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">New Blog Post</button>
                 </Link>
               )
             }

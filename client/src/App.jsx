@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import About from './pages/AboutUs';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
-import Profile from './components/Profile';
 import Nav from './components/Nav';
 import Services from './pages/Services';
 import Gallery from './pages/Gallery';
@@ -15,8 +14,6 @@ import ToastMessage from './components/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/Footer';
 import 'flowbite';
-import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute';
-import CreateBlogpost from './components/CreateBlogpost';
 
 
 export default function App() {
@@ -29,10 +26,7 @@ export default function App() {
         <Route path="/log-in" element={<LogIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute/>}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route element={<OnlyAdminPrivateRoute/>}>
-          <Route path="/create-blogpost" element={<CreateBlogpost/>} />
+          <Route path="/dashboard" element={<Dashboard />} /> 
         </Route>
         <Route path="/about-us" element={<About />} />
         <Route path="/services" element={<Services />} />
