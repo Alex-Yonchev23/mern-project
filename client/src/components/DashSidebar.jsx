@@ -1,5 +1,6 @@
 import { Sidebar } from 'flowbite-react';
 import '../styles/dash-sidebar.css';
+import { HiMiniMinusSmall } from "react-icons/hi2";
 
 import {
   HiUser,
@@ -9,9 +10,10 @@ import {
   HiAnnotation,
   HiChartPie,
   HiOutlinePlusCircle,
+  HiOutlineMinusSm
   
 } from 'react-icons/hi';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -41,8 +43,9 @@ export default function DashSidebar() {
 }
   
   return (
-    <Sidebar className='w-full md:w-56 md:mx-10 h-5/6'>
-      <Sidebar.Items >
+    <div className='md:sticky md:top-28'>
+    <Sidebar className='w-full md:w-56 md:mx-10 '>
+      <Sidebar.Items className=''>
         <Sidebar.ItemGroup className='flex flex-col gap-1 '>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
@@ -65,11 +68,11 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
-
             <Sidebar.Collapse icon={HiOutlinePlusCircle} label="Create">
                 <Link to='/dashboard?tab=create-post'>
                     <Sidebar.Item
                     active={tab === 'create-post'}
+                    icon={HiMiniMinusSmall}
                     as='div'
                     >
                       Blog Post
@@ -78,6 +81,8 @@ export default function DashSidebar() {
                 <Link to='/dashboard?tab=image-card'>
                     <Sidebar.Item
                     active={tab === 'image-card'}
+                    icon={HiMiniMinusSmall }
+
                     as='div'
                     >
                       Gallery Item
@@ -126,5 +131,6 @@ export default function DashSidebar() {
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
+    </div>
   );
 }

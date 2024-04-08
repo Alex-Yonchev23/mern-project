@@ -6,7 +6,7 @@ import '../styles/login-signup.css';
 import { errorMessage, successMessage } from '../components/ToastMessage';
 import { useDispatch, useSelector } from 'react-redux'; 
 import LoadingSpinner from '../components/Loading';
-import { setLoading } from '../redux/user/userSlice';
+import { selectLoading,setLoading } from '../redux/user/userSlice';
 
 
 const SignUp = () => {
@@ -15,7 +15,7 @@ const SignUp = () => {
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.user.loading);
+  const loading = useSelector(selectLoading);
 
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

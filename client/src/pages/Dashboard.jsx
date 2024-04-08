@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import Profile from '../components/Profile';
+import DashPosts from '../components/DashPosts';
 import CreatePost from '../components/CreateBlogpost';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../redux/user/userSlice';
@@ -23,10 +24,10 @@ export default function Dashboard() {
 
   
   return (
-    <div className='min-h-screen flex flex-col md:flex-row '>
+    <div className='min-h-screen min-w-screen flex flex-col md:flex-row  max-h-5/6'>
       {
               currentUser.user.isAdmin && (
-                <div className='lg:w-56 flex items-center '>
+                <div className='my-10'>
                   {/* Sidebar */}
                   <DashSidebar />
                 </div>
@@ -35,8 +36,10 @@ export default function Dashboard() {
       
       {/* profile... */}
       {tab === 'profile' && <Profile />}
-      {/* posts... */}
+      {/* create post... */}
       {currentUser.user.isAdmin && tab === 'create-post' && <CreatePost />}
+      {/* posts... */}
+      {currentUser.user.isAdmin && tab === 'posts' && <DashPosts />}
       {/* users */}
       {/*tab === 'users' && <DashUsers />*/}
       {/* comments  */}

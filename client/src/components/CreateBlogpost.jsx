@@ -91,7 +91,7 @@ export default function CreatePost() {
 
   return (
     <div className='grid items-center min-h-screen w-full' >
-      <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 '>
+      <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 max-md:mx-3'>
         <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Create Blogpost</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -110,10 +110,10 @@ export default function CreatePost() {
                 setFormData({ ...formData, category: e.target.value })
               }
             >
-              <option value='Uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
-              <option value='Metal Sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
-              <option value='Welding' className='raleway bg-yellow-50 text-black'>Welding</option>
-              <option value='Services' className='raleway bg-yellow-50 text-black'>Services</option>
+              <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
+              <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
+              <option value='welding' className='raleway bg-yellow-50 text-black'>Welding</option>
+              <option value='services' className='raleway bg-yellow-50 text-black'>Services</option>
             </select>
           </div>
           <div className='flex gap-4 items-center justify-between border-2 rounded-md border-yellow-400 border-dashed p-3'>
@@ -165,7 +165,7 @@ export default function CreatePost() {
                 setFormData({ ...formData, content: value });
             }}>
           </ReactQuill>
-          <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50  rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
+          <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
             Publish
           </button>
         </form>
