@@ -89,3 +89,20 @@ export const getPosts = async (req, res, next) => {
         
     }
 }
+
+
+export const deletepost = async (req, res, next) => {
+    if(!req.user.isAdmin || req.user.id !== req.params.creatorId){
+        return next(errorHandler(403, 'Unauthorized'));
+    }
+
+    try {
+        await Post.findByIdAndDelete(req.params.postId);
+        res.status(200).json({
+            success: true,
+            message: 'Blog post deleted successfully',
+        });
+    } catch (error) {
+        next(error);
+    }
+}
