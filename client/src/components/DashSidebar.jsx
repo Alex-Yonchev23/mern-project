@@ -46,7 +46,7 @@ export default function DashSidebar() {
     <div className='md:sticky md:top-28'>
     <Sidebar className='w-full md:w-56 md:mx-10 '>
       <Sidebar.Items className=''>
-        <Sidebar.ItemGroup className='flex flex-col gap-1 '>
+        <Sidebar.ItemGroup className='flex flex-col gap-1 p-0 my-4'>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
@@ -82,7 +82,6 @@ export default function DashSidebar() {
                     <Sidebar.Item
                     active={tab === 'image-card'}
                     icon={HiMiniMinusSmall }
-
                     as='div'
                     >
                       Gallery Item

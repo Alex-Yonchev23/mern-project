@@ -28,6 +28,7 @@ export default function App() {
         <Route element={<PrivateRoute/>}>
           <Route path="/dashboard" element={<Dashboard />} /> 
         </Route>
+        {/*<Route path="/post/:slug" component={PostDetail} />*/}
         <Route path="/about-us" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery />} />

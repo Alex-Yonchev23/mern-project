@@ -24,10 +24,10 @@ export default function Dashboard() {
 
   
   return (
-    <div className='min-h-screen min-w-screen flex flex-col md:flex-row  max-h-5/6'>
+    <div className='flex flex-col md:flex-row'>
       {
               currentUser.user.isAdmin && (
-                <div className='my-10'>
+                <div className='md:my-10 '>
                   {/* Sidebar */}
                   <DashSidebar />
                 </div>
