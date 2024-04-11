@@ -1,6 +1,7 @@
 import { Sidebar } from 'flowbite-react';
 import '../styles/dash-sidebar.css';
 import { HiMiniMinusSmall } from "react-icons/hi2";
+import { selectCurrentUser, setLoading } from '../redux/user/userSlice';
 
 import {
   HiUser,
@@ -23,8 +24,9 @@ import { logOut } from "../redux/user/userSlice";
 export default function DashSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+  const currentUser = useSelector(selectCurrentUser);
   const [tab, setTab] = useState('');
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get('tab');
@@ -43,10 +45,10 @@ export default function DashSidebar() {
 }
   
   return (
-    <div className='md:sticky md:top-28'>
+    <div className='md:sticky md:top-28 mb-2'>
     <Sidebar className='w-full md:w-56 md:mx-10 '>
       <Sidebar.Items className=''>
-        <Sidebar.ItemGroup className='flex flex-col gap-1 p-0 my-4'>
+        <Sidebar.ItemGroup className='flex flex-col gap-1 p-0 my-4 '>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}

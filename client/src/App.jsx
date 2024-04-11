@@ -14,6 +14,7 @@ import ToastMessage from './components/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/Footer';
 import 'flowbite';
+import EditPost from './components/EditBlogPost';
 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateRoute/>}>
           <Route path="/dashboard" element={<Dashboard />} /> 
+          <Route path="/edit-post/:postId" element={<EditPost />} />
         </Route>
         {/*<Route path="/post/:slug" component={PostDetail} />*/}
         <Route path="/about-us" element={<About />} />

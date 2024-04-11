@@ -7,8 +7,10 @@ import { errorMessage, successMessage , infoMessage} from './ToastMessage';
 import { useDispatch } from "react-redux";
 import { updateUserError, updateUserStart ,updateUserSuccess,deleteUserError,deleteUserStart,deleteUserSuccess ,logOut} from "../redux/user/userSlice";
 import LoadingSpinner from "./Loading";
-import { Tooltip } from 'flowbite-react';
+import { Tooltip,Modal,Button } from 'flowbite-react';
 import { Link } from "react-router-dom";
+import { HiOutlineExclamationCircle } from 'react-icons/hi';
+
 
 
 export default function Profile() {
@@ -20,6 +22,7 @@ export default function Profile() {
   const [imgError, setImgError] = useState(null);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user.loading);
+  const [showModal , setShowModal] = useState(false);
 
 
   const fileRef = useRef(null);
@@ -101,8 +104,6 @@ export default function Profile() {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
-    if (confirmDelete) {
       try {
         dispatch(deleteUserStart());
 
@@ -121,7 +122,6 @@ export default function Profile() {
       } catch (error) {
         dispatch(deleteUserError(error));
       }
-    }
    };
 
    const handleLogOut = async () => {
@@ -228,11 +228,41 @@ export default function Profile() {
         </div>
 
         <div className="flex justify-between mt-4"> 
-          <span onClick={handleDeleteAccount} className="hover:text-red-700 beige cursor-pointer raleway text-nowrap transition-all">Delete account</span>
+          <span 
+             onClick={() => {
+              setShowModal(true);
+            }}
+            className="hover:text-red-700 beige cursor-pointer raleway text-nowrap transition-all">Delete account</span>
           <span onClick={handleLogOut} className="cursor-pointer beige raleway text-nowrap	hover:opacity-50 transition-all">Log out</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>
+
+       <Modal
+                                    show={showModal}
+                                    onClose={() => setShowModal(false)}
+                                    popup
+                                    size='md'
+                                    className='bg-black/80 backdrop-blur-sm'
+                                >
+                                    <Modal.Header className='bg-yellow-50 rounded-lg'/>
+                                    <Modal.Body className='bg-yellow-50 rounded-lg'>
+                                    <div className='text-center '>
+                                        <HiOutlineExclamationCircle className=' h-14 w-14 text-black/90  mb-4 mx-auto' />
+                                        <h3 className='raleway mb-5 text-lg text-black/90'>
+                                        Are you sure you want to delete your account?
+                                        </h3>
+                                        <div className='flex justify-center gap-4 '>
+                                        <Button color='failure' onClick={handleDeleteAccount}>
+                                            Yes, I'm sure
+                                        </Button>
+                                        <Button color='warning' onClick={() => setShowModal(false)}>
+                                            No, cancel
+                                        </Button>
+                                        </div>
+                                    </div>
+                                    </Modal.Body>
+                                </Modal>
     </div>
 
   )

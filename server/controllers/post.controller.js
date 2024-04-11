@@ -18,6 +18,7 @@ export const create = async (req,res,next) => {
     .join('-')
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]/g,'-');
+
     const newPost = new Post({
         ...req.body,
         slug,
@@ -86,7 +87,7 @@ export const getPosts = async (req, res, next) => {
             lastMonthPosts,
         });
     } catch (error) {
-        
+        next(error);
     }
 }
 
@@ -102,6 +103,52 @@ export const deletepost = async (req, res, next) => {
             success: true,
             message: 'Blog post deleted successfully',
         });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const editpost = async (req, res, next) => {
+    if (!req.user.isAdmin || req.user.id !== req.params.creatorId) {
+        return next(errorHandler(403, 'Unauthorized'));
+    }
+
+    try {
+        // Update the title, content, category, and image
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.postId,
+            {
+                $set: {
+                    title: req.body.title,
+                    content: req.body.content,
+                    category: req.body.category,
+                    image: req.body.image
+                }
+            },
+            { new: true }
+        );
+
+        // Generate a new slug based on the updated title
+        const newSlug = req.body.title
+            // Replace consecutive spaces with a single space
+            .replace(/\s+/g, ' ')
+            // Trim leading and trailing spaces
+            .trim()
+            // Replace spaces with a dash
+            .replace(/\s+/g, '-')
+            // Convert to lowercase
+            .toLowerCase();
+
+        // Update the post with the new slug
+        updatedPost.slug = newSlug;
+        await updatedPost.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Blog post edited successfully',
+            post: updatedPost,
+        });
+        
     } catch (error) {
         next(error);
     }

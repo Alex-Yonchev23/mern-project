@@ -5,6 +5,8 @@ import DashSidebar from '../components/DashSidebar';
 import Profile from '../components/Profile';
 import DashPosts from '../components/DashPosts';
 import CreatePost from '../components/CreateBlogpost';
+import EditPost from '../components/EditBlogPost';
+import DashUsers from '../components/DashUsers';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../redux/user/userSlice';
 
@@ -38,10 +40,12 @@ export default function Dashboard() {
       {tab === 'profile' && <Profile />}
       {/* create post... */}
       {currentUser.user.isAdmin && tab === 'create-post' && <CreatePost />}
+      {/* edit post... */}
+      {currentUser.user.isAdmin && tab.startsWith('edit-post') && <EditPost />}
       {/* posts... */}
       {currentUser.user.isAdmin && tab === 'posts' && <DashPosts />}
       {/* users */}
-      {/*tab === 'users' && <DashUsers />*/}
+      {currentUser.user.isAdmin && tab === 'users' && <DashUsers />}
       {/* comments  */}
       {/*tab === 'comments' && <DashComments />*/}
       {/* dashboard comp */}

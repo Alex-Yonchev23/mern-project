@@ -186,7 +186,7 @@ const updateUserDetails = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
     
-    if ((req.user.id || req.user._id) !== req.params.id) {
+    if ( (!req.user.isAdmin && req.user.id !== req.params.userId)) {
         return next(errorHandler(401, 'Unauthorized'));
     }
 
@@ -207,3 +207,29 @@ export const deleteUser = async (req, res, next) => {
             next(error);
         }
 }    
+
+//get users
+
+export const getUsers = async (req, res, next) => {
+    if (!req.user.isAdmin) {
+        return next(errorHandler(401, 'Unauthorized'));
+    }
+    
+    try{
+        const users = await User.find();
+        if(users){
+            return res.status(200).json({
+                success: true,
+                message: 'Users retrieved successfully!',
+                users: users
+            });
+        }else{
+            return res.status(200).json({
+                success: false,
+                message: 'Failed to retrieve users.',
+            });
+        }
+        }catch(error){
+            next(error);
+        }
+}

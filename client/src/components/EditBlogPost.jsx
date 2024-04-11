@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { errorMessage, successMessage, infoMessage } from './ToastMessage';
 import add_image from '../images/add-image.png';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser, setLoading } from '../redux/user/userSlice';
 
 import {
   getDownloadURL,
@@ -10,19 +12,46 @@ import {
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
+
 import { app } from '../firebase';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 
-export default function CreatePost() {
+export default function EditPost() {
+  const currentUser = useSelector(selectCurrentUser);
   const [file, setFile] = useState(null);
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    });
+  const [formData, setFormData] = useState({title: '',});
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const { postId } = useParams();
+  console.log(postId);
+
+  useEffect(() => {
+    try {
+        const fetchPosts = async () => {
+            const res = await fetch(`/server/post/get-posts?postId=${postId}`);
+            const data = await res.json();
+
+            if (!res.ok) {
+                errorMessage(data.message);
+                return;
+            }
+            if (data.posts && data.posts.length > 0) {
+                setFormData(data.posts[0]);
+            } else {
+                errorMessage('Post data not found');
+            }
+        };
+        fetchPosts();
+    } catch (error) {
+        console.log(error.message);
+    }
+}, [postId]);
+
+
+
 
   const handleUploadImage = async () => {
     try {
@@ -63,8 +92,8 @@ export default function CreatePost() {
     e.preventDefault();
 
     try {
-      const res = await fetch('/server/post/create', {
-        method: 'POST',
+      const res = await fetch(`/server/post/edit-post/${formData._id}/${currentUser.user._id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -88,17 +117,18 @@ export default function CreatePost() {
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
+  
 
   return (
     <div className='grid items-center min-h-screen w-full' >
       <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 max-md:mx-3'>
-        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Create Blogpost</h1>
+        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Edit Blogpost</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <input
               type="text"
               id="title"
-              value={formData.title}
+              defaultValue={formData.title}
               placeholder="Title"
               maxLength="100"
               className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid border-yellow-50 beige rounded-lg py-2 px-3 raleway w-full sm:w-3/4"
@@ -109,6 +139,7 @@ export default function CreatePost() {
               onChange={(e) =>
                 setFormData({ ...formData, category: e.target.value })
               }
+              value={formData.category}
             >
               <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
               <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
@@ -127,18 +158,18 @@ export default function CreatePost() {
             <img
               src={add_image}
               alt='Add Image'
-              className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none hover:opacity-80'
+              className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none hover:opacity-80 '
               onClick={handleImageClick}
               draggable={false}
             />
             <button
               type='button'
-              className='beige main-btn border border-solid border-yellow-100 rounded-md px-3 py-2'
+              className='beige main-btn border border-solid border-yellow-100 rounded-md px-3 py-2 '
               onClick={handleUploadImage}
               disabled={imageUploadProgress}
             >
               {imageUploadProgress ? (
-                <div className='w-16 h-16'>
+                <div className='w-16 h-16 '>
                   <CircularProgressbar
                     value={imageUploadProgress}
                     text={`${imageUploadProgress || 0}%`}
@@ -153,7 +184,7 @@ export default function CreatePost() {
               <img
                 src={formData.image}
                 alt='upload'
-                className='w-fit mx-auto max-h-96 h-full object-contain rounded-md '
+                className='w-fit mx-auto max-h-96 object-contain rounded-md'
               />
             )}
 
@@ -163,10 +194,13 @@ export default function CreatePost() {
             onChange={
               (value) => {
                 setFormData({ ...formData, content: value });
-            }}>
+            }}
+            value={formData.content || ''}
+            >
+            
           </ReactQuill>
           <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
-            Publish
+            Edit
           </button>
         </form>
       </div>
