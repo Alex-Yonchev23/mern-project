@@ -10,6 +10,7 @@ import ContactUs from './pages/ContactUs';
 import ScrollToTop from './components/ScrollToTop';
 import Dashboard from './pages/Dashboard';
 import Blog from './pages/Blog';
+import PostPage from './pages/PostPage';
 import ToastMessage from './components/ToastMessage';
 import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/Footer';
@@ -36,6 +37,8 @@ export default function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/post/:postSlug" element={<PostPage />} />
+
       </Routes>
       <Footer/>
       <ToastMessage></ToastMessage>

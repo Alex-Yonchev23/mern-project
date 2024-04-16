@@ -84,7 +84,7 @@
       if (error.code === 11000) {
         return res.status(200).json({
           success: false,
-          message: "Email already exists",
+          message: "User already exists",
         });
       }
       res.status(500).json({

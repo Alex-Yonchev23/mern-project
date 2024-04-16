@@ -42,7 +42,7 @@ export default function DashPosts() {
     const handleShowMore = async () => {
         const startIndex = userPosts.length;
         try {
-            const res = await fetch(`/server/post/get-posts?userId= ${currentUser.user._id}&startIndex=${startIndex}`);
+            const res = await fetch(`/server/post/get-posts?userId=${currentUser.user._id}&startIndex=${startIndex}`);
             const data = await res.json();
 
             if (res.ok) {
@@ -80,7 +80,7 @@ export default function DashPosts() {
     }
 
     return (
-        <div className='table-auto w-fit xl:w-11/12 m-2 xl:mx-auto overflow-x-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-yellow-400  px-8 pb-8 rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
+        <div className='table-auto min-h-screen m-2 xl:mx-auto w-full overflow-x-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-yellow-400  px-8 pb-8 rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
             <h1 className=' text-yellow-50 text-center mb-4 text-2xl bg-yellow-400 w-fit px-20 py-1 rounded-b-lg font-semibold'>Posts</h1>
 
             {loading ? (

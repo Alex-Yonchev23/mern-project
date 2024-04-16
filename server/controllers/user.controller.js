@@ -210,26 +210,27 @@ export const deleteUser = async (req, res, next) => {
 
 //get users
 
+// Modify your getUsers controller to accept pagination parameters
 export const getUsers = async (req, res, next) => {
     if (!req.user.isAdmin) {
         return next(errorHandler(401, 'Unauthorized'));
     }
-    
-    try{
-        const users = await User.find();
-        if(users){
-            return res.status(200).json({
-                success: true,
-                message: 'Users retrieved successfully!',
-                users: users
-            });
-        }else{
-            return res.status(200).json({
-                success: false,
-                message: 'Failed to retrieve users.',
-            });
-        }
-        }catch(error){
-            next(error);
-        }
-}
+
+    const limit = parseInt(req.query.limit) || 9; // Default limit to 9 if not provided
+    const startIndex = parseInt(req.query.startIndex) || 0; // Default startIndex to 0 if not provided
+
+    try {
+        const users = await User.find().skip(startIndex).limit(limit);
+        const totalUsers = await User.countDocuments(); // Get total count of users
+        const remainingUsers = totalUsers - (startIndex + limit); // Calculate remaining users
+
+        return res.status(200).json({
+            success: true,
+            message: 'Users retrieved successfully!',
+            users,
+            remainingUsers: remainingUsers > 0 ? remainingUsers : 0, // Send remainingUsers count to frontend
+        });
+    } catch (error) {
+        next(error);
+    }
+};

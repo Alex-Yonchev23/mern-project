@@ -19,43 +19,47 @@ export default function DashUsers() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await fetch(`/server/user/get-users`);
+                const res = await fetch(`/server/user/get-users?limit=9`);
                 const data = await res.json();
 
                 if (res.ok) {
                     setUsers(data.users);
-                    if (data.users.length < 9) {
-                        setShowMore(false)
+                    if (data.remainingUsers > 0) {
+                        setShowMore(true); 
                     }
                 }
             } catch (error) {
-                console.log(error.message);
+                errorMessage(error.message);
             } finally {
                 setLoading(false);
             }
-        }
+        };
 
         if (currentUser.user.isAdmin) {
             fetchUsers();
         }
-    }, [currentUser.user._id]);
+    }, [currentUser.user.isAdmin]);
 
+
+    
     const handleShowMore = async () => {
-        const startIndex = users.length;            
+        const startIndex = users.length;
 
         try {
-            const res = await fetch(`/server/user/get-users?startIndex=${startIndex}`);
+            const res = await fetch(`/server/user/get-users?startIndex=${startIndex}&limit=9`);
             const data = await res.json();
+
             if (res.ok) {
                 setUsers((prev) => [...prev, ...data.users]);
-                if (data.users.length < 9) {
-                    setShowMore(false)
+                if (data.remainingUsers <= 0) {
+                    setShowMore(false); 
                 }
             }
         } catch (error) {
             errorMessage(error.message);
         }
-    }
+    };
+
 
 
     const handleDeleteUser = async () => {
@@ -79,7 +83,7 @@ export default function DashUsers() {
     
 
     return (
-        <div className='table-auto w-fit xl:w-11/12 m-2 xl:mx-auto overflow-x-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-yellow-400  px-8 pb-8 rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
+        <div className='table-auto min-h-screen w-fit xl:w-11/12 m-2 xl:mx-auto overflow-x-auto scrollbar scrollbar-track-slate-100 scrollbar-thumb-yellow-400  px-8 pb-8 rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
             <h1 className=' text-yellow-50 text-center mb-4 text-2xl bg-yellow-400 w-fit px-20 py-1 font-semibold rounded-b-lg'>Users</h1>
             {loading ? (
                 <LoadingSpinner/>
@@ -109,7 +113,7 @@ export default function DashUsers() {
                                                         draggable={false}
                                                         src={user.avatar}
                                                         alt={user.firstName}
-                                                        className='w-12 h-12 object-cover rounded-full transition duration-200 ease-in-out transform hover:scale-110 hover:brightness-75 select-none' 
+                                                        className='w-12 h-12 object-cover rounded-full select-none' 
                                                     />
                                         </Table.Cell>
                                         <Table.Cell className='raleway'>

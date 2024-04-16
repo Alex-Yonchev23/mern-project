@@ -26,7 +26,6 @@ export default function EditPost() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const { postId } = useParams();
-  console.log(postId);
 
   useEffect(() => {
     try {
