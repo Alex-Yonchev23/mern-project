@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import LoadingSpinner from "../components/Loading";
 import { Link } from 'react-router-dom';
-import { Button } from 'flowbite-react';
+import CommentSection from '../components/CommentSection';
 
 export default function PostPage() {
     const { postSlug } = useParams();
@@ -16,7 +16,6 @@ export default function PostPage() {
                 const res = await fetch(`/server/post/get-posts?slug=${postSlug}`);
                 const data = await res.json();
                 if (!res.ok) {
-                    // Handle error
                     return;
                 } else if (data.posts && data.posts.length > 0) { 
                     setPost(data.posts[0]);
@@ -33,7 +32,7 @@ export default function PostPage() {
     if (loading) {
         return <LoadingSpinner />;
     }
-
+    
     return (
         <main className='p-4 max-w-6xl max-md:m-2 md:mx-auto min-h-screen rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
             <h1 className='beige text-3xl md:text-4xl text-center my-3 '>{post && post.title}</h1>
@@ -58,6 +57,10 @@ export default function PostPage() {
             </div>
 
             <div className='post-content text-lg leading-relaxed beige raleway' dangerouslySetInnerHTML={{ __html: post && post.content }}></div>
+            
+            <div className="golden-span w-full h-[.2px] bg-yellow-400 my-5 rounded-full"></div>
+
+            {post && <CommentSection postId={post._id} />}
         </main>
     );
 }
