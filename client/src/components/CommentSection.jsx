@@ -2,15 +2,52 @@ import React from 'react'
 import { useState } from 'react';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
-import { Textarea,Button }from 'flowbite-react'
+import { Textarea,Button }from 'flowbite-react';
+import { errorMessage, successMessage, infoMessage } from './ToastMessage';
+
+
 export default function CommentSection({postId}) {
     const {currentUser} = useSelector(state => state.user);
     const [comment, setComment] = useState('');
-    const [comments, setComments] = useState([]);
 
 
     const handleSubmit = async (e) => {
-    }
+        e.preventDefault();
+        if (comment.length > 200) {
+            return;
+        }
+    
+        try {
+            const res = await fetch('/server/comment/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: comment,
+                    postId: postId,
+                    userId: currentUser.user._id
+                }),
+            });
+    
+            const data = await res.json();
+            if (!res.ok) {
+                if (data.message === "You cannot submit empty comment") {
+                    infoMessage(data.message);
+                } else {
+                    errorMessage(data.message);
+                }
+                return;
+            }
+    
+            setComment('');
+            successMessage('Comment created successfully');
+    
+        } catch (error) {
+            errorMessage(error.message);
+        }
+    };
+    
 
 
   return (

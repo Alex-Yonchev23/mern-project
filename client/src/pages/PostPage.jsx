@@ -34,7 +34,7 @@ export default function PostPage() {
     }
     
     return (
-        <main className='p-4 max-w-6xl max-md:m-2 md:mx-auto min-h-screen rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
+        <main className='p-4 max-w-6xl max-xl:m-2 md:mx-auto min-h-screen rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
             <h1 className='beige text-3xl md:text-4xl text-center my-3 '>{post && post.title}</h1>
 
             <div className='flex justify-center mt-3'>

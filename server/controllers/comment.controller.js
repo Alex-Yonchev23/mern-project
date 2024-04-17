@@ -1,0 +1,33 @@
+import Comment from "../models/comment.model.js";
+
+export const createComment = async (req, res, next) => {
+    try {
+        const { content, postId, userId } = req.body;
+
+        if (!content.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "You cannot submit empty comment",
+            });
+        }
+
+        if (userId !== req.user.id) {
+            return res.status(400).json({
+                success: false,
+                message: "Unauthorized",
+            });
+        }
+
+        const newComment = new Comment({
+            content,
+            postId,
+            userId,
+        });
+
+        await newComment.save();
+
+        res.status(200).json(newComment);
+    } catch (error) {
+        next(error);
+    }
+}
