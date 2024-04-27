@@ -171,7 +171,7 @@
         .status(201)
         .json({
           success: true,
-          message: 'Login successful!',
+          message: 'Log in successful!',
           user: rest,
         });
       } else {
