@@ -7,6 +7,8 @@ import DashPosts from '../components/DashPosts';
 import CreatePost from '../components/CreateBlogpost';
 import EditPost from '../components/EditBlogPost';
 import DashUsers from '../components/DashUsers';
+import DashboardComp from '../components/DashboardComp';
+import DashComments from '../components/DashComments';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../redux/user/userSlice';
 
@@ -47,9 +49,9 @@ export default function Dashboard() {
       {/* users */}
       {currentUser.user.isAdmin && tab === 'users' && <DashUsers />}
       {/* comments  */}
-      {/*tab === 'comments' && <DashComments />*/}
+      {tab === 'comments' && <DashComments />}
       {/* dashboard comp */}
-      {/*tab === 'dash' && <DashboardComp />*/}
+      {tab === 'dash' && <DashboardComp />}
   </div>
 );
 }

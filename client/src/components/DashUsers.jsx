@@ -15,6 +15,9 @@ export default function DashUsers() {
     const [showMore, setShowMore] = useState(true);
     const [showModal , setShowModal] = useState(false);
     const [userIdToDelete, setUserIdToDelete] = useState('');
+    const [totalUsers, setTotalUsers] = useState(0);
+    const [remainingUsers, setRemainingUsers] = useState(0);
+
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -24,6 +27,7 @@ export default function DashUsers() {
 
                 if (res.ok) {
                     setUsers(data.users);
+                    setTotalUsers(data.totalUsers); 
                     if (data.remainingUsers > 0) {
                         setShowMore(true); 
                     }
@@ -50,7 +54,9 @@ export default function DashUsers() {
             const data = await res.json();
 
             if (res.ok) {
-                setUsers((prev) => [...prev, ...data.users]);
+                setUsers((prev) => [...prev, ...data.users]);                    
+                setRemainingUsers(data.remainingUsers);
+
                 if (data.remainingUsers <= 0) {
                     setShowMore(false); 
                 }
@@ -156,6 +162,10 @@ export default function DashUsers() {
                                 </button>
                             )
                         }
+                    {/*
+                    <p className="text-yellow-50 raleway mt-2">Total users: {totalUsers}</p>
+                    <p className="text-yellow-50 raleway">Remaining users: {remainingUsers}</p>
+                    */}
                         
                             <Modal
                                     show={showModal}

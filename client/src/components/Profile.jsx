@@ -16,8 +16,8 @@ import { HiOutlineExclamationCircle } from 'react-icons/hi';
 export default function Profile() {
   const currentUser = useSelector(selectCurrentUser);
   const userAvatar = currentUser?.user?.avatar;
-  const [ image , setImage ] = useState(undefined);
-  const [ imagePercentage , setImagePercentage ] = useState(0);
+  const [image , setImage] = useState(undefined);
+  const [imagePercentage , setImagePercentage] = useState(0);
   const [formData, setFormData] = useState({});
   const [imgError, setImgError] = useState(null);
   const dispatch = useDispatch();

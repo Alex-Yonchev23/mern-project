@@ -58,7 +58,7 @@ export default function Nav() {
                                     <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                     <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
                                   </Dropdown.Header>
-                                  <Link to='/dashboard'>
+                                  <Link to='/dashboard?tab=dash'>
                                     <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                                   </Link>
                                     <Dropdown.Divider />
@@ -67,7 +67,7 @@ export default function Nav() {
                           </>
                         ) : (
                           <>
-                            <Link to='/dashboard'>
+                            <Link to='/dashboard?tab=dash'>
                               <lord-icon
                                 src="https://cdn.lordicon.com/dxjqoygy.json"
                                 trigger="hover"
@@ -146,7 +146,7 @@ export default function Nav() {
                                           <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                           <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
                                         </Dropdown.Header>
-                                        <Link to='/dashboard'>
+                                        <Link to='/dashboard?tab=dash'>
                                           <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                                         </Link>
                                           <Dropdown.Divider />
@@ -155,7 +155,7 @@ export default function Nav() {
                                 </>
                               ) : (
                                 <>
-                                  <Link to='/dashboard'>
+                                  <Link to='/dashboard?tab=dash'>
                                     <lord-icon
                                       src="https://cdn.lordicon.com/dxjqoygy.json"
                                       trigger="hover"

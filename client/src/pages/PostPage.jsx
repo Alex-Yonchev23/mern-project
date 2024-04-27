@@ -53,7 +53,7 @@ export default function PostPage() {
 
             <div className='flex justify-between font-semibold text-sm text-gray-400 mb-5'>
                 <span className='sans-serif'>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-                <span className='sans-serif'>{post && (post.content.length / 1000).toFixed(0)} mins read</span>
+                <span className='sans-serif'>{post && (post.content.length / 500).toFixed(0)} mins read</span>
             </div>
 
             <div className='post-content text-lg leading-relaxed beige raleway' dangerouslySetInnerHTML={{ __html: post && post.content }}></div>

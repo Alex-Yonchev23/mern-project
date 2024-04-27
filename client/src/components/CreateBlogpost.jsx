@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 import { errorMessage, successMessage, infoMessage } from './ToastMessage';
 import add_image from '../images/add-image.png';
 
@@ -110,7 +110,7 @@ export default function CreatePost() {
                 setFormData({ ...formData, category: e.target.value })
               }
             >
-              <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
+              <option value='uncategorized' hidden className='raleway bg-black'>Select a category</option>
               <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
               <option value='welding' className='raleway bg-yellow-50 text-black'>Welding</option>
               <option value='services' className='raleway bg-yellow-50 text-black'>Services</option>
