@@ -15,6 +15,7 @@ export default function Nav() {
   const currentUser = useSelector(selectCurrentUser);
   const userAvatar = currentUser?.user?.avatar;
   const dispatch = useDispatch();
+  const [scrollOffsetY, setScrollOffsetY] = useState(0);
 
   const switchToShowLogin = () => {
     setShowLogin(true);
@@ -33,8 +34,21 @@ export default function Nav() {
     }
 }
 
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrollOffsetY(window.scrollY);
+  };
+
+  window.addEventListener('scroll', handleScroll);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+  };
+}, []);
+
   return (
-    <nav className='navbar navbar-expand-lg select-none sticky top-0 z-1 main-nav'>
+    <nav className={`navbar navbar-expand-lg select-none sticky top-0 z-1 main-nav transition-all duration-500 ${scrollOffsetY > 0 ? 'scrolled' : ''}`}>
       <button className='navbar-toggler shadow-none border-0 ms-auto beige' type='button' onClick={toggleSidebar}>
         <span className='navbar-toggler-icon'></span> 
       </button>
@@ -51,14 +65,14 @@ export default function Nav() {
                                 inline
                                 className='bg-yellow-50'
                                 label={
-                                  <img src={userAvatar} alt="User Avatar"  draggable={false}  className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
+                                  <img src={userAvatar} alt="User Avatar" draggable={false}  className='h-10 w-10 rounded-full object-cover hover:ring-1 hover:ring-yellow-100 hover:ring-offset-2 hover:ring-offset-neutral-900 hover:golden-shadowgolden-shadow transition-all duration-400'  />
                                 }
                               >
                                   <Dropdown.Header>
                                     <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                     <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
                                   </Dropdown.Header>
-                                  <Link to='/dashboard?tab=dash'>
+                                  <Link to={currentUser.user.isAdmin ? '/dashboard?tab=dash' : '/dashboard'}>
                                     <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                                   </Link>
                                     <Dropdown.Divider />
@@ -104,8 +118,8 @@ export default function Nav() {
               </Link>
 
               <Link to='/'>
-                <li className="logo px-4 ">
-                      <img src={logo} alt="logo" className="logo max-w-full h-auto" style={{ maxHeight: '100px' }} />
+                <li className="logo px-4 flex justify-center items-center">
+                      <img src={logo} alt="logo" className="logo max-w-full h-auto max-h-24	" />
                 </li>
               </Link>
 
@@ -146,7 +160,7 @@ export default function Nav() {
                                           <span className="block text-sm raleway">{currentUser.user.firstName} {currentUser.user.lastName}</span>
                                           <span className="block truncate text-sm font-semibold ">{currentUser.user.email}</span>
                                         </Dropdown.Header>
-                                        <Link to='/dashboard?tab=dash'>
+                                        <Link to={currentUser.user.isAdmin ? '/dashboard?tab=dash' : '/dashboard'}>
                                           <Dropdown.Item icon={HiViewGrid}>Dashboard</Dropdown.Item>
                                         </Link>
                                           <Dropdown.Divider />
