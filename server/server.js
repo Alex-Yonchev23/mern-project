@@ -41,7 +41,6 @@ app.use("/server/auth", authRoutes);
 app.use("/server/post", postRoutes);
 app.use("/server/comment", commentRoutes);
 
-
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";

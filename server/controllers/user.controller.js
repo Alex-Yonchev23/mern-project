@@ -62,7 +62,7 @@ export const updateUser = async (req, res, next) => {
 
         // Check if the user making the request matches the user being updated
         if ((req.user.id || req.user._id) !== req.params.id) {
-            return next(errorHandler(201, 'Unauthorized'));
+            return next(errorHandler(401, 'Unauthorized'));
         }
 
         const now = new Date();

@@ -48,19 +48,23 @@ export const getPostComments = async (req, res, next) => {
 
 export const likeComment = async (req, res, next) => {
     try {
-        const comment  = await Comment.findById(req.params.commentId);
+        if (!req.user || (!req.user.id && !req.user._id)) {
+            return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
 
-        if(!comment){
+        const comment = await Comment.findById(req.params.commentId);
+
+        if (!comment) {
             return next(errorHandler(404, 'Comment not found!'))
         }
 
-        const userIndex = comment.likes.indexOf(req.user.id);
-        if(userIndex === -1){
+        const userIndex = comment.likes.indexOf(req.user.id || req.user._id);
+        if (userIndex === -1) {
             comment.numberOfLikes += 1;
-            comment.likes.push(req.user.id);
-            
-        }else{
-            comment.numberOfLikes -=1;
+            comment.likes.push(req.user.id || req.user._id);
+
+        } else {
+            comment.numberOfLikes -= 1;
             comment.likes.splice(userIndex, 1);
         }
 
@@ -69,8 +73,8 @@ export const likeComment = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-
 }
+
 
 export const editComment = async (req, res, next) => {
     try {
@@ -84,6 +88,14 @@ export const editComment = async (req, res, next) => {
             return next(errorHandler(401, 'Unauthorized'));
         }
 
+        const { content } = req.body;
+        if (!content.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "You can't save an empty comment",
+            });
+        }
+
         const editedComment = await Comment.findByIdAndUpdate(
             req.params.commentId,
             {
@@ -93,9 +105,38 @@ export const editComment = async (req, res, next) => {
             },
             {  new: true }
         );
-        res.status(200).json(editedComment);
+
+        res.status(200).json({ 
+            comment: editedComment,
+            message: 'Comment edited successfully.'
+        });
     } catch (error) {
         next(error);
     }
 
+}
+
+export const deleteComment = async (req, res, next) => {
+    try {
+        if (!req.params.commentId) {
+            return next(errorHandler(400, 'Comment ID is missing'));
+        }
+
+        const comment = await Comment.findById(req.params.commentId);
+        if (!comment) {
+            return next(errorHandler(404, 'Comment not found!'))
+        }
+
+        if (comment.userId !== req.user._id && !req.user.isAdmin) {
+            return next(errorHandler(401, 'Unauthorized'));
+        }
+
+        await Comment.findByIdAndDelete(req.params.commentId);
+        res.status(200).json({
+            success: true,
+            message: 'Comment deleted successfully',
+        });
+    } catch (error) {
+        next(error);
+    }
 }

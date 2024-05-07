@@ -82,7 +82,7 @@
 
     } catch (error) {
       if (error.code === 11000) {
-        return res.status(200).json({
+        return res.status(400).json({
           success: false,
           message: "User already exists",
         });
@@ -104,7 +104,7 @@
       const validUser = await User.findOne({ email: email });
   
       if (!email || !password) {
-        return res.status(200).json({
+        return res.status(401).json({
           success: false,
           message: "Email and password are required!",
         });
@@ -112,20 +112,20 @@
   
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email.trim())) {
-        return res.status(200).json({
+        return res.status(401).json({
           success: false,
           message: "Invalid email!",
         });
       }
   
       if (!validUser) {
-        return next(errorHandler(200, 'User does not exist!'));
+        return next(errorHandler(401, 'User does not exist!'));
       }
   
       const validPassword = bcryptjs.compareSync(password, validUser.password);
   
       if (!validPassword) {
-        return next(errorHandler(200, 'Invalid email or password!'));
+        return next(errorHandler(401, 'Invalid email or password!'));
       }
   
       const expiresIn = remember_me ? '3d' : '1h';
@@ -235,6 +235,6 @@
     .status(200)
     .json({
       success: true,
-      message: 'Logout successful!',
+      message: 'Log out successful!',
     });
   }

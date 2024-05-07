@@ -4,16 +4,21 @@ import { errorHandler } from './error.js';
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
 
-    if (!token) 
+    // Check if token exists
+    if (!token) {
         return next(errorHandler(401, "You are not authenticated!"));
+    }
 
+    // Verify token validity
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            console.error("Error verifying token:", err);
-            return next(errorHandler(403, "Token is not valid!"));
+            // Token is invalid or expired
+            res.clearCookie('access_token'); // Clear the access token
+            return next(errorHandler(403, "Your session has expired. Please log in again."));
         }
 
-        req.user = user;        
+        // Token is valid, attach user to request object
+        req.user = user;
         next();
     });
 }

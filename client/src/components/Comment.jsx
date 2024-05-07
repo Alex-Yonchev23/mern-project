@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Textarea } from 'flowbite-react';
 import { errorMessage } from './ToastMessage';
 
-const Comment = ({ comment, onLike, onEdit }) => {
+const Comment = ({ comment, onLike, onEdit, onDelete }) => {
     const [ user, setUser ] = useState({});
     const { currentUser } = useSelector((state) => state.user);
     const [ isEditing, setIsEditing] = useState(false);
@@ -44,9 +44,12 @@ const Comment = ({ comment, onLike, onEdit }) => {
                     content: editedContent,
                 }),
             });
+            const data = await res.json();
             if (res.ok) {                
                 setIsEditing(false);
                 onEdit(comment,editedContent);
+            }else{
+                errorMessage(data.message);
             }
         } catch (error) {
             errorMessage(error.message);
@@ -77,6 +80,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
                         isEditing ? 
                             (
                                 <>
+                                
                                     <Textarea
                                         className='bg-transparent text-yellow-50 raleway focus:ring-0 max-h-32 min-h-10'
                                         value={editedContent}
@@ -89,8 +93,6 @@ const Comment = ({ comment, onLike, onEdit }) => {
                                     </div>
 
                                 </>
-
-                                
                             ):(
                                 <>
                                      <p className='text-gray-400 raleway pb-2'>{comment.content}</p>
@@ -106,13 +108,26 @@ const Comment = ({ comment, onLike, onEdit }) => {
                                             </p>
                                             {
                                                 currentUser && (currentUser.user._id == comment.userId || currentUser.user.isAdmin) && (
-                                                    <button 
+                                                    <>
+                                                        <button 
+                                                            type='button' 
+                                                            onClick={handleEdit}
+                                                            className='raleway text-gray-400 hover:text-yellow-400 transition-all duration-200 select-none'
+                                                        >
+                                                            Edit
+                                                        </button>
+
+                                                        <button 
                                                         type='button' 
-                                                        onClick={handleEdit}
-                                                        className='raleway text-gray-400 hover:text-yellow-50 transition-all duration-200'
-                                                    >
-                                                        Edit
-                                                    </button>
+                                                        onClick={() => onDelete(comment._id)}
+                                                        className='raleway text-gray-400 hover:text-red-500 transition-all duration-200 select-none'
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </>
+                                                    
+
+                                                    
                                                 )
                                             }
                                         </div>
