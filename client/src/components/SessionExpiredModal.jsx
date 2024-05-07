@@ -58,7 +58,7 @@ const SessionExpiredModal = ({ isOpen, onClose }) => {
                     </h3>
                     <div className='flex justify-center gap-2 flex-col'>
                         <Button color='warning' onClick={handleCheckAuth}>
-                            <p className='mr-2'>Go to login page</p> <GoArrowRight />
+                            <p className='mr-2'>Go to log in page</p> <GoArrowRight />
                         </Button>
                         <Button color='failure' onClick={() => setShowModal(false)}>
                             Continue without registration

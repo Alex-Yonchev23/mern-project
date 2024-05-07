@@ -63,7 +63,7 @@ export default function CreatePost() {
     e.preventDefault();
 
     try {
-      const res = await fetch('/server/post/create', {
+      const res = await fetch('/server/blog/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export default function CreatePost() {
       }
       if (res.ok) {
         successMessage(data.message);
-        navigate(`/post/${data.post.slug}`);
+        navigate(`/blog/${data.post.slug}`);
       }
     } catch (error) {
       errorMessage('Something went wrong');

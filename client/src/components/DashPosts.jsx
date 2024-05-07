@@ -18,7 +18,7 @@ export default function DashPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const res = await fetch(`/server/post/get-posts?userId=${currentUser.user._id}`);
+                const res = await fetch(`/server/blog/get-posts?userId=${currentUser.user._id}`);
                 const data = await res.json();
 
                 if (res.ok) {
@@ -42,7 +42,7 @@ export default function DashPosts() {
     const handleShowMore = async () => {
         const startIndex = userPosts.length;
         try {
-            const res = await fetch(`/server/post/get-posts?userId=${currentUser.user._id}&startIndex=${startIndex}`);
+            const res = await fetch(`/server/blog/get-posts?userId=${currentUser.user._id}&startIndex=${startIndex}`);
             const data = await res.json();
 
             if (res.ok) {
@@ -59,7 +59,7 @@ export default function DashPosts() {
     const handleDeletePost = async () => {
         setShowModal(false);
         try {
-            const res= await fetch(`/server/post/delete-post/${postIdToDelete}/${currentUser.user._id}`,
+            const res= await fetch(`/server/blog/delete-post/${postIdToDelete}/${currentUser.user._id}`,
             {
                 method: 'DELETE',
             }
@@ -107,7 +107,7 @@ export default function DashPosts() {
                                     <Table.Row key={post._id} className='hover:bg-black/50 text-base beige rounded-xl transition duration-300 ease-in-out transform hover:scale-105'>
                                         <Table.Cell className='raleway'>{new Date(post.updatedAt).toLocaleDateString()}</Table.Cell>
                                         <Table.Cell>
-                                            <Link to={`/post/${post.slug}`}>
+                                            <Link to={`/blog/${post.slug}`}>
                                                 <div className='rounded-md'>
                                                     <img 
                                                         draggable={false}
@@ -119,7 +119,7 @@ export default function DashPosts() {
                                             </Link>
                                         </Table.Cell>
                                         <Table.Cell className='hover:opacity-60'>
-                                            <Link to={`/post/${post.slug}`} className='raleway text-balance'>
+                                            <Link to={`/blog/${post.slug}`} className='raleway text-balance'>
                                                 {post.title}
                                             </Link>
                                         </Table.Cell>

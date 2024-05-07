@@ -30,7 +30,7 @@ export default function EditPost() {
   useEffect(() => {
     try {
         const fetchPosts = async () => {
-            const res = await fetch(`/server/post/get-posts?postId=${postId}`);
+            const res = await fetch(`/server/blog/get-posts?postId=${postId}`);
             const data = await res.json();
 
             if (!res.ok) {
@@ -91,7 +91,7 @@ export default function EditPost() {
     e.preventDefault();
 
     try {
-      const res = await fetch(`/server/post/edit-post/${formData._id}/${currentUser.user._id}`, {
+      const res = await fetch(`/server/blog/edit-post/${formData._id}/${currentUser.user._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

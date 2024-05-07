@@ -24,7 +24,6 @@ export default function App() {
 
   const [isSessionExpired, setIsSessionExpired] = useState(false);
 
-    // Function to handle closing the session expired modal
     const handleCloseSessionExpiredModal = () => {
         setIsSessionExpired(false);
     };
@@ -42,13 +41,13 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} /> 
             <Route path="/edit-post/:postId" element={<EditPost />} />
           </Route>
-          {/*<Route path="/post/:slug" component={PostDetail} />*/}
+          {/*<Route path="/blog/:slug" component={PostDetail} />*/}
           <Route path="/about-us" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/post/:postSlug" element={<PostPage />} />
+          <Route path="/blog/:postSlug" element={<PostPage />} />
 
         </Routes>
       <Footer/>

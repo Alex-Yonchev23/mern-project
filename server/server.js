@@ -38,7 +38,7 @@ app.listen(3000, () => {
 
 app.use("/server/user", userRoutes);
 app.use("/server/auth", authRoutes);
-app.use("/server/post", postRoutes);
+app.use("/server/blog", postRoutes);
 app.use("/server/comment", commentRoutes);
 
 app.use((err, req, res, next) => {

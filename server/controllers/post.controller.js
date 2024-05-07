@@ -129,7 +129,6 @@ export const editpost = async (req, res, next) => {
             { new: true }
         );
 
-        // Generate a new slug based on the updated title
         const newSlug = req.body.title
             // Replace consecutive spaces with a single space
             .replace(/\s+/g, ' ')

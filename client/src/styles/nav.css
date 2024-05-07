@@ -12,7 +12,7 @@
 }
 
 .main-nav.scrolled .nav-item{
-    @apply text-xs;
+    @apply text-xs ;
 }
 
 .nav-item{
@@ -36,7 +36,7 @@
         display: none !important;
     }
 
-    .logo {
+    li.logo {
         display: none;
     }
 
@@ -44,8 +44,7 @@
         padding: 1em .8em;
     }
 
-    .log-reg{
-       
-
+    .main-nav.scrolled .nav-item{
+        @apply text-sm ;
     }
 }
