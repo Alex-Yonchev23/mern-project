@@ -39,7 +39,7 @@ export default function FooterComponent() {
             </div>
           </div>
         </div>
-        <div className="w-full bg-black px-4 py-6 sm:flex sm:items-center sm:justify-between">
+        <div className="w-full bg-neutral-950 px-4 py-6 sm:flex sm:items-center sm:justify-between">
             <Footer.Copyright href="#" by="Ironic" year={new Date().getFullYear()} />
           <div className="flex space-x-6 max-sm:mt-4 sm:mt-0 sm:justify-center">
             <Footer.Icon href="#" className="hover:text-yellow-50 transition-all duration-300" icon={BsFacebook} />

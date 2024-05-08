@@ -123,7 +123,7 @@
                                 : c
                         )
                     );
-                    successMessage(data.message); // Show success message
+                    successMessage(data.message); 
                 } else {
                     errorMessage(data.message);
                 }
@@ -183,7 +183,7 @@
                                         placeholder='Add a comment...'
                                         rows='4'
                                         maxLength='200'
-                                        className='raleway focus:ring-yellow-400 transition-all duration-200 bg-yellow-50'
+                                        className='raleway focus:ring-yellow-400 transition-all duration-200 bg-yellow-50 max-h-32 min-h-9'
                                         onChange={(e) => setComment(e.target.value)}
                                         value={comment}
                                     />

@@ -3,7 +3,7 @@
 }
 
 .main-nav.scrolled {
-    @apply max-h-20 bg-black;
+    @apply max-h-20 bg-neutral-950;
     box-shadow: 0px -2px 40px var(--golden); 
   }
   

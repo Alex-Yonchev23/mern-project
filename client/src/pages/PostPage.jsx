@@ -4,6 +4,8 @@ import LoadingSpinner from "../components/Loading";
 import { Link } from 'react-router-dom';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
+import { PhotoProvider, PhotoView } from 'react-photo-view';
+import { FaSearch } from 'react-icons/fa';
 
 export default function PostPage() {
     const { postSlug } = useParams();
@@ -51,7 +53,7 @@ export default function PostPage() {
     }
     
     return (
-        <main className='p-4 max-w-6xl mx-3 md:mx-auto min-h-screen rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
+        <main className='p-4 max-w-6xl xl:mx-auto max-xl:mx-3 min-h-screen rounded-xl big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-3 mb-5'>
             <h1 className='beige text-3xl md:text-4xl text-center my-3'>{post && post.title}</h1>
 
             <div className='flex justify-center mt-3'>
@@ -62,13 +64,25 @@ export default function PostPage() {
                 </Link>
             </div>
 
-            <img
-                src={post && post.image}
-                alt={post && post.title}
-                className='w-fit mx-auto max-h-96 my-3 object-contain rounded-md'
-            />            
+            <PhotoProvider>
+            <PhotoView src={post && post.image}>
+                <div className='bg-neutral-950 rounded-lg relative group'>
+                    <img
+                        src={post && post.image}
+                        alt={post && post.title}
+                        className='w-fit mx-auto max-h-96 my-3 object-cover rounded-lg group-hover:opacity-70 transition-all duration-300 '
+                    />
+                    <div className='absolute inset-0 justify-center items-center hidden cursor-pointer group-hover:flex transition-all'>
+                        <div className='bg-neutral-950 p-3  rounded-lg hover:bg-neutral-800 transition-all duration-200'>
+                            <span className='text-gray-500'><FaSearch/></span>
+                        </div>
+                    </div>
+                </div>
+            </PhotoView>
+            </PhotoProvider>
 
-            <div className='flex justify-between font-semibold text-sm text-gray-400 mb-5'>
+
+            <div className='flex justify-between font-semibold text-sm text-gray-500 mb-5'>
                 <span className='sans-serif'>{post && new Date(post.createdAt).toLocaleDateString()}</span>
                 <span className='sans-serif'>{post && (post.content.length / 500).toFixed(0)} mins read</span>
             </div>
@@ -79,15 +93,22 @@ export default function PostPage() {
 
             {post && <CommentSection postId={post._id} />}
 
-            <div className='flex flex-col justify-center items-center mb-5'>
-                <h1 className='text-xl mt-5  text-yellow-50'>Recent articles</h1>
-                <div className='flex flex-wrap gap-3 mt-5 justify-center'>
-                    {
-                        recentPosts && 
-                            recentPosts.map((post) => <PostCard key={post._id} post={post}></PostCard>)
-                    }
+            {recentPosts && recentPosts.length > 0 && (
+                <div className='flex flex-col justify-center items-center mb-5'>
+                    <h1 className='text-xl mt-5 text-yellow-50'>Recent articles</h1>
+                    <div className='flex flex-wrap gap-3 mt-5 justify-center'>
+                        {recentPosts.map((post) => (
+                            <PostCard key={post._id} post={post} />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            )}
+
+            {(!recentPosts || recentPosts.length === 0) && (
+                <div className='text-center text-yellow-50 mt-5'>
+                    No recent articles available.
+                </div>
+            )}
         </main>
     );
 }

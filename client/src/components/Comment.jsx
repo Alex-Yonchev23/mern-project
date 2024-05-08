@@ -82,7 +82,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
                                 <>
                                 
                                     <Textarea
-                                        className='bg-transparent text-yellow-50 raleway focus:ring-0 max-h-32 min-h-10'
+                                        className='bg-transparent text-yellow-50 raleway focus:ring-0 max-h-32 min-h-9'
                                         value={editedContent}
                                         maxLength={200}
                                         onChange={(e) => setEditedContent(e.target.value)}
