@@ -101,9 +101,14 @@ button {
     -webkit-box-shadow: 0 0 0 1000px beige inset ;
 }
 
-.ql-editor{
+.ql-editor p{
     font-size: 1rem;
 }
+
+.ql-editor p{
+    font-family: 'Raleway', sans-serif !important;
+}
+
 
 .ql-container{
     background-color: beige;
@@ -116,8 +121,6 @@ button {
     margin-bottom: .5em;
 
 }
-
-
 
 .post-content p{
     margin-bottom: .5rem;

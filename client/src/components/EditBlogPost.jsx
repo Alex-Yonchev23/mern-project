@@ -105,7 +105,7 @@ export default function EditPost() {
       }
       if (res.ok) {
         successMessage(data.message);
-        navigate(`/post/${data.post.slug}`);
+        navigate(`/blog/${data.post.slug}`);
       }
     } catch (error) {
       errorMessage('Something went wrong');
@@ -120,7 +120,7 @@ export default function EditPost() {
 
   return (
     <div className='grid items-center min-h-screen w-full' >
-      <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 max-md:mx-3'>
+      <div className='max-w-4xl p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 max-md:mx-3'>
         <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Edit Blogpost</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
@@ -141,6 +141,7 @@ export default function EditPost() {
               value={formData.category}
             >
               <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
+              <option value='uncategorized'  className='raleway bg-yellow-50 text-black'>Uncategorized</option>
               <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
               <option value='welding' className='raleway bg-yellow-50 text-black'>Welding</option>
               <option value='services' className='raleway bg-yellow-50 text-black'>Services</option>
@@ -189,7 +190,7 @@ export default function EditPost() {
 
           <ReactQuill
             placeholder='Type something...'
-            className='h-48 mb-12 '
+            className='h-48 mb-12 n'
             onChange={
               (value) => {
                 setFormData({ ...formData, content: value });

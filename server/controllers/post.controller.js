@@ -115,33 +115,52 @@ export const editpost = async (req, res, next) => {
     }
 
     try {
-        // Update the title, content, category, and image
+        const existingPost = await Post.findById(req.params.postId);
+
+        if (!existingPost) {
+            return next(errorHandler(404, 'Post not found'));
+        }
+
+        const newTitle = req.body.title.trim();
+        const newContent = req.body.content.trim();
+
+        if (!newTitle || (!newContent.trim() || !newContent.replace(/<\/?[^>]+(>|$)/g, "").trim())) {
+            return res.status(400).json({
+                success: false,
+                message: 'Title and content cannot be empty.',
+            });
+}
+
+
+        // Generate new slug
+        const newSlug = newTitle
+            .replace(/[^a-zA-Z0-9]/g, '-') 
+            .replace(/-{2,}/g, '-') 
+            .toLowerCase();
+
+        if (newSlug !== existingPost.slug) {
+            const existingSlug = await Post.findOne({ slug: newSlug });
+            if (existingSlug) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'A post with the same title content already exists.',
+                });
+            }
+        }
+
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.postId,
             {
                 $set: {
-                    title: req.body.title,
-                    content: req.body.content,
+                    title: newTitle,
+                    content: newContent,
                     category: req.body.category,
-                    image: req.body.image
+                    image: req.body.image,
+                    slug: newSlug
                 }
             },
             { new: true }
         );
-
-        const newSlug = req.body.title
-            // Replace consecutive spaces with a single space
-            .replace(/\s+/g, ' ')
-            // Trim leading and trailing spaces
-            .trim()
-            // Replace spaces with a dash
-            .replace(/\s+/g, '-')
-            // Convert to lowercase
-            .toLowerCase();
-
-        // Update the post with the new slug
-        updatedPost.slug = newSlug;
-        await updatedPost.save();
 
         res.status(200).json({
             success: true,
@@ -153,3 +172,4 @@ export const editpost = async (req, res, next) => {
         next(error);
     }
 }
+

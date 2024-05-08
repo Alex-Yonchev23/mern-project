@@ -27,7 +27,7 @@ export default function CreatePost() {
   const handleUploadImage = async () => {
     try {
       if (!file) {
-        infoMessage('Please select an image');
+        infoMessage('Моля, изберете изображение');
         return;
       }
       const storage = getStorage(app);
@@ -80,7 +80,7 @@ export default function CreatePost() {
         navigate(`/blog/${data.post.slug}`);
       }
     } catch (error) {
-      errorMessage('Something went wrong');
+      errorMessage('Възникна проблем');
       console.log(error);
     }
   };
@@ -92,14 +92,14 @@ export default function CreatePost() {
   return (
     <div className='grid items-center min-h-screen w-full' >
       <div className='p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 max-md:mx-3'>
-        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Create Blogpost</h1>
+        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Създайте публикация</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <input
               type="text"
               id="title"
               value={formData.title}
-              placeholder="Title"
+              placeholder="Заглавие"
               maxLength="100"
               className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid border-yellow-50 beige rounded-lg py-2 px-3 raleway w-full sm:w-3/4"
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -110,10 +110,10 @@ export default function CreatePost() {
                 setFormData({ ...formData, category: e.target.value })
               }
             >
-              <option value='uncategorized' hidden className='raleway bg-black'>Select a category</option>
-              <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
-              <option value='welding' className='raleway bg-yellow-50 text-black'>Welding</option>
-              <option value='services' className='raleway bg-yellow-50 text-black'>Services</option>
+              <option value='uncategorized' hidden className='raleway bg-black'>Изберете категория</option>
+              <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Метални скулптури</option>
+              <option value='welding' className='raleway bg-yellow-50 text-black'>Заваряване</option>
+              <option value='services' className='raleway bg-yellow-50 text-black'>Услуги</option>
             </select>
           </div>
           <div className='flex gap-4 items-center justify-between border-2 rounded-md border-yellow-400 border-dashed p-3'>
@@ -126,7 +126,7 @@ export default function CreatePost() {
             />
             <img
               src={add_image}
-              alt='Add Image'
+              alt='Добави изображение'
               className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none hover:opacity-80'
               onClick={handleImageClick}
               draggable={false}
@@ -145,20 +145,20 @@ export default function CreatePost() {
                   />
                 </div>
               ) : (
-                'Upload Image'
+                'Качване на изображение'
               )}
             </button>
           </div>
             {formData.image && (
               <img
                 src={formData.image}
-                alt='upload'
+                alt='качване'
                 className='w-fit mx-auto max-h-96 h-full object-contain rounded-md '
               />
             )}
 
           <ReactQuill
-            placeholder='Type something...'
+            placeholder='Въведете нещо...'
             className='h-48 mb-12 '
             onChange={
               (value) => {
@@ -166,7 +166,7 @@ export default function CreatePost() {
             }}>
           </ReactQuill>
           <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
-            Publish
+            Публикувай
           </button>
         </form>
       </div>

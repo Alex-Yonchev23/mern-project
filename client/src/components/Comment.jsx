@@ -70,7 +70,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
                 <div className='flex-1'>
                     <div className='flex items-center mb-1'>
                         <span className='beige mr-1 text-xs truncate font-semibold'>
-                            {user ? `@${`${user.firstName} ${user.lastName}`}` : 'anonymous user'}
+                            {`${user.firstName} ${user.lastName}`}
                         </span>
                         <span className='text-gray-400 text-xs raleway'>
                             {moment(comment.createdAt).fromNow()}
@@ -88,8 +88,8 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
                                         onChange={(e) => setEditedContent(e.target.value)}
                                     /> 
                                     <div className='flex justify-end gap-2 text-xs mr-4'>
-                                        <button type='button' onClick={handleSave} className='beige hover:text-yellow-400 border rounded-bl-lg rounded-br-lg px-3 py-2 transition-all duration-200'>Save</button>
-                                        <button type='button' onClick={() => setIsEditing(false)}  className='beige hover:text-red-400 border rounded-bl-lg rounded-br-lg transition-all duration-200 px-3 py-2'>Cancel</button>
+                                        <button type='button' onClick={handleSave} className='beige hover:text-yellow-400 border rounded-bl-lg rounded-br-lg px-3 py-2 transition-all duration-200'>Запази</button>
+                                        <button type='button' onClick={() => setIsEditing(false)}  className='beige hover:text-red-400 border rounded-bl-lg rounded-br-lg transition-all duration-200 px-3 py-2'>Отмени</button>
                                     </div>
 
                                 </>
@@ -103,33 +103,32 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
                                             <p className='text-gray-400 raleway'>
                                                 {
                                                     comment.numberOfLikes > 0 &&
-                                                    comment.numberOfLikes + " " + (comment.numberOfLikes > 1 ? "likes" : "like")
+                                                    comment.numberOfLikes + " " + (comment.numberOfLikes > 1 ? "харесвания" : "харесване")
                                                 }
                                             </p>
                                             {
-                                                currentUser && (currentUser.user._id == comment.userId || currentUser.user.isAdmin) && (
-                                                    <>
+                                                currentUser && (currentUser.user._id == comment.userId) && (
                                                         <button 
                                                             type='button' 
                                                             onClick={handleEdit}
                                                             className='raleway text-gray-400 hover:text-yellow-400 transition-all duration-200 select-none'
                                                         >
-                                                            Edit
+                                                            Редактирай
                                                         </button>
+                                                )
+                                            }   
 
-                                                        <button 
+                                            {
+                                                currentUser && (currentUser.user._id == comment.userId || currentUser.user.isAdmin) && (
+                                                    <button 
                                                         type='button' 
                                                         onClick={() => onDelete(comment._id)}
                                                         className='raleway text-gray-400 hover:text-red-500 transition-all duration-200 select-none'
                                                         >
-                                                            Delete
-                                                        </button>
-                                                    </>
-                                                    
-
-                                                    
+                                                            Изтрий
+                                                    </button>
                                                 )
-                                            }
+                                            } 
                                         </div>
                                 </>
                             )
