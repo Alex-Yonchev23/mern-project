@@ -1,36 +1,78 @@
 import Post from '../models/post.model.js';
-import { errorHandler } from '../utils/error.js'
+import Comment from "../models/comment.model.js";
+import { errorHandler } from '../utils/error.js';
 
-export const create = async (req,res,next) => {
+const cyrillicToLatinMapping = {
+    'А': 'A', 'а': 'a',
+    'Б': 'B', 'б': 'b',
+    'В': 'V', 'в': 'v',
+    'Г': 'G', 'г': 'g',
+    'Д': 'D', 'д': 'd',
+    'Е': 'E', 'е': 'e',
+    'Ж': 'Zh', 'ж': 'zh',
+    'З': 'Z', 'з': 'z',
+    'И': 'I', 'и': 'i',
+    'Й': 'Y', 'й': 'y',
+    'К': 'K', 'к': 'k',
+    'Л': 'L', 'л': 'l',
+    'М': 'M', 'м': 'm',
+    'Н': 'N', 'н': 'n',
+    'О': 'O', 'о': 'o',
+    'П': 'P', 'п': 'p',
+    'Р': 'R', 'р': 'r',
+    'С': 'S', 'с': 's',
+    'Т': 'T', 'т': 't',
+    'У': 'U', 'у': 'u',
+    'Ф': 'F', 'ф': 'f',
+    'Х': 'H', 'х': 'h',
+    'Ц': 'C', 'ц': 'c',
+    'Ч': 'Ch', 'ч': 'ch',
+    'Ш': 'Sh', 'ш': 'sh',
+    'Щ': 'Sht', 'щ': 'sht',
+    'Ъ': 'A', 'ъ': 'a', 
+    'Ь': 'I', 'ь': 'i', 
+    'Ю': 'Yu', 'ю': 'yu',
+    'Я': 'Ya', 'я': 'ya'
+};
+
+const transliterate = (text) => {
+    let transliteratedText = '';
+    for (const char of text) {
+        transliteratedText += char in cyrillicToLatinMapping ? cyrillicToLatinMapping[char] : char;
+    }
+    return transliteratedText;
+};
+
+export const create = async (req, res, next) => {
     const existingPost = await Post.findOne({ title: req.body.title });
-        if (existingPost) {
-            return next(errorHandler(400, 'A post with this title already exists.'));
-        }
+    if (existingPost) {
+        return next(errorHandler(400, 'Публикация с това заглавие вече съществува.'));
+    }
 
-    if(!req.user.isAdmin){
-        return next(errorHandler(400, 'You are not allowed to create a blog post!'));
+    if (!req.user.isAdmin) {
+        return next(errorHandler(400, 'Нямате право да създавате блог публикации!'));
     }
-    if(!req.body.title || !req.body.content){
-        return next(errorHandler(400, 'Please provide all required fields'));
+    if (!req.body.title || !req.body.content) {
+        return next(errorHandler(400, 'Моля, предоставете всички задължителни полета'));
     }
-    
-    const slug = req.body.title
-    .split(' ')
-    .join('-')
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9]/g,'-');
+
+    const slug = transliterate(req.body.title)
+        .split(' ')
+        .join('-')
+        .toLowerCase()
+        .replace(/[^a-zA-Z0-9-]/g, '-');
 
     const newPost = new Post({
         ...req.body,
         slug,
         creatorId: req.user.id,
-    });        
+    });
 
     try {
         const savedPost = await newPost.save();
-        res.status(200).json({ 
-            message: 'Blog post created successfully', 
-            post: savedPost 
+        res.status(200).json({
+            message: 'Блог публикацията е създадена успешно',
+            post: savedPost
         });
     } catch (error) {
         next(error);
@@ -43,12 +85,12 @@ export const getPosts = async (req, res, next) => {
         const limit = parseInt(req.query.limit) || 9;
         const sortDirection = req.query.order === 'asc' ? 1 : -1;
         const posts = await Post.find({
-            ...(req.query.creatorId && { creatorId: req.query.creatorId}),
-            ...(req.query.category && { category: req.query.category}),
-            ...(req.query.slug && { slug: req.query.slug}),
-            ...(req.query.postId && { _id: req.query.postId}),
+            ...(req.query.creatorId && { creatorId: req.query.creatorId }),
+            ...(req.query.category && { category: req.query.category }),
+            ...(req.query.slug && { slug: req.query.slug }),
+            ...(req.query.postId && { _id: req.query.postId }),
             ...(req.query.searchTerm && {
-                $or:[
+                $or: [
                     {
                         title: {
                             $regex: req.query.searchTerm,
@@ -61,9 +103,9 @@ export const getPosts = async (req, res, next) => {
                             $options: 'i'
                         }
                     },
-                
+
                 ],
-             }),
+            }),
         }).sort({ updatedAt: sortDirection }).skip(startIndex).limit(limit);
 
         const totalPosts = await Post.countDocuments();
@@ -80,7 +122,7 @@ export const getPosts = async (req, res, next) => {
             createdAt: {
                 $gte: oneMonthAgo
             }
-        }); 
+        });
 
         res.status(200).json({
             posts,
@@ -90,60 +132,74 @@ export const getPosts = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-}
-
+};
 
 export const deletepost = async (req, res, next) => {
-    if(!req.user.isAdmin || req.user.id !== req.params.creatorId){
-        return next(errorHandler(403, 'Unauthorized'));
+    if (!req.user.isAdmin || req.user.id !== req.params.creatorId) {
+        return next(errorHandler(403, 'Неразрешен достъп'));
     }
 
     try {
-        await Post.findByIdAndDelete(req.params.postId);
+        const post = await Post.findById(req.params.postId);
+        if (!post) {
+            return next(errorHandler(404, 'Публикацията не е намерена'));
+        }
+
+        await Comment.deleteMany({ postId: post._id });
+
+        await Post.findByIdAndDelete(post._id);
+
         res.status(200).json({
             success: true,
-            message: 'Blog post deleted successfully',
+            message: 'Блог публикацията и всички коментари към нея бяха изтрити успешно',
         });
     } catch (error) {
         next(error);
     }
-}
+};
 
 export const editpost = async (req, res, next) => {
     if (!req.user.isAdmin || req.user.id !== req.params.creatorId) {
-        return next(errorHandler(403, 'Unauthorized'));
+        return next(errorHandler(403, 'Неразрешен достъп'));
     }
 
     try {
         const existingPost = await Post.findById(req.params.postId);
 
         if (!existingPost) {
-            return next(errorHandler(404, 'Post not found'));
+            return next(errorHandler(404, 'Публикацията не е намерена'));
         }
 
         const newTitle = req.body.title.trim();
         const newContent = req.body.content.trim();
+        const newImage = req.body.image;
+        const newCategory = req.body.category;
 
         if (!newTitle || (!newContent.trim() || !newContent.replace(/<\/?[^>]+(>|$)/g, "").trim())) {
             return res.status(400).json({
                 success: false,
-                message: 'Title and content cannot be empty.',
+                message: 'Заглавието и съдържанието не могат да бъдат празни.',
             });
-}
+        }
 
-
-        // Generate new slug
-        const newSlug = newTitle
+        const newSlug = transliterate(newTitle)
             .replace(/[^a-zA-Z0-9]/g, '-') 
             .replace(/-{2,}/g, '-') 
             .toLowerCase();
 
+        if (newSlug === existingPost.slug && newTitle === existingPost.title && newContent === existingPost.content && existingPost.image === newImage && existingPost.category === newCategory) {
+            return res.status(400).json({
+                success: false,
+                message: 'Няма нови промени.',
+            });
+        }
+            
         if (newSlug !== existingPost.slug) {
             const existingSlug = await Post.findOne({ slug: newSlug });
             if (existingSlug) {
                 return res.status(400).json({
                     success: false,
-                    message: 'A post with the same title content already exists.',
+                    message: 'Публикация със същото заглавие вече съществува.',
                 });
             }
         }
@@ -164,12 +220,11 @@ export const editpost = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            message: 'Blog post edited successfully',
+            message: 'Блог публикацията е успешно редактирана',
             post: updatedPost,
         });
-        
+
     } catch (error) {
         next(error);
     }
-}
-
+};

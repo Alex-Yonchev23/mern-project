@@ -3,19 +3,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/login-signup.css';
 import { useNavigate } from 'react-router-dom';
-import { logInStart,logInSuccess,logInError } from '../redux/user/userSlice';
+import { logInStart, logInSuccess, logInError } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import OAuth from '../components/OAuth';
 import { errorMessage, successMessage } from '../components/ToastMessage';
 
-
 const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
-  
+
   const { loading , error } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const handleChanges = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value });
@@ -49,83 +47,80 @@ const LogIn = ({ passwordVisible, togglePasswordVisibility }) => {
         dispatch(logInError(data));
         errorMessage(data.message);
       }           
-      
 
     } catch (error) {
       dispatch(logInError(error));
-      errorMessage('Failed to fetch the data.');
+      errorMessage('Неуспешно извличане на данните.');
     }
   };
 
- 
+  return (
+    <div className="user_forms-login">
+      <h2 className="text-3xl font-bold mb-4 text-yellow-400 text-center uppercase tracking-widest">Вход</h2>
+      <form className="forms_form" onSubmit={handleSubmit} noValidate>
+        <div className="relative mb-6">
+          <input
+            type="text"
+            className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
+            maxLength="50"
+            name="email"
+            id="email-log-in"
+            onChange={handleChanges}
+            required
+          />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label className="labels capitalize select-none">Имейл</label>
+        </div>
+        <div className="relative mb-6">
+          <input
+            type={passwordVisible ? 'text' : 'password'}
+            className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
+            maxLength="128"
+            name="password"
+            id="log-in-password"
+            onChange={handleChanges}
+            required
+          />
+          <span className="highlight"></span>
+          <span className="bar"></span>
+          <label className="labels select-none">Парола</label>
+          <FontAwesomeIcon
+            icon={passwordVisible ? faEyeSlash : faEye}
+            className={`fas fa-eye show-password ${passwordVisible ? ' eye-animated ' : ''}`}
+            onClick={togglePasswordVisibility}
+            id="toggleSignUpPassword"
+          />
+        </div>
+        <div className="forms_buttons flex xl:flex-row xl:justify-between items-center gap-2 flex-col pb-4">
+          <label htmlFor="remember_me" className="remember hover:text-neutral-500  text-sm text-nowrap transition-all duration-200">
+            Запомни ме
+            <input
+              type="checkbox"
+              id="remember_me"
+              name="remember_me"
+              className="rounded-md ml-2  ring-yellow-400 focus:ring-yellow-400 text-yellow-400 transition-all duration-100 ms-2"
+              checked={formData.remember_me || false}
+              onChange={handleChanges}
+            />
+          </label>
+          <a href="#" className="forms_buttons-forgot text-sm text-nowrap">
+            Забравена парола?
+          </a>
+        </div>
+        <div className="flex justify-center items-center flex-col max-lg:gap-2 lg:gap-1 max-lg:flex-row ">
+          <button type="submit" value="Submit" className='main-btn select-none rounded-md w-full text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-500 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>Вход</button>
+          <span className='raleway max-lg:ml-2'>или</span>
+          <OAuth></OAuth>
+        </div>
+      </form>
+      {loading && (
+        <div className="spinner-overlay absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50">
+          <div className="spinner border-t-4 border-white border-solid h-6 w-6 rounded-full animate-spin"></div>
+        </div>
+      )}
+    </div>  
+  );
+};
 
-    return (
-          <div className="user_forms-login">
-            <h2 className="text-3xl font-bold mb-4 text-yellow-400 text-center uppercase tracking-widest">Log In</h2>
-            <form className="forms_form "  onSubmit={handleSubmit} noValidate>
-              <div className="relative mb-6">
-                <input
-                  type="text"
-                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
-                  maxLength="50"
-                  name="email"
-                  id="email-log-in"
-                  onChange={handleChanges}
-                  required
-                />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                <label className="labels capitalize select-none">Email</label>
-              </div>
-              <div className="relative mb-6">
-                <input
-                  type={passwordVisible ? 'text' : 'password'}
-                  className="forms_field-input w-full border-b-2 border-neutral-500 p-1.5 focus:border-neutral-500 focus:ring-transparent focus:ring-none bg-transparent"
-                  maxLength="128"
-                  name="password"
-                  id="log-in-password"
-                  onChange={handleChanges}
-                  required
-                />
-                <span className="highlight"></span>
-                <span className="bar"></span>
-                <label className="labels select-none">Password</label>
-                <FontAwesomeIcon
-                  icon={passwordVisible ? faEyeSlash : faEye}
-                  className={`fas fa-eye show-password ${passwordVisible ? ' eye-animated ' : ''}`}
-                  onClick={togglePasswordVisibility}
-                  id="toggleSignUpPassword"
-                />
-              </div>
-              <div className="forms_buttons flex xl:flex-row xl:justify-between items-center gap-2 flex-col pb-4">
-                <label htmlFor="remember_me" className="remember hover:text-neutral-500  text-sm text-nowrap transition-all duration-200">
-                  Remember me
-                  <input
-                    type="checkbox"
-                    id="remember_me"
-                    name="remember_me"
-                    className="rounded-md ml-2  ring-yellow-400 focus:ring-yellow-400 text-yellow-400 transition-all duration-100 ms-2"
-                    checked={formData.remember_me || false}
-                    onChange={handleChanges}
-                  />
-                  </label>
-                <a href="#" className="forms_buttons-forgot text-sm text-nowrap">
-                  Forgot password?
-                </a>
-              </div>
-              <div className="flex justify-center items-center flex-col max-lg:gap-2 lg:gap-1 max-lg:flex-row ">
-                <button type="submit" value="Submit" className='main-btn select-none rounded-md w-full text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-500 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>Log In</button>
-                <span className='raleway max-lg:ml-2'>or</span>
-                <OAuth></OAuth>
-              </div>
-              
-            </form>
-            {loading && (
-            <div className="spinner-overlay absolute inset-0 flex items-center justify-center z-10 bg-black bg-opacity-50">
-              <div className="spinner border-t-4 border-white border-solid h-6 w-6 rounded-full animate-spin"></div>
-            </div>
-          )}
-          </div>  
-          );
-        };
-        export default LogIn;
+export default LogIn;

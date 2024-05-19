@@ -2,17 +2,16 @@ import { errorHandler } from "../utils/error.js";
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 
-
-//test server
+// Тест на сървъра
 export const test = (req, res) => {
     res.json({
-        message: 'API is working!'
+        message: 'API функционира успешно!'
     });
 };
 
 //--------------------------------------------------------------------------------------
 
-//update User 
+// Актуализация на потребител
 const dateDiffInHoursMinutes = (date1, date2) => {
     const diffInMs = Math.abs(date1 - date2);
     const hours = Math.floor(diffInMs / (1000 * 60 * 60));
@@ -35,18 +34,18 @@ const isValidName = (name) => {
     if (name && typeof name === 'string') {
         
         if (!name.trim()) {
-            return "Name cannot be empty.";
+            return "Името не може да бъде празно.";
         }
 
         const validNameRegex = /^[A-Za-z -]+$/;
 
         if (!validNameRegex.test(name)) {
-            return "Name must only contain letters, spaces, or hyphens.";
+            return "Името трябва да съдържа само букви, интервали или тирета.";
         }
 
         const repeatedCharactersRegex = /(.)\1{2,}/;
         if (repeatedCharactersRegex.test(name)) {
-            return "Name cannot contain repeating characters.";
+            return "Името не може да съдържа повтарящи се символи.";
         }
     }
     return true; 
@@ -57,40 +56,35 @@ export const updateUser = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.id);
         
-        // Check if the user is newly signed up
         const isNewUser = (!user.createdAt || user.createdAt.toString() === user.updatedAt.toString());
 
-        // Check if the user making the request matches the user being updated
         if ((req.user.id || req.user._id) !== req.params.id) {
-            return next(errorHandler(401, 'Unauthorized'));
+            return next(errorHandler(401, 'Неразрешен достъп'));
         }
 
         const now = new Date();
         const lastUpdate = new Date(user.updatedAt);
         const timeDiffInMillis = now - lastUpdate;
 
-        // If user is newly signed up, allow update immediately
         if (isNewUser) {
             return updateUserDetails(req, res, next);
         }
 
-        // Otherwise, check time difference and allow update if more than 24 hours have passed
-        const timeLeftInMillis = 24 * 60 * 60 * 1000 - timeDiffInMillis; // One day in milliseconds
+        const timeLeftInMillis = 24 * 60 * 60 * 1000 - timeDiffInMillis;
 
         if (timeDiffInMillis < 24 * 60 * 60 * 1000) {
             const { hours, minutes } = dateDiffInHoursMinutes(timeLeftInMillis, 0);
             return res.status(400).json({
                 success: false,
-                message: `You can update your information again in ${hours} hours and ${minutes} minutes.`,
-                timeLeft: { hours, minutes } // Adding time left information
+                message: `Можете да актуализирате данните си отново след ${hours} часа и ${minutes} минути.`,
+                timeLeft: { hours, minutes } // Добавяне на информация за оставащото време
             });
         }
 
-        // If more than 24 hours have passed, allow update
         return updateUserDetails(req, res, next);
 
     } catch (error) {
-        console.error('Update User Error:', error);
+        console.error('Грешка при актуализиране на потребителя:', error);
         next(error);
     }
 };
@@ -119,7 +113,7 @@ const updateUserDetails = async (req, res, next) => {
         if (password && !isPasswordValid(password)) {
             return res.status(400).json({
                 success: false,
-                message: "Password must contain at least 8 characters, an uppercase letter, a lowercase letter, a digit, and a special symbol.",
+                message: "Паролата трябва да съдържа поне 8 символа, главна буква, малка буква, цифра и специален символ.",
             });
         }
 
@@ -142,7 +136,7 @@ const updateUserDetails = async (req, res, next) => {
             if (isSamePassword) {
                 return res.status(400).json({
                     success: false,
-                    message: "New password cannot be the same as the old one.",
+                    message: "Новата парола не може да бъде същата като старата.",
                 });
             }
         }
@@ -150,7 +144,7 @@ const updateUserDetails = async (req, res, next) => {
         if (Object.keys(updatedFields).length === 0) {
             return res.status(400).json({
                 success: false,
-                message: 'No changes are made.',
+                message: 'Няма направени промени.',
             });
         }
 
@@ -164,17 +158,17 @@ const updateUserDetails = async (req, res, next) => {
             const { password: hashedPassword, ...rest } = updatedUser._doc;
             return res.status(200).json({
                 success: true,
-                message: 'Updated successfully!',
+                message: 'Успешно актуализиранe!',
                 user: rest,
             });
         } else {
             return res.status(400).json({
                 success: false,
-                message: 'Failed to update user.',
+                message: 'Неуспешно актуализиране на потребителя.',
             });
         }
     } catch (error) {
-        console.error('Update User Error:', error);
+        console.error('Грешка при актуализиране на потребителя:', error);
         next(error);
     }
 };
@@ -182,12 +176,12 @@ const updateUserDetails = async (req, res, next) => {
 
 //--------------------------------------------------------------------------------------
 
-//delete User
+// Изтриване на потребител
 
 export const deleteUser = async (req, res, next) => {
     
-    if ( (!req.user.isAdmin && req.user.id !== req.params.userId)) {
-        return next(errorHandler(401, 'Unauthorized'));
+    if ((!req.user.isAdmin && req.user.id !== req.params.userId)) {
+        return next(errorHandler(401, 'Неразрешен достъп'));
     }
 
     try{
@@ -195,12 +189,12 @@ export const deleteUser = async (req, res, next) => {
         if(deletedUser){
             return res.status(200).json({
                 success: true,
-                message: 'User deleted successfully!',
+                message: 'Потребителят е изтрит успешно!',
             });
         }else{
             return res.status(200).json({
                 success: false,
-                message: 'Failed to delete user.',
+                message: 'Неуспешно изтриване на потребител.',
             });
         }
         }catch(error){
@@ -208,32 +202,49 @@ export const deleteUser = async (req, res, next) => {
         }
 }    
 
-//get users
+// Получаване на потребители
 
 export const getUsers = async (req, res, next) => {
     if (!req.user.isAdmin) {
-        return next(errorHandler(401, 'Unauthorized'));
+      return next(errorHandler(403, 'Нямате право да виждате всички потребители'));
     }
-
-    const limit = parseInt(req.query.limit) || 9; // Default limit to 9 if not provided
-    const startIndex = parseInt(req.query.startIndex) || 0; // Default startIndex to 0 if not provided
-
     try {
-        const users = await User.find().skip(startIndex).limit(limit);
-        const totalUsers = await User.countDocuments(); 
-        const remainingUsers = totalUsers - (startIndex + limit); 
-
-        return res.status(200).json({
-            success: true,
-            message: 'Users retrieved successfully!',
-            users,
-            totalUsers,
-            remainingUsers: remainingUsers > 0 ? remainingUsers : 0,    
-        });
+      const startIndex = parseInt(req.query.startIndex) || 0;
+      const limit = parseInt(req.query.limit) || 9;
+      const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+  
+      const users = await User.find()
+        .sort({ createdAt: sortDirection })
+        .skip(startIndex)
+        .limit(limit);
+  
+      const usersWithoutPassword = users.map((user) => {
+        const { password, ...rest } = user._doc;
+        return rest;
+      });
+  
+      const totalUsers = await User.countDocuments();
+  
+      const now = new Date();
+      const oneMonthAgo = new Date(
+        now.getFullYear(),
+        now.getMonth() - 1,
+        now.getDate()
+      );
+      const lastMonthUsers = await User.countDocuments({
+        createdAt: { $gte: oneMonthAgo },
+      });
+  
+      res.status(200).json({
+        users: usersWithoutPassword,
+        totalUsers,
+        lastMonthUsers,
+      });
     } catch (error) {
-        next(error);
+      next(error);
     }
-};
+  };
+  
 
 export const getUser = async (req, res, next) => {
     try {

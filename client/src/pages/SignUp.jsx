@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoadingSpinner from '../components/Loading';
 import { selectLoading,setLoading } from '../redux/user/userSlice';
 
-
 const SignUp = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -55,40 +54,38 @@ const SignUp = () => {
     } catch (error) {
       dispatch(setLoading(false)); 
       setError(true);
-      errorMessage('Failed to fetch the data.')
+      errorMessage('Неуспешно извличане на данните.')
     }
   };
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-
   return (
-    <div className="grid place-items-center"  style={{ height: `calc(100vh - ${110}px)`}}>
+    <div className="grid place-items-center" style={{ height: `calc(100vh - ${110}px)` }}>
       <div className="user_options-container relative xl:w-2/3 md:w-9/12 max-md:hidden rounded-md border-1 border-yellow-400 border-solid bg-[#000000d1]">
         <div className="bg-panel flex justify-between w-full rounded-md p-4 ">
           <div className="w-1/2 text-white font-light xl:p-8 md:p-3">
-            <h2 className="user_unregistered-title text-2xl font-bold mb-4">Don't have an account?</h2>
+            <h2 className="user_unregistered-title text-2xl font-bold mb-4">Нямате акаунт?</h2>
             <p className="user_unregistered-text text-sm beige">Dolorum porro natus enim similique reiciendis sunt, culpa consectetur, dolores quae adipisci velit. Minima at dolorum quae dolore modi obcaecati saepe vel!</p>
-            <button className="main-btn user_registered-login mt-7 border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none"
-              onClick={toggleForm}>
-                Sign up
-              </button>
+            <button className="main-btn user_registered-login mt-7 border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>
+              Регистрация
+            </button>
           </div>
 
           <div className="w-1/2 text-white font-light xl:p-8 md:p-5">
-            <h2 className="user_registered-title text-2xl font-bold mb-4">Already have an account?</h2>
+            <h2 className="user_registered-title text-2xl font-bold mb-4">Вече имате акаунт?</h2>
             <p className="user_registered-text text-sm beige">Maiores nisi laudantium velit harum! <br /> Tenetur earum nobis inventore illo sequi atque vel nulla in? <br /> Maiores nisi laudantium velit harum!</p>
-            <button className="main-btn mt-7 border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>Log In</button>
+            <button className="main-btn mt-7 border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase leading-[1.5em] tracking-[.2rem] font-black select-none" onClick={toggleForm}>Вход</button>
           </div>
         </div>
 
-        <div className={`user_options-forms ${showLogin ? 'bounceRight' : 'bounceLeft'} absolute w-[calc(50%_-_30px)] min-h-[420px] bg-[beige]  shadow-[0px_0px_20px_5px_rgba(0,0,0,0.75)] transition-transform flex justify-center items-center rounded-md left-[30px] top-2/4 `}>
+        <div className={`overflow-hidden user_options-forms ${showLogin ? 'bounceRight' : 'bounceLeft'} absolute w-[calc(50%_-_30px)] min-h-[420px] bg-[beige]  shadow-[0px_0px_20px_5px_rgba(0,0,0,0.75)] transition-transform flex justify-center items-center rounded-md left-[30px] top-2/4 `}>
           {showLogin ? (
             <LogIn passwordVisible={passwordVisible} togglePasswordVisibility={togglePasswordVisibility} loading={loading} />
           ) : (
-              <div className="user_forms-signup opacity-100 transition-opacity duration-400">
-                <h2 className="text-3xl font-bold mb-4 text-yellow-400 text-center uppercase tracking-widest">Sign Up</h2>
+              <div className="user_forms-signup opacity-100 transition-opacity duration-400 ">
+                <h2 className="text-3xl font-bold mb-4 text-yellow-400 text-center uppercase tracking-widest">Регистрация</h2>
                 <form className="forms_form" onSubmit={handleSubmit} noValidate>
                   <div className="relative mb-7">
                     <input
@@ -102,7 +99,7 @@ const SignUp = () => {
                     />
                     <span className="highlight"></span>
                     <span className="bar"></span>
-                    <label className="labels select-none">First Name</label>
+                    <label className="labels select-none">Име</label>
                   </div>
                   <div className="relative mb-7">
                     <input
@@ -116,7 +113,7 @@ const SignUp = () => {
                     />
                     <span className="highlight"></span>
                     <span className="bar"></span>
-                    <label className="labels select-none ">Last Name</label>
+                    <label className="labels select-none ">Фамилия</label>
                   </div>
                   <div className="relative mb-7">
                     <input
@@ -130,7 +127,7 @@ const SignUp = () => {
                     />
                     <span className="highlight"></span>
                     <span className="bar"></span>
-                    <label className="labels select-none">Email</label>
+                    <label className="labels select-none">Имейл</label>
                   </div>
                   <div className="relative mb-3">
                     <input
@@ -144,7 +141,7 @@ const SignUp = () => {
                     />
                     <span className="highlight"></span>
                     <span className="bar"></span>
-                    <label className="labels select-none">Password</label>
+                    <label className="labels select-none">Парола</label>
                     <FontAwesomeIcon
                       icon={passwordVisible ? faEyeSlash : faEye}
                       className={`fas fa-eye show-password ${passwordVisible ? ' eye-animated ' : ''}`}
@@ -154,7 +151,7 @@ const SignUp = () => {
                   </div>
                   <div className="flex justify-center ">
                     <button type="submit" value="Submit" className='main-btn select-none rounded-md w-full text-base font-light text-white uppercase bg-yellow-400 hover:bg-yellow-500 transition-all duration-300 ease-in-out px-4 py-2 tracking-wide ' disabled={loading}>                     
-                      Sign Up
+                      Регистрация
                     </button>
                   </div>
                 </form>

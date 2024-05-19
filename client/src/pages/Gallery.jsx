@@ -1,133 +1,79 @@
-import React from 'react'
-
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import image1 from '../images/433496972_1088676695655663_4363006065331097707_n.jpg';
+import image2 from '../images/433496972_1088676695655663_4363006065331097707_n.jpg';
 
 export default function Gallery() {
   return (
-    <main className="w-full max-w-7xl mx-auto px-4 py-12 md:px-6 md:py-16 lg:py-20">
-    <div className="space-y-6 md:space-y-8 lg:space-y-10 bg-black md:p-8">
-    <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Luxury Art Gallery</h1>
-          <p className="mt-2 text-gray-500 max-w-[600px] mx-auto md:text-lg dark:text-gray-400">
-            Explore our collection of exquisite fine art photography and paintings that capture the essence of luxury
-            and sophistication.
-          </p>
+    <main className='flex flex-col items-center pt-2 pb-5 gap-8 min-h-screen'>
+      <section className="w-full p-5 pt-0 md:py-24 lg:py-32 bg-gray-950 text-gray-50 max-w-6xl rounded-xl big-shadow">
+        <div className='flex justify-center'>
+          <h1 className="max-w-4xl text-center text-sm md:text-xl font-bold mb-5 ml-5 uppercase bg-yellow-500 rounded-tl-none rounded-tr-none rounded-xl p-3">
+            Опознайте света на металните скуптури, които носят история със себе си
+          </h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
+        <div className="container grid gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16 ">
+          <div className="group relative overflow-hidden rounded-lg">
+            <Link className="absolute inset-0 z-10" to="#">
+              <span className="sr-only">View</span>
+            </Link>
+            <img
+              alt="Featured Artwork"
+              className="aspect-[4/3] w-full rounded-lg object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+              src={image1}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 bg-gradient-to-t from-gray-950 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl ">Ethereal Embrace</h1>
+                <p className="text-gray-400">By Jane Doe</p>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-yellow-500 uppercase">
+                Ветеранът
+              </h1>
+              <p className="text-gray-400">By Jane Doe</p>
+            </div>
+            <p className="text-lg text-gray-400">
+              Immerse yourself in the captivating world of "Ethereal Embrace," a masterpiece that transcends the
+              boundaries of time and space. This breathtaking work of art, crafted by the renowned artist Jane Doe,
+              invites you to embark on a journey of ethereal beauty and emotional resonance.
+            </p>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="w-full p-5 bg-gray-950 text-gray-50 max-w-6xl">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-yellow-500 text-center">
+            Галерия
+          </h1>
+        </div>
+        <div className="grid gap-6 px-4 md:px-6 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="group relative overflow-hidden rounded-lg">
+            <Link className="absolute inset-0 z-10" to="#">
+              <span className="sr-only">View</span>
+            </Link>
             <img
               alt="Artwork 1"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
+              className="aspect-[3/2] w-full rounded-t-lg object-cover group-hover:scale-105 transition-transform border-4 border-[#ffd700] group-hover:border-[#ffd700]/80"
+              src={image2}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Luxury Sunset</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 2"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Elegant Cityscape</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 3"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Timeless Elegance</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 4"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Refined Minimalism</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 5"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Opulent Landscapes</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 6"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Serene Moments</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 7"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Architectural Gems</div>
-          </Link>
-          <Link
-            className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-[0_0_20px_0_rgba(253,224,71,0.5)] transition-all duration-300 ease-in-out"
-            href="#"
-          >
-            <img
-              alt="Artwork 8"
-              className="aspect-square object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ease-in-out border border-yellow-50"
-              height={600}
-              src="/placeholder.svg"
-              width={600}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out" />
-            <div className="absolute bottom-4 left-4 text-white text-sm font-medium">Captivating Portraits</div>
-          </Link>
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 bg-gradient-to-t from-gray-950 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold">Artwork 1</h3>
+                <p className="text-gray-400">By Jane Doe</p>
+              </div>
+            </div>
+          </div>
+          {/* Add more artwork sections here */}
         </div>
-    </div>
-  </main>
-  )
+      </section>
+    </main>
+  );
 }

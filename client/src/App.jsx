@@ -17,7 +17,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Footer from './components/Footer';
 import 'flowbite';
 import EditPost from './components/EditBlogPost';
-import SessionExpiredModal from './components/SessionExpiredModal';
+//import SessionExpiredModal from './components/SessionExpiredModal';
 
 
 
@@ -52,7 +52,7 @@ export default function App() {
 
         </Routes>
       <Footer/>
-      <SessionExpiredModal isOpen={isSessionExpired} onClose={handleCloseSessionExpiredModal} />
+      {/*<SessionExpiredModal isOpen={isSessionExpired} onClose={handleCloseSessionExpiredModal} />*/}
       <ToastMessage></ToastMessage>
     </BrowserRouter>
   );

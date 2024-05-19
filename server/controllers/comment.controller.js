@@ -8,14 +8,14 @@ export const createComment = async (req, res, next) => {
         if (!content.trim()) {
             return res.status(400).json({
                 success: false,
-                message: "You cannot submit empty comment",
+                message: "Не може да бъде изпратен празен коментар",
             });
         }
 
         if (userId !== (req.user.id || req.user._id)){
             return res.status(400).json({
                 success: false,
-                message: "Unauthorized",
+                message: "Неразрешен достъп",
             });
         }
 
@@ -49,13 +49,13 @@ export const getPostComments = async (req, res, next) => {
 export const likeComment = async (req, res, next) => {
     try {
         if (!req.user || (!req.user.id && !req.user._id)) {
-            return res.status(401).json({ success: false, message: 'Unauthorized' });
+            return res.status(401).json({ success: false, message: 'Неразрешен достъп' });
         }
 
         const comment = await Comment.findById(req.params.commentId);
 
         if (!comment) {
-            return next(errorHandler(404, 'Comment not found!'))
+            return next(errorHandler(404, 'Коментарът не е намерен!'))
         }
 
         const userIndex = comment.likes.indexOf(req.user.id || req.user._id);
@@ -81,18 +81,18 @@ export const editComment = async (req, res, next) => {
         const comment  = await Comment.findById(req.params.commentId);
         
         if(!comment){
-            return next(errorHandler(404, 'Comment not found!'))
+            return next(errorHandler(404, 'Коментарът не е намерен!'))
         }
 
         if(comment.userId !== req.user._id && !req.user.isAdmin){
-            return next(errorHandler(401, 'Unauthorized'));
+            return next(errorHandler(401, 'Неразрешен достъп'));
         }
 
         const { content } = req.body;
         if (!content.trim()) {
             return res.status(400).json({
                 success: false,
-                message: "You can't save an empty comment",
+                message: "Не можете да запазите празен коментар",
             });
         }
 
@@ -108,7 +108,7 @@ export const editComment = async (req, res, next) => {
 
         res.status(200).json({ 
             comment: editedComment,
-            message: 'Comment edited successfully.'
+            message: 'Коментарът е успешно редактиран.'
         });
     } catch (error) {
         next(error);
@@ -119,22 +119,22 @@ export const editComment = async (req, res, next) => {
 export const deleteComment = async (req, res, next) => {
     try {
         if (!req.params.commentId) {
-            return next(errorHandler(400, 'Comment ID is missing'));
+            return next(errorHandler(400, 'Идентификационният номер на коментара липсва'));
         }
 
         const comment = await Comment.findById(req.params.commentId);
         if (!comment) {
-            return next(errorHandler(404, 'Comment not found!'))
+            return next(errorHandler(404, 'Коментарът не е намерен!'))
         }
 
         if (comment.userId !== req.user._id && !req.user.isAdmin) {
-            return next(errorHandler(401, 'Unauthorized'));
+            return next(errorHandler(401, 'Неразрешен достъп'));
         }
 
         await Comment.findByIdAndDelete(req.params.commentId);
         res.status(200).json({
             success: true,
-            message: 'Comment deleted successfully',
+            message: 'Коментарът е успешно изтрит',
         });
     } catch (error) {
         next(error);
@@ -144,7 +144,7 @@ export const deleteComment = async (req, res, next) => {
 
 export const getComments = async (req, res, next) => {
     if(!req.user.isAdmin)
-        return next(errorHandler(403, 'Unauthorized'));
+        return next(errorHandler(403, 'Неразрешен достъп'));
 
     try {
         const startIndex = parseInt(req.query.startIndex) || 0;
@@ -176,5 +176,3 @@ export const getComments = async (req, res, next) => {
         next(error);
     }
 }
-
-

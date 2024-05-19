@@ -37,7 +37,7 @@ export default function Profile() {
       const maxSize = 3 * 1024 * 1024; // 3MB in bytes
   
       if (image.size > maxSize) {
-        throw new Error("Image size exceeds 3MB. Please choose a smaller image.");
+        throw new Error("Размерът на изображението надвишава 3MB. Моля, изберете по-малко изображение.");
       }
   
       const storage = getStorage(app);
@@ -137,7 +137,7 @@ export default function Profile() {
     <div className="flex items-center justify-center min-h-screen w-full"  style={{ height: `calc(100vh - ${110}px)`}}>
       <div className="flex flex-col justify-center p-7 bg-black/80 backdrop-blur-[1.5px] rounded-md border-2 border-yellow-400 border-solid w-full max-w-xl max-sm:w-3/4 md:w-3/4 lg:w-2/3	big-shadow">
         <h1 className='beige text-2xl md:text-3xl font-normal text-center '>
-          Welcome <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
+          Добре дошли, <span className="raleway font-thin break-words text-2xl md:text-3xl">{currentUser?.user?.firstName}</span>
         </h1>        
 
         <div className="flex items-center justify-center">
@@ -149,10 +149,10 @@ export default function Profile() {
               accept="image/*" 
               onChange={(e) => setImage(e.target.files[0])}/>
 
-            <p className="beige raleway text-center">You can update the details.</p>
+            <p className="beige raleway text-center">Можете да актуализирате данните си.</p>
 
             <div className="flex justify-center">
-            <Tooltip content="Change avatar" className="beige bg-transparent border border-solid border-yellow-400" placement="left"  style="yellow">
+            <Tooltip content="Промяна на аватара" className="beige bg-transparent border border-solid border-yellow-400" placement="left"  style="yellow">
               <img 
                 src={ formData.avatar || userAvatar } 
                 alt="Avatar"  
@@ -163,11 +163,11 @@ export default function Profile() {
             </div>
             <p className="text-sm self-center">
               {imgError ? (
-                <span className="text-red-700 raleway">Error uploading avatar</span>
+                <span className="text-red-700 raleway">Грешка при качването на аватара</span>
               ) : imagePercentage > 0 && imagePercentage < 100 ? (
-                <span className="font-medium text-slate-500 raleway">{`Uploading: ${imagePercentage} %`}</span>
+                <span className="font-medium text-slate-500 raleway">{`Качване: ${imagePercentage} %`}</span>
               ) : imagePercentage === 100 ? (
-                <span className="font-medium text-green-700 raleway">Image uploaded successfully</span>
+                <span className="font-medium text-green-700 raleway">Изображението е качено успешно</span>
               ) : (
                 ''
               )}
@@ -179,7 +179,7 @@ export default function Profile() {
                 type="text"
                 id="firstName"
                 defaultValue={currentUser.user.firstName}
-                placeholder="First Name"
+                placeholder="Първо име"
                 maxLength="30"
                 className=" focus:border-yellow-400 focus:ring-transparent focus:ring-none  bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4 "
                 onChange={handleChange}
@@ -189,7 +189,7 @@ export default function Profile() {
                 type="text"
                 id="lastName"
                 defaultValue={currentUser.user.lastName}
-                placeholder="Last Name"
+                placeholder="Фамилия"
                 maxLength="30"
                 className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway w-3/4"
                 onChange={handleChange}
@@ -201,26 +201,26 @@ export default function Profile() {
               id="email"
               defaultValue={currentUser.user.email}
               disabled
-              title="You cannot change your email address"
-              placeholder="Email"
+              title="Не можете да променяте имейла си"
+              placeholder="Имейл"
               className="bg-transparent border-1 border-solid beige rounded-lg py-2 px-3 raleway"
             />
 
             <input
               type="password"
               id="password"
-              placeholder="New Password"
+              placeholder="Нова парола"
               maxLength="128"
               className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent tracking-[.01rem] border-1 border-solid beige rounded-lg py-2 px-3 raleway"
               onChange={handleChange}
             />
             <button type="submit" className="beige main-btn border-1 border-solid border-yellow-400 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
-              Update
+              Запази промените
             </button>
             {
               currentUser.user.isAdmin && (
                 <Link to='/dashboard?tab=create-post'>
-                  <button type="button" className="w-full beige main-btn border-1 border-solid border-yellow-100 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">New Blog Post</button>
+                  <button type="button" className="w-full beige main-btn border-1 border-solid border-yellow-100 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">Нова блог публикация</button>
                 </Link>
               )
             }
@@ -232,8 +232,8 @@ export default function Profile() {
              onClick={() => {
               setShowModal(true);
             }}
-            className="hover:text-red-700 beige cursor-pointer raleway text-nowrap transition-all">Delete account</span>
-          <span onClick={handleLogOut} className="cursor-pointer beige raleway text-nowrap	hover:opacity-50 transition-all">Log out</span>
+            className="hover:text-red-700 beige cursor-pointer raleway text-nowrap transition-all">Изтриване на акаунта</span>
+          <span onClick={handleLogOut} className="cursor-pointer beige raleway text-nowrap	hover:opacity-50 transition-all">Изход</span>
         </div>
         {loading && <LoadingSpinner/>}
       </div>
@@ -250,14 +250,14 @@ export default function Profile() {
                                     <div className='text-center '>
                                         <HiOutlineExclamationCircle className=' h-14 w-14 text-black/90  mb-4 mx-auto' />
                                         <h3 className='raleway mb-5 text-lg text-black/90'>
-                                        Are you sure you want to delete your account?
+                                        Сигурни ли сте, че искате да изтриете своя акаунт?
                                         </h3>
                                         <div className='flex justify-center gap-4 '>
                                         <Button color='failure' onClick={handleDeleteAccount}>
-                                            Yes, I'm sure
+                                            Да, сигурен съм
                                         </Button>
                                         <Button color='warning' onClick={() => setShowModal(false)}>
-                                            No, cancel
+                                            Не, откажи
                                         </Button>
                                         </div>
                                     </div>

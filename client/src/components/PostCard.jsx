@@ -8,7 +8,7 @@ export default function PostCard({ post }) {
       <Link to={`/blog/${post.slug}`}>
         <img
           src={post.image}
-          alt='post cover'
+          alt='Покрив на публикация'
           className='h-[200px] w-full object-cover group-hover:h-[150px] transition-all duration-300 z-20'
         />
       </Link>
@@ -22,7 +22,7 @@ export default function PostCard({ post }) {
           className='z-10 group/btn group-hover:bottom-0 absolute bottom-[-150px] left-0 right-0 border border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-white transition-all duration-300 text-center py-2 rounded-lg !rounded-tl-none m-1 text-sm'
         >
           <div className='flex flex-row justify-center items-center'>
-             <span className='leading-4 mr-1 font-medium raleway'>Read Article</span>
+             <span className='leading-4 mr-1 font-medium raleway'>Прочети статията</span>
              <FaArrowRight className='transition-all duration-300 transform translate-x-0 group-hover/btn:translate-x-1' />
           </div>
         </Link>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'flowbite-react';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { infoMessage } from './ToastMessage';
@@ -25,7 +25,7 @@ const SessionExpiredModal = ({ isOpen, onClose }) => {
                     setShowModal(true);
                 }
             } catch (error) {
-                console.error('Error checking authentication status:', error);
+                console.error('Грешка при проверка на статуса на удостоверяване:', error);
             }
         };
 
@@ -34,7 +34,7 @@ const SessionExpiredModal = ({ isOpen, onClose }) => {
 
     const handleCheckAuth = () => {
         if (isAuthenticated) {
-            infoMessage("User is authenticated. Proceed with action...");
+            infoMessage("Потребителят е удостоверен. Продължи с действието...");
         } else {
             navigate('/sign-up');
         }
@@ -58,10 +58,10 @@ const SessionExpiredModal = ({ isOpen, onClose }) => {
                     </h3>
                     <div className='flex justify-center gap-2 flex-col'>
                         <Button color='warning' onClick={handleCheckAuth}>
-                            <p className='mr-2'>Go to log in page</p> <GoArrowRight />
+                            <p className='mr-2'>Към страницата за вход</p> <GoArrowRight />
                         </Button>
                         <Button color='failure' onClick={() => setShowModal(false)}>
-                            Continue without registration
+                            Продължи без регистрация
                         </Button>
                     </div>
                 </div>
@@ -71,3 +71,4 @@ const SessionExpiredModal = ({ isOpen, onClose }) => {
 };
 
 export default SessionExpiredModal;
+*/

@@ -40,7 +40,7 @@ export default function EditPost() {
             if (data.posts && data.posts.length > 0) {
                 setFormData(data.posts[0]);
             } else {
-                errorMessage('Post data not found');
+                errorMessage('Данните за публикацията не са намерени');
             }
         };
         fetchPosts();
@@ -55,7 +55,7 @@ export default function EditPost() {
   const handleUploadImage = async () => {
     try {
       if (!file) {
-        infoMessage('Please select an image');
+        infoMessage('Моля, изберете изображение');
         return;
       }
       const storage = getStorage(app);
@@ -108,7 +108,7 @@ export default function EditPost() {
         navigate(`/blog/${data.post.slug}`);
       }
     } catch (error) {
-      errorMessage('Something went wrong');
+      errorMessage('Нещо се обърка');
       console.log(error);
     }
   };
@@ -121,15 +121,15 @@ export default function EditPost() {
   return (
     <div className='grid items-center min-h-screen w-full' >
       <div className='max-w-4xl p-8 mx-8 sm:mx-auto lg:w-8/12 rounded-md big-shadow border-2 border-yellow-400 border-solid bg-black/80 backdrop-blur-[1.5px] mt-10 mb-20 max-md:mx-3'>
-        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Edit Blogpost</h1>
+        <h1 className='beige text-2xl md:text-3xl text-center mt-2 mb-8'>Редактиране на публикация</h1>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
           <div className='flex flex-col gap-4 sm:flex-row justify-between'>
             <input
               type="text"
               id="title"
               defaultValue={formData.title}
-              placeholder="Title"
-              maxLength="100"
+              placeholder="Заглавие"
+              maxLength="200"
               className="focus:border-yellow-400 focus:ring-transparent focus:ring-none bg-transparent border-1 border-solid border-yellow-50 beige rounded-lg py-2 px-3 raleway w-full sm:w-3/4"
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             />
@@ -140,11 +140,11 @@ export default function EditPost() {
               }
               value={formData.category}
             >
-              <option value='uncategorized' disabled hidden className='raleway bg-black'>Select a category</option>
-              <option value='uncategorized'  className='raleway bg-yellow-50 text-black'>Uncategorized</option>
-              <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Metal Sculptures</option>
-              <option value='welding' className='raleway bg-yellow-50 text-black'>Welding</option>
-              <option value='services' className='raleway bg-yellow-50 text-black'>Services</option>
+              <option value='uncategorized' disabled hidden className='raleway bg-black'>Изберете категория</option>
+              <option value='uncategorized'  className='raleway bg-yellow-50 text-black'>Без категория</option>
+              <option value='metal sculptures' className='raleway bg-yellow-50 text-black'>Метални скулптури</option>
+              <option value='welding' className='raleway bg-yellow-50 text-black'>Заварки</option>
+              <option value='services' className='raleway bg-yellow-50 text-black'>Услуги</option>
             </select>
           </div>
           <div className='flex gap-4 items-center justify-between border-2 rounded-md border-yellow-400 border-dashed p-3'>
@@ -157,7 +157,7 @@ export default function EditPost() {
             />
             <img
               src={add_image}
-              alt='Add Image'
+              alt='Добави изображение'
               className='cursor-pointer active:scale-[0.95]	transition-all duration-75 select-none hover:opacity-80 '
               onClick={handleImageClick}
               draggable={false}
@@ -176,20 +176,20 @@ export default function EditPost() {
                   />
                 </div>
               ) : (
-                'Upload Image'
+                'Качи изображение'
               )}
             </button>
           </div>
             {formData.image && (
               <img
                 src={formData.image}
-                alt='upload'
+                alt='качване'
                 className='w-fit mx-auto max-h-96 object-contain rounded-md'
               />
             )}
 
           <ReactQuill
-            placeholder='Type something...'
+            placeholder='Напишете нещо...'
             className='h-48 mb-12 n'
             onChange={
               (value) => {
@@ -200,7 +200,7 @@ export default function EditPost() {
             
           </ReactQuill>
           <button type="submit" className="main-btn beige border-1 border-solid border-yellow-50 rounded-md px-4 py-2 uppercase tracking-[.1rem] select-none">
-            Edit
+            Редактирай
           </button>
         </form>
       </div>

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400&family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=Jura:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -14,7 +14,7 @@
     text-decoration:none;
     list-style-type: none ;
     box-sizing: border-box;
-    font-family: 'Cinzel Decorative', serif;  
+    font-family: 'Jura', serif;  
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
     
@@ -59,9 +59,8 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow-x: hidden;
-    height: 100vh;
-    min-width:min-content;
+    min-width: min-content;
+    @apply  h-screen;
 }
 
 button {
@@ -86,6 +85,10 @@ button {
 }
 
 .big-shadow{
+    box-shadow: 0px 0px 50px 3px var(--black);
+}
+
+.big-shadow-hover:hover{
     box-shadow: 0px 0px 50px 3px var(--black);
 }
 
@@ -150,3 +153,17 @@ button {
     color: var(--golden);
 
   }
+
+  .sidebar-style > div:first-child {
+    @apply bg-neutral-950 border border-yellow-50 border-solid;
+  }
+  
+  .sidebar-style div{
+    @apply !text-yellow-50;
+  }
+  
+  .sidebar-style a{
+    @apply !text-yellow-50;
+  }
+
+  

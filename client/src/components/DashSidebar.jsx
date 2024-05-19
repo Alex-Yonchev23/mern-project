@@ -46,16 +46,17 @@ export default function DashSidebar() {
   
   return (
     <div className='md:sticky md:top-28 mb-2'>
-    <Sidebar className='w-full md:w-56 md:mx-10 '>
+    <Sidebar className='w-screen md:w-56 lg:mx-10 mx-3 big-shadow sidebar-style'>
       <Sidebar.Items className=''>
-        <Sidebar.ItemGroup className='flex flex-col gap-1 p-0 my-4 '>
+        <Sidebar.ItemGroup className='flex flex-col gap-1 p-0 my-4 text-yellow-50'>
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
-                active={tab === 'dash' || !tab}
+                active={tab === 'dash' || !tab ? 'bg-neutral-800 transition-all duration-200' : ''}
                 icon={HiChartPie}
                 as='div'
+                className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950 focus:border focus:border-solid focus:border-yellow-500'
               >
-                Dashboard
+                Дашборд
               </Sidebar.Item>
             </Link>
           
@@ -63,21 +64,23 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
-              label='Admin'
+              label='Админ'
               labelColor='yellow'
               as='div'
+              className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
             >
-              Profile
+              Профил
             </Sidebar.Item>
           </Link>
-            <Sidebar.Collapse icon={HiOutlinePlusCircle} label="Create">
+            <Sidebar.Collapse icon={HiOutlinePlusCircle} label="Добавяне" className='text-yellow-50 hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'>
                 <Link to='/dashboard?tab=create-post'>
                     <Sidebar.Item
                     active={tab === 'create-post'}
                     icon={HiMiniMinusSmall}
                     as='div'
+                    className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
                     >
-                      Blog Post
+                      Публикация
                     </Sidebar.Item>
                 </Link>
                 <Link to='/dashboard?tab=image-card'>
@@ -85,8 +88,9 @@ export default function DashSidebar() {
                     active={tab === 'image-card'}
                     icon={HiMiniMinusSmall }
                     as='div'
+                    className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
                     >
-                      Gallery Item
+                      Скулптура
                     </Sidebar.Item>
                 </Link>
             </Sidebar.Collapse>
@@ -97,8 +101,9 @@ export default function DashSidebar() {
                 active={tab === 'posts'}
                 icon={HiDocumentText}
                 as='div'
+                className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
               >
-                Posts 
+                Публикации 
               </Sidebar.Item>
             </Link>
 
@@ -108,27 +113,31 @@ export default function DashSidebar() {
                   active={tab === 'users'}
                   icon={HiOutlineUserGroup}
                   as='div'
+                  className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
                 >
-                  Users
+                  Потребители
                 </Sidebar.Item>
               </Link>
+
               <Link to='/dashboard?tab=comments'>
                 <Sidebar.Item
                   active={tab === 'comments'}
                   icon={HiAnnotation}
                   as='div'
+                  className='hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
                 >
-                  Comments
+                  Коментари
                 </Sidebar.Item>
               </Link>
             
-          <Sidebar.Item
-            icon={HiArrowSmRight}
-            className='cursor-pointer'
-            onClick={handleLogOut}
-          >
-            Log Out
-          </Sidebar.Item>
+            <Sidebar.Item
+              icon={HiArrowSmRight}
+              className='cursor-pointer hover:bg-neutral-800 transition-all duration-200 bg-neutral-950'
+              onClick={handleLogOut}
+              
+            >
+              Изход
+            </Sidebar.Item>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
