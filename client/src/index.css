@@ -55,12 +55,11 @@
 
 
 body{
-    background: url('./images/bg-3.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-width: min-content;
-    @apply  h-screen;
+    @apply  h-screen ;
 }
 
 button {
@@ -69,6 +68,10 @@ button {
 
 .raleway{
     font-family: 'Raleway', serif !important;  
+}
+
+.cinzel{
+    font-family: 'Cinzel Decorative', cursive !important;
 }
 
 .beige{
@@ -83,6 +86,7 @@ button {
 .bg-light-golden{ 
     background-color: var(--light-golden);
 }
+
 
 .big-shadow{
     box-shadow: 0px 0px 50px 3px var(--black);

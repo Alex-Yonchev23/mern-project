@@ -7,12 +7,15 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import 'react-photo-view/dist/react-photo-view.css';
+import ThemeProvider from './components/ThemeProvider.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <GoogleOAuthProvider clientId="<your_client_id>">
+  <GoogleOAuthProvider>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>
-        <App />
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
       </PersistGate>
     </Provider>
   </GoogleOAuthProvider>

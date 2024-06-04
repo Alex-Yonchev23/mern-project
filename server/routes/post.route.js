@@ -9,6 +9,4 @@ router.get('/get-posts',getPosts);
 router.delete('/delete-post/:postId/:creatorId', verifyToken, deletepost);
 router.put('/edit-post/:postId/:creatorId' ,verifyToken, editpost);
 
-
-
 export default router;

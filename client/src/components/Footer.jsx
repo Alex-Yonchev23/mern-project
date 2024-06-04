@@ -1,9 +1,13 @@
 import { Footer } from 'flowbite-react';
-import logo from '../images/i-logo.png';
+import lightLogo from '../images/light-logo-final.svg'; 
+import darkLogo from '../images/dark-logo-final.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faFacebook, faViber, faPinterestP } from '@fortawesome/free-brands-svg-icons';
+import { useSelector } from 'react-redux';
 
 export default function FooterComponent() {
+  const theme = useSelector((state) => state.theme);
+
   return (
     <Footer className='bg-yellow-50'>
       <div className="w-full mx-auto">
@@ -11,7 +15,7 @@ export default function FooterComponent() {
           <div>
             <Footer.Brand
               href="#"
-              src={logo}
+              src={theme.theme === 'light' ? darkLogo : lightLogo}
               alt="Flowbite Лого"
               name="Ironic"
             />

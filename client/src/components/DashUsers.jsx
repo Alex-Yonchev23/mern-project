@@ -15,7 +15,7 @@ export default function DashUsers() {
     const [showMore, setShowMore] = useState(true);
     const [showModal , setShowModal] = useState(false);
     const [userIdToDelete, setUserIdToDelete] = useState('');
-    const [totalUsers, setTotalUsers] = useState(0);
+    const [totalUsers, setTotalUsers] = useState(0);    
     const [remainingUsers, setRemainingUsers] = useState(0);
 
 

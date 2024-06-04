@@ -1,21 +1,22 @@
-.main-nav{
-    background: linear-gradient( to bottom , rgba(0, 0, 0, 0),#0000007a,#000000ba,#00000080,#00000000) ;
-}
 
 .main-nav.scrolled {
-    @apply max-h-20 bg-neutral-950;
+    @apply max-h-20 bg-gray-200 dark:bg-neutral-950 !border-b !border-gray-500 dark:!border-gray-800 border-solid border-x-0 border-t-0;
   }
   
 .main-nav.scrolled .logo {
-    @apply max-h-20 py-1 transition-all ;
+    @apply max-h-16 sm:max-h-20 py-1 transition-all ;
 }
 
-.main-nav.scrolled .nav-item{
+.main-nav.scrolled h1 {
+    @apply text-lg;
+}
+
+.main-nav.scrolled .nav-item{   
     @apply text-xs ;
 }
 
 .nav-item{
-    @apply tracking-widest text-sm text-yellow-50 uppercase max-md:hover:bg-black w-full;
+    @apply tracking-widest text-sm font-bold text-neutral-950 dark:text-yellow-50 uppercase max-md:hover:bg-black w-full;
 }
 
     

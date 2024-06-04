@@ -46,7 +46,7 @@ export default function PostPage() {
         } catch (error) {
             
         }
-    }, [])
+    }, []);
 
     if (loading) {
         return <LoadingSpinner />;
@@ -59,9 +59,10 @@ export default function PostPage() {
                     <span className="inline-block max-w-full">{post && post.title}</span>
                 </h1>
             </div>
-            <div className='flex justify-center mt-3'>
+            <div className='flex justify-center items-center mt-3 gap-2'>
+                <span className='text-yellow-50'>Category:</span>
                 <Link to={`/search?category=${post && post.category}`}>
-                    <button className=' my-2 text-sm text-yellow-50 rounded-lg px-4 py-2 uppercase tracking-widest select-none'>
+                    <button className=' my-2 text-sm text-gray-400 rounded-lg  py-2 uppercase tracking-widest select-none font-bold hover:text-yellow-400'>
                         {post && post.category}
                     </button>
                 </Link>
